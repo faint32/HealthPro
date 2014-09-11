@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ice_box_lable_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/grid_horizontal_margin"
+    android:paddingRight="@dimen/grid_horizontal_margin" >
+
+    <TextView
+        android:id="@+id/foodname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="" />
+
+    <ImageView
+        android:id="@+id/ImageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/foodname"
+        android:src="@drawable/line1" />
+
+    <TextView
+        android:id="@+id/enager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ImageView1"
+        android:layout_gravity="center_vertical"
+        android:drawableRight="@drawable/heat1"
+        android:text="@string/hps_share_list_3"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/ice_box_food_lable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_ice_box_fruit" />
+
+</RelativeLayout>

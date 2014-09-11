@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:text="@string/mood_num"
+            android:textColor="#565656"
+            android:textSize="17sp" />
+
+        <RatingBar
+            android:id="@+id/mood_index"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:progressDrawable="@drawable/rating_yellow"
+            android:stepSize="1" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edit_publish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        style="@style/bing_edit_style"
+        android:ems="10"
+        android:hint="@string/publish_hint" >
+
+        <requestFocus />
+    </EditText>
+
+    <GridView
+        android:id="@+id/publish_gridView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:numColumns="4" >
+    </GridView>
+
+</LinearLayout>

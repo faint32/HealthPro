@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <FrameLayout
+        android:id="@+id/ice_type_fra"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/list_sec"
+        android:clickable="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/ice_food_type"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/food_type" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/click_more" />
+
+        <TextView
+            android:id="@+id/food_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="30dp"
+            android:text="@string/sec_food_type"
+            android:textColor="@color/gray" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/ice_numday_fra"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/list_sec"
+        android:clickable="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/ice_good_time"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/good_day" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/click_more" />
+
+        <TextView
+            android:id="@+id/food_numday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="30dp"
+            android:hint="@string/good_day_hint"
+            android:text=""
+            android:textColor="@color/gray" />
+    </FrameLayout>
+
+</merge>

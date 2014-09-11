@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wyy.myhealth.ui.customview.BingScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_scroll_V"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical" >
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            layout="@layout/user_head_fra" />
+
+        <include
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            layout="@layout/head_tab" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/person_tab_pager"
+            android:layout_width="match_parent"
+            android:layout_height="305dp"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+
+</com.wyy.myhealth.ui.customview.BingScrollView>

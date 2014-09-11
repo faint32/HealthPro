@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/app_ver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="@string/app_name"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/app_indrduce"
+        style="@style/content_txt_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="1dp"
+        android:text="@string/app_indruce" />
+
+    <FrameLayout
+        android:id="@+id/check_update_fr"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/text_horizontal_margin"
+        android:background="@drawable/list_sec"
+        android:clickable="true"
+        android:paddingLeft="@dimen/text_horizontal_margin"
+        android:paddingRight="@dimen/text_horizontal_margin" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@drawable/ic_ver_msg"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/check_update" />
+
+        <TextView
+            android:id="@+id/app_check_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:text="@string/is_alreadly_version" />
+    </FrameLayout>
+
+    <TextView
+        style="@style/content_txt_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginTop="70dp"
+        android:text="@string/corporitation" />
+
+</merge>

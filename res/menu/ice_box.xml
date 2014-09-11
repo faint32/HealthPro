@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <item
+        android:id="@+id/ice_add"
+        android:icon="@drawable/ic_ice_box_add"
+        android:orderInCategory="100"
+        android:title="@string/ice_add">
+    </item>
+    <item
+        android:id="@+id/ice_manager"
+        android:icon="@drawable/ic_ice_box_setting"
+        android:orderInCategory="101"
+        android:title="@string/ice_manager">
+    </item>
+    <item
+        android:id="@+id/ice_re"
+        android:icon="@drawable/ic_ice_box_recorder"
+        android:orderInCategory="102"
+        android:title="@string/ice_re">
+    </item>
+
+</menu>

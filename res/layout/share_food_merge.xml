@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/ic_food_taste"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/taste" />
+
+        <RatingBar
+            android:id="@+id/taste_index"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="16dp"
+            android:progressDrawable="@drawable/rating_yellow"
+            android:stepSize="1" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/food_tag_fra"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/list_sec"
+        android:clickable="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/ic_food_tag"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/tags" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/click_more" />
+
+        <TextView
+            android:id="@+id/food_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="30dp"
+            android:text="" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/food_place_fra"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/list_sec"
+        android:clickable="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/ic_address"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/place" />
+
+        <TextView
+            android:id="@+id/food_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="16dp"
+            android:text="" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/food_commercial_fra"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/list_sec"
+        android:clickable="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/ic_commrecial"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/commercialname" />
+
+        <include
+            android:id="@+id/food_commercial_inc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="30dp"
+            layout="@layout/food_commercial" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/click_more" />
+    </FrameLayout>
+
+    <CheckBox
+        android:id="@+id/isshaiyishai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="30dp"
+        android:checked="true"
+        android:text="@string/share_shaiyishai" />
+
+</merge>

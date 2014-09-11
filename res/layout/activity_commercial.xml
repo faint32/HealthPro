@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <EditText
+        android:id="@+id/commercial_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+          style="@style/bing_edit_style"
+        android:ems="10"
+        android:hint="@string/commercial_name_edit_hint" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/commercial_tel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+         android:inputType="phone"
+         style="@style/bing_edit_style"
+        android:ems="10"
+        android:hint="@string/commercial_tel_hint" />
+
+</LinearLayout>

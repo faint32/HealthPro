@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="transblack">#50000000</color>
+    <color name="blue">#0000FF</color>
+    <color name="transparent">#00000000</color>
+    <color name="green">#9cdd00</color>
+    <color name="home_txt">#cbcbcb</color>
+    <color name="tubiao">#ffefd2</color>
+    <color name="deepskyblue">#00BFFF</color>
+    <!-- 深天蓝色 -->
+    <color name="red">#ff0000</color>
+    <color name="gainsboro">#dcdcdc</color>
+    <color name="darkslategrey">#2f4f4f</color>
+    <color name="slategray">#708090</color>
+    <color name="lightgray">#d3d3d3</color>
+     <color name="dark_gray">#888888</color>
+    <color name="ivory">#ffffe0</color>
+
+    <!-- start zxing -->
+    <color name="viewfinder_frame">#404040</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="result_view">#b0000000</color>
+    <!-- end zxing -->
+    <color name="actionbar_background_start">#4d4b4a</color>
+    <color name="actionbar_background_end">#42403f</color>
+    <!-- 灰色 -->
+    <color name="gray">#808080</color>
+    <!-- 主题颜色 -->
+    <color name="themecolor">#56c841</color>
+     <color name="themetranscolor">#d056c841</color>
+
+    <!-- 冰箱主色调 -->
+    <color name="iceline1">#99ce33</color>
+    <color name="iceline2">#33cc33</color>
+    <color name="iceline3">#e47133</color>
+    <color name="iceline4">#e48833</color>
+    <color name="iceline5">#a0a0a0</color>
+
+</resources>

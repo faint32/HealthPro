@@ -1,0 +1,32 @@
+<resources>
+
+    <!--
+        Base application theme for API 11+. This theme completely replaces
+        AppBaseTheme from res/values/styles.xml on API 11+ devices.
+    -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+        <!-- API 11 theme customizations can go here. -->
+    </style>
+
+    <style name="BingparenceTheme" parent="Theme.AppCompat.Light">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+
+        <!-- API 11 theme customizations can go here. -->
+    </style>
+    
+     <style name="BingTransAinmTheme" parent="Theme.AppCompat.Light">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+    </style>
+
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/zoom_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/zoom_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/zoom_exit</item>
+        <item name="android:activityCloseExitAnimation">@anim/zoom_exit</item>
+    </style>
+    
+    
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/share_content"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/transparent"
+        android:ems="10"
+        android:gravity="left|top"
+        android:hint="@string/share_content_hint"
+        android:textColorHint="@color/gainsboro"
+        android:textColor="@color/white" >
+
+        <requestFocus />
+    </EditText>
+
+    <ImageView
+        android:id="@+id/food_pic"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="16dp"
+        android:clickable="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pic_sec_" />
+
+</LinearLayout>

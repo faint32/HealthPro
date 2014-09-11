@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scan_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <FrameLayout
+        android:id="@+id/camera_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    </FrameLayout>
+
+     <ImageView
+        android:id="@+id/saomiao_k_img"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:src="@drawable/saomiaokuang" />
+
+    <com.wyy.myhealth.ui.scan.ScanView
+        android:id="@+id/scanView0"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        layout="@layout/take_pic_bottom_lay" />
+
+    <TextView
+        android:id="@+id/scan_notice_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/saomiaozhong"
+        android:gravity="center"
+        android:text="@string/scaning"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:visibility="gone" />
+    
+</FrameLayout>

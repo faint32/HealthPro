@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/home_txt"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/weima_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/list_sec" 
+        android:clickable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/career"
+            android:drawablePadding="16dp"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:text="@string/weimaid" />
+
+        <TextView
+            android:id="@+id/weima_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="16dp"
+            android:text="" />
+
+    </FrameLayout>
+
+    
+    <FrameLayout
+        android:id="@+id/carrer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:clickable="true"
+        android:background="@drawable/list_sec">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/career"
+            android:drawablePadding="16dp"
+            android:gravity="center"
+            android:text="@string/carre" />
+
+        <TextView
+            android:id="@+id/user_carrer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="16dp"
+            android:text="" />
+
+    </FrameLayout>
+    
+    <FrameLayout
+        android:id="@+id/body_h_w_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"			android:clickable="true"
+        android:background="@drawable/list_sec" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/body_h_w"
+            android:drawablePadding="16dp"
+            android:gravity="center"
+            android:text="@string/heriawei" />
+
+        
+        <TextView
+            android:id="@+id/body_h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="64dp"
+            android:text="" />
+        
+        <TextView
+            android:id="@+id/body_w"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="16dp"
+            android:text="" />
+
+    </FrameLayout>
+    
+    <FrameLayout
+        android:id="@+id/body_state_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"			android:clickable="true"
+        android:background="@drawable/list_sec" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/body_state"
+            android:drawablePadding="16dp"
+            android:gravity="center"
+            android:text="@string/body_state" />
+
+        <TextView
+            android:id="@+id/body_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="16dp"
+            android:text="" />
+
+    </FrameLayout>
+    
+    <FrameLayout
+        android:id="@+id/body_bmi_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"			android:clickable="true"
+      android:background="@drawable/list_sec" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/body_bmi"
+            android:drawablePadding="16dp"
+            android:gravity="center"
+            android:text="@string/body_bmi" />
+
+        <TextView
+            android:id="@+id/body_bmi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="16dp"
+            android:text="" />
+
+    </FrameLayout>
+    
+    <FrameLayout
+        android:id="@+id/body_remarks_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:clickable="true"
+        android:background="@drawable/list_sec">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/remarks"
+            android:drawablePadding="16dp"
+            android:gravity="center"
+            android:text="@string/remarks" />
+
+        <TextView
+            android:id="@+id/body_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="16dp"
+            android:text="" />
+
+    </FrameLayout>
+    
+</LinearLayout>

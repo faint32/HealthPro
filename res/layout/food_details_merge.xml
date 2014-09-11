@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        layout="@layout/foodhead" />
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        layout="@layout/user_info_lay" />
+
+    <FrameLayout
+        android:id="@+id/user_summary_fra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_sec"
+        android:minHeight="45dp" >
+
+        <TextView
+            android:id="@+id/user_summary_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@drawable/icon_user_summary"
+            android:drawablePadding="10dp"
+            android:textColor="@color/gray"
+            android:text=""
+            android:textSize="14sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/healthzs_fra"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/list_sec"
+        android:clickable="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@drawable/ic_yujing"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/healthzs"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/click_more" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/comment_fra"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/list_sec"
+        android:clickable="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@drawable/comment_info"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/commentinfo"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/click_more" />
+    </FrameLayout>
+
+</merge>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wyy.myhealth"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <!-- 百度MAP -->
+    <!-- 访问网络的权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 访问精确位置的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 访问网络状态的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 访问WIFI网络状态的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 改变WIFI网络状态的权限 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 读写存储卡的权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 读取电话状态的权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 添加拨出电话的权限 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <!-- CAMERA的权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <!-- Push service 运行需要的权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- 其他权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".app.WyyApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme" >
+
+        <!-- 在百度开发者中心查询应用的API Key -->
+        <meta-data
+            android:name="api_key"
+            android:value="GZaqiZy3DKPMSyKdOpm0s2qF" />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name=".welcome.WelcomeActivity"
+            android:theme="@style/BingNotitleTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/login" >
+        </activity>
+
+        <service
+            android:name="com.baidu.android.pushservice.PushService"
+            android:exported="true"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
+            </intent-filter>
+        </service>
+
+        <!-- 定位 -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
+
+        <receiver android:name=".baidu.receiver.MyPushMessageReceiver" >
+            <intent-filter>
+
+                <!-- 接收push消息 -->
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+                <!-- 接收bind,unbind,fetch,delete等反馈消息 -->
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+            </intent-filter>
+        </receiver>
+
+        <!-- push必须的receviver和service声明 -->
+        <receiver
+            android:name="com.baidu.android.pushservice.PushServiceReceiver"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.baidu.android.pushservice.RegistrationReceiver"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.METHOD" />
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".ui.mapfood.MapFoodsActivity"
+            android:label="@string/maplist"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity android:name=".ui.shaiyishai.ShaiyishaiActivity" >
+        </activity>
+        <activity android:name=".ui.healthbar.HealthPassActivity" >
+        </activity>
+        <activity android:name=".ui.message.ChatMsgActivity" >
+        </activity>
+        <activity android:name=".ui.shaiyishai.PublishActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.fooddetails.FoodDetailsActivity"
+            android:uiOptions="splitActionBarWhenNarrow" >
+        </activity>
+        <activity android:name=".ui.fooddetails.FoodCommentInfoActivity" >
+        </activity>
+        <activity android:name=".ui.fooddetails.FoodCommentActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.modify.ModityCareerActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.modify.ModifyBaseInfoActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.modify.Modify_h_w_activity" >
+        </activity>
+        <activity android:name=".ui.personcenter.modify.ModifyBodyStateActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.modify.ModifySummaryActivity" >
+        </activity>
+        <activity android:name=".ui.healthbar.PublishMoodActivity" >
+        </activity>
+        <activity android:name=".ui.mapfood.CommercialMapActivity" >
+        </activity>
+        <activity android:name=".ui.message.MessageTListActivity" >
+        </activity>
+
+        <service android:name=".service.MainService" >
+        </service>
+
+        <activity
+            android:name=".ui.fooddetails.FoodNutritionActivity"
+            android:theme="@style/BingparenceTheme" >
+        </activity>
+        <activity android:name=".ui.healthrecorder.HealthRecorderActivity" >
+        </activity>
+        <activity
+            android:name=".ui.scan.ScanResultActivity"
+            android:theme="@style/BingparenceTheme" >
+        </activity>
+        <activity
+            android:name=".ui.scan.VoiceSearceActivity"
+            android:theme="@style/BingparenceTheme" >
+        </activity>
+        <activity android:name=".ui.setting.SettingActivity" >
+        </activity>
+        <activity android:name=".ui.setting.FeedbackActivity" >
+        </activity>
+        <activity android:name=".ui.setting.AboutVersion" >
+        </activity>
+        <activity android:name=".ui.scan.ShareFoodActivity" >
+        </activity>
+        <activity android:name=".ui.scan.GetCommercial" >
+        </activity>
+        <activity android:name=".ui.scan.GetFoodAddress" >
+        </activity>
+        <activity android:name=".ui.scan.GetfoodTagActivity" >
+        </activity>
+        <activity android:name=".ui.photoPager.PhotoPagerActivity" >
+        </activity>
+        <activity android:name=".ui.collect.CollectActivity" >
+        </activity>
+        <activity android:name=".ui.healthbar.MsgListActivity" >
+        </activity>
+        <activity android:name=".ui.icebox.IceBoxActivity" >
+        </activity>
+        <activity android:name=".ui.login.MicroCodeLoginActivity" >
+        </activity>
+        <activity android:name=".ui.icebox.IceBoxAddFood" >
+        </activity>
+        <activity android:name=".ui.icebox.IceFoodGarDayActivity" >
+        </activity>
+        <activity android:name=".ui.icebox.FoodTypeActivity" >
+        </activity>
+        <activity android:name=".ui.icebox.IceBoxHistory" >
+        </activity>
+        <activity android:name=".ui.yaoyingyang.TodayFoodRecActivity" >
+        </activity>
+        <activity android:name=".ui.login.RegistActivity" >
+        </activity>
+        <activity
+            android:name=".ui.icebox.IceBoxInfoActivity"
+            android:theme="@style/BingTransAinmTheme" >
+        </activity>
+        <activity android:name=".ui.mood.MoodDetailsActivity" >
+        </activity>
+        <activity
+            android:name=".welcome.BootPagerActivity"
+            android:theme="@style/BingNotitleTheme" >
+        </activity>
+        <activity android:name=".ui.healthrecorder.HeReActivity" >
+        </activity>
+        <activity
+            android:name=".HealthReActivity"
+            android:label="@string/title_activity_health_re" >
+        </activity>
+    </application>
+
+</manifest>
