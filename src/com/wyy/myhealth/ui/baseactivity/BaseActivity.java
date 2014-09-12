@@ -43,8 +43,6 @@ public class BaseActivity extends ActionBarActivity {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
 				.getColor(R.color.themecolor)));
-//		actionBar.setBackgroundDrawable(getResources().getDrawable(
-//				R.drawable.actionbar_g_bg));
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayShowHomeEnabled(false);
 	}

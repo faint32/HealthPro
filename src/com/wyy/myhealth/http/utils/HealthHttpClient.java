@@ -875,8 +875,8 @@ public class HealthHttpClient {
 	/**
 	 * 文字识别接口
 	 * 
-	 * @deprecated 此方法已经过期请使用方法{@link cmpFoodWords(String userid, String word,
-	 *             AsyncHttpResponseHandler handler)}
+	 * @deprecated 此方法已经过期请使用方法
+	 *             {@link #cmpFoodWords(String, String, AsyncHttpResponseHandler)}
 	 * @param word
 	 *            关键字
 	 * @param handler

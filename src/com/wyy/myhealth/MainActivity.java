@@ -84,7 +84,7 @@ public class MainActivity extends ActionBarActivity implements
 		setContentView(R.layout.activity_main);
 
 		initActionBar();
-
+		initService();
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		tabs.setShouldExpand(true);
 		tabs.setChangeTextColor(true);
@@ -102,8 +102,6 @@ public class MainActivity extends ActionBarActivity implements
 		tabs.setOnPageChangeListener(this);
 
 		initLocation();
-
-		initService();
 
 		initFilter();
 

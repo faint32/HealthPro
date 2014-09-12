@@ -1,5 +1,6 @@
 package com.wyy.myhealth.ui.healthrecorder;
 
+
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
@@ -35,6 +36,7 @@ public class RecorderChatFragment extends Fragment {
 	private static final int TYPE_SIZE = 2;
 
 	private int re_type = ConstantS.YINSHI;
+
 
 	public static RecorderChatFragment newInstance(int id) {
 		RecorderChatFragment recorderChatFragment = new RecorderChatFragment();
@@ -108,27 +110,42 @@ public class RecorderChatFragment extends Fragment {
 		}
 		for (int i = 0; i < TYPE_SIZE; i++) {
 			CategorySeries series = new CategorySeries("Demo series " + (i + 1));
+			// TimeSeries series2 = new TimeSeries(TAG);
 			if (i == 0) {
 				series = new CategorySeries(getString(R.string.shijiajilu));
+				// series2 = new TimeSeries(TAG);
 			} else {
 				series = new CategorySeries(getString(R.string.jianyijilu));
+				// series2 = new TimeSeries(TAG + "jjjjjjj");
 			}
-
 			for (int k = 0; k < nr; k++) {
 				try {
 					if (i == 0) {
 						series.add(getThReceoder(k));
+						// series2.add(
+						// new Date(BingDateUtils.getTime(MainService
+						// .getThHealthRecoderBeans().get(i)
+						// .getCreatetime())), getThReceoder(k));
 					} else {
 						series.add(getNeReceoder(k));
+						// series2.add(
+						// new Date(BingDateUtils.getTime(MainService
+						// .getNextHealthRecoderBeans().get(i)
+						// .getCreatetime())), getNeReceoder(k));
 					}
 
 				} catch (Exception e) {
 					// TODO: handle exception
 					series.add(0);
+					// series2.add(
+					// new Date(BingDateUtils.getTime(MainService
+					// .getThHealthRecoderBeans().get(i)
+					// .getCreatetime())), 5);
 				}
 
 			}
 			dataset.addSeries(series.toXYSeries());
+			// dataset.addSeries(series2);
 		}
 		return dataset;
 	}
@@ -141,6 +158,10 @@ public class RecorderChatFragment extends Fragment {
 		renderer.setMarginsColor(Color.GRAY);
 		renderer.setXTitle("x values");
 		renderer.setYTitle("y values");
+		renderer.setPanEnabled(true, false);
+		// series = new TimeSeries(TAG);
+		// series.add(new Date(System.currentTimeMillis()), 0);
+
 		if (re_type == ConstantS.YUNDONG) {
 			try {
 				renderer.setXAxisMin(MainService.getSports().size() - 10);
@@ -150,6 +171,7 @@ public class RecorderChatFragment extends Fragment {
 			}
 
 			renderer.setXAxisMax(MainService.getSports().size());
+
 		} else {
 			try {
 				renderer.setXAxisMin(MainService.getThHealthRecoderBeans()
@@ -161,7 +183,15 @@ public class RecorderChatFragment extends Fragment {
 
 			renderer.setXAxisMax(MainService.getThHealthRecoderBeans().size());
 		}
-
+		int length = MainService.getThHealthRecoderBeans().size();
+		for (int i = 0; i < length; i=i+5) {
+			renderer.addXTextLabel(i, MainService.getThHealthRecoderBeans()
+					.get(i).getCreatetime());
+		}
+		renderer.setXLabels(0);
+		// BingLog.i(TAG, "×î´óÊý:"+series.getMaxX());
+		// renderer.setXAxisMin(series.getMaxX() - 100000);
+		// renderer.setXAxisMax(series.getMaxX());
 		renderer.setYAxisMin(0);
 		renderer.setYAxisMax(5);
 	}
@@ -170,7 +200,7 @@ public class RecorderChatFragment extends Fragment {
 		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
 		renderer.setAxisTitleTextSize(16);
 		renderer.setChartTitleTextSize(20);
-		renderer.setLabelsTextSize(15);
+		renderer.setLabelsTextSize(20);
 		renderer.setLegendTextSize(15);
 		renderer.setMargins(new int[] { 20, 30, 15, 0 });
 		SimpleSeriesRenderer r = new SimpleSeriesRenderer();
@@ -186,8 +216,8 @@ public class RecorderChatFragment extends Fragment {
 		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
 		renderer.setAxisTitleTextSize(16);
 		renderer.setChartTitleTextSize(20);
-		renderer.setLabelsTextSize(15);
-		renderer.setLegendTextSize(15);
+		renderer.setLabelsTextSize(20);
+		renderer.setLegendTextSize(20);
 		renderer.setPointSize(10f);
 		renderer.setMargins(new int[] { 20, 30, 15, 0 });
 		XYSeriesRenderer r = new XYSeriesRenderer();
@@ -202,8 +232,8 @@ public class RecorderChatFragment extends Fragment {
 		r.setColor(Color.GREEN);
 		r.setFillPoints(true);
 		renderer.addSeriesRenderer(r);
-		renderer.setAxesColor(Color.DKGRAY);
-		renderer.setLabelsColor(Color.LTGRAY);
+		renderer.setAxesColor(Color.WHITE);
+		renderer.setLabelsColor(Color.WHITE);
 		return renderer;
 	}
 
@@ -215,8 +245,11 @@ public class RecorderChatFragment extends Fragment {
 		// renderer, Type.DEFAULT);
 		GraphicalView graphicalView = ChartFactory.getLineChartView(
 				getActivity(), getBarDemoDataset(), renderer);
+		// GraphicalView graphicalView = ChartFactory.getTimeChartView(
+		// getActivity(), getBarDemoDataset(), renderer, null);
+
 		try {
-			graphicalView.toRealPoint(1);
+			graphicalView.repaint();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
