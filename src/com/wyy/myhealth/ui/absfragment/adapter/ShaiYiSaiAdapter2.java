@@ -158,8 +158,9 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 
 		if (list.get(position).isAdv()) {
 			convertView.setBackgroundResource(R.drawable.ic_tap);
-		}else {
-			convertView.setBackgroundColor(context.getResources().getColor(R.color.transparent));
+		} else {
+			convertView.setBackgroundColor(context.getResources().getColor(
+					R.color.transparent));
 		}
 
 		return convertView;
@@ -187,7 +188,8 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 		holder.shaitagTextView.setText(R.string.share_food);
 		if (!TextUtils.isEmpty(list.get(position).getTags())) {
 			holder.foodtagTextView.setVisibility(View.VISIBLE);
-			holder.foodtagTextView.setText(context.getString(R.string.tags_));
+			holder.foodtagTextView.setText(context.getString(R.string.tags_)
+					+ list.get(position).getTags());
 		} else {
 			holder.foodtagTextView.setVisibility(View.GONE);
 		}
@@ -219,15 +221,15 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 
 	}
 
-	private void setView(ViewHolder holder,  int position) {
-		final int adaposition=position;
+	private void setView(ViewHolder holder, int position) {
+		final int adaposition = position;
 		LoadImageUtils.loadImage4ImageV(holder.userheadImageView,
 				HealthHttpClient.IMAGE_URL
 						+ list.get(position).getUser().getHeadimage());
 		holder.timeTextView.setText(list.get(position).getCn_time());
 		holder.usernameTextView.setText(list.get(position).getUser()
 				.getUsername());
-		
+
 		if (list.get(position).getImg() != null) {
 			setGridView(holder.picGridView, list.get(position).getImg().size());
 			holder.gridAdapter = new GridAdapter2(context, list.get(position)
@@ -255,9 +257,9 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 			holder.commentAdapter = new CommentAdapter(context, list.get(
 					position).getComment());
 			holder.commenlist.setAdapter(holder.commentAdapter);
-//			ListUtils.setListViewHeightBasedOnChildren(holder.commenlist);
+			// ListUtils.setListViewHeightBasedOnChildren(holder.commenlist);
 		}
-		
+
 		holder.commenImageView.setFocusable(false);
 		holder.commenImageView.setFocusableInTouchMode(false);
 		holder.commenImageView.setFocusable(false);

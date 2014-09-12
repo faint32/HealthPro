@@ -1,6 +1,5 @@
 package com.wyy.myhealth.ui.healthrecorder;
 
-
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
@@ -15,6 +14,7 @@ import com.wyy.myhealth.R;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.imag.utils.SavePic;
 import com.wyy.myhealth.service.MainService;
+import com.wyy.myhealth.utils.BingDateUtils;
 import com.wyy.myhealth.utils.BingLog;
 
 import android.app.Activity;
@@ -36,7 +36,6 @@ public class RecorderChatFragment extends Fragment {
 	private static final int TYPE_SIZE = 2;
 
 	private int re_type = ConstantS.YINSHI;
-
 
 	public static RecorderChatFragment newInstance(int id) {
 		RecorderChatFragment recorderChatFragment = new RecorderChatFragment();
@@ -156,11 +155,9 @@ public class RecorderChatFragment extends Fragment {
 		renderer.setApplyBackgroundColor(true);
 		renderer.setBackgroundColor(Color.GRAY);
 		renderer.setMarginsColor(Color.GRAY);
-		renderer.setXTitle("x values");
-		renderer.setYTitle("y values");
+		renderer.setXTitle(getString(R.string.x_date));
+		renderer.setYTitle(getString(R.string.y_values));
 		renderer.setPanEnabled(true, false);
-		// series = new TimeSeries(TAG);
-		// series.add(new Date(System.currentTimeMillis()), 0);
 
 		if (re_type == ConstantS.YUNDONG) {
 			try {
@@ -183,12 +180,21 @@ public class RecorderChatFragment extends Fragment {
 
 			renderer.setXAxisMax(MainService.getThHealthRecoderBeans().size());
 		}
-		int length = MainService.getThHealthRecoderBeans().size();
-		for (int i = 0; i < length; i=i+5) {
-			renderer.addXTextLabel(i, MainService.getThHealthRecoderBeans()
-					.get(i).getCreatetime());
+		try {
+			int length = MainService.getThHealthRecoderBeans().size();
+			for (int i = 0; i < length; i = i + 5) {
+				renderer.addXTextLabel(
+						i,
+						BingDateUtils.changeDate(MainService
+								.getThHealthRecoderBeans().get(i)
+								.getCreatetime()));
+			}
+			renderer.setXLabels(0);
+
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		renderer.setXLabels(0);
+		renderer.setXLabelsPadding(60f);
 		// BingLog.i(TAG, "×î´óÊý:"+series.getMaxX());
 		// renderer.setXAxisMin(series.getMaxX() - 100000);
 		// renderer.setXAxisMax(series.getMaxX());
@@ -201,7 +207,7 @@ public class RecorderChatFragment extends Fragment {
 		renderer.setAxisTitleTextSize(16);
 		renderer.setChartTitleTextSize(20);
 		renderer.setLabelsTextSize(20);
-		renderer.setLegendTextSize(15);
+		renderer.setLegendTextSize(20);
 		renderer.setMargins(new int[] { 20, 30, 15, 0 });
 		SimpleSeriesRenderer r = new SimpleSeriesRenderer();
 		r.setColor(Color.BLUE);

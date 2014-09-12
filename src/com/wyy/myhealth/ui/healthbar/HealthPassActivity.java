@@ -14,6 +14,13 @@ import com.wyy.myhealth.ui.collect.CollectActivity;
 public class HealthPassActivity extends AbstractlistActivity {
 
 	@Override
+	protected void setCustomActionBar() {
+		// TODO Auto-generated method stub
+		super.setCustomActionBar();
+//		isCustomActionBar = true;
+	}
+
+	@Override
 	protected void onInitFragment() {
 		// TODO Auto-generated method stub
 		super.onInitFragment();
@@ -27,6 +34,8 @@ public class HealthPassActivity extends AbstractlistActivity {
 		super.onInitActionBar();
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setTitle(R.string.healthpass);
+//		actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
+//				.getColor(R.color.transparent)));
 		if (Utils.mstlList != null && Utils.mstlList.size() > 0) {
 			actionBar.setBackgroundDrawable(getResources().getDrawable(
 					R.drawable.action_bar_notice));
@@ -34,6 +43,7 @@ public class HealthPassActivity extends AbstractlistActivity {
 
 	}
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub

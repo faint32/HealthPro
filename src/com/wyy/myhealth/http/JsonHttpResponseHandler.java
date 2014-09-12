@@ -52,6 +52,9 @@ public class JsonHttpResponseHandler extends AsyncHttpResponseHandler {
 	}
 
 	protected Object parseResponse(String responseBody) throws JSONException {
+		if (responseBody == null) {
+			return "";
+		}
 		return new JSONTokener(responseBody).nextValue();
 	}
 

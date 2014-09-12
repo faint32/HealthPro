@@ -11,14 +11,24 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.ViewConfiguration;
+import android.view.Window;
 
 public class AbstractlistActivity extends ActionBarActivity {
 
 	protected Context context;
 
+	protected boolean isCustomActionBar = false;
+
+	protected void setCustomActionBar() {
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		setCustomActionBar();
+		if (isCustomActionBar) {
+			getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.wrapper);
 		context = this;
@@ -35,8 +45,8 @@ public class AbstractlistActivity extends ActionBarActivity {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
 				.getColor(R.color.themecolor)));
-//		actionBar.setBackgroundDrawable(getResources().getDrawable(
-//				R.drawable.actionbar_g_bg));
+		// actionBar.setBackgroundDrawable(getResources().getDrawable(
+		// R.drawable.actionbar_g_bg));
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayShowHomeEnabled(false);
 	}
@@ -57,7 +67,6 @@ public class AbstractlistActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	
 	private void setCusmenutome() {
 		try {
 			ViewConfiguration mconfig = ViewConfiguration.get(this);
@@ -70,5 +79,5 @@ public class AbstractlistActivity extends ActionBarActivity {
 		} catch (Exception ex) {
 		}
 	}
-	
+
 }

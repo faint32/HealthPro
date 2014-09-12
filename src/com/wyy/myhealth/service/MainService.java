@@ -39,8 +39,8 @@ public class MainService extends Service {
 	private static List<HealthRecoderBean> thHealthRecoderBeans = new ArrayList<>();
 
 	private static List<HealthRecoderBean> nextHealthRecoderBeans = new ArrayList<>();
-	
-	private static RecorderInfoBean recorderInfoBean=new RecorderInfoBean();
+
+	private static RecorderInfoBean recorderInfoBean = new RecorderInfoBean();
 
 	public static RecorderInfoBean getRecorderInfoBean() {
 		return recorderInfoBean;
@@ -49,13 +49,13 @@ public class MainService extends Service {
 	private static List<String> sports = new ArrayList<>();
 
 	private ScheduledExecutorService service;
-	
+
 	public ScheduledExecutorService getService() {
 		return service;
 	}
 
-	private String time="";
-	
+	private String time = "";
+
 	private Context context;
 
 	public static List<HealthRecoderBean> getNextHealthRecoderBeans() {
@@ -90,10 +90,11 @@ public class MainService extends Service {
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
-		context=this;
+		BingLog.i(TAG, "Service===onCreate===");
+		context = this;
 		getUserRecorder();
 		initFilter();
-//		initRunable();
+		// initRunable();
 	}
 
 	@Override
@@ -148,7 +149,7 @@ public class MainService extends Service {
 		}
 		try {
 			JSONObject jsonObject = new JSONObject(content);
-			recorderInfoBean=JsonUtils.getRecorderInfoBean(jsonObject);
+			recorderInfoBean = JsonUtils.getRecorderInfoBean(jsonObject);
 			int length0 = jsonObject.getJSONArray("nutritions").length();
 			thHealthRecoderBeans.clear();
 			for (int i = 0; i < length0; i++) {
@@ -245,14 +246,14 @@ public class MainService extends Service {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			time=ShaiUtility.getShaiJsonTime(context);
-			BingLog.i(TAG, "执行:"+time);
-			HealthHttpClient.aired20(WyyApplication.getInfo().getId(), ConstantS.FIRST, ConstantS.LIMIT, checkHandler);
+			time = ShaiUtility.getShaiJsonTime(context);
+			BingLog.i(TAG, "执行:" + time);
+			HealthHttpClient.aired20(WyyApplication.getInfo().getId(),
+					ConstantS.FIRST, ConstantS.LIMIT, checkHandler);
 		}
 	};
-	
-	
-	private JsonHttpResponseHandler checkHandler=new JsonHttpResponseHandler(){
+
+	private JsonHttpResponseHandler checkHandler = new JsonHttpResponseHandler() {
 
 		@Override
 		public void onSuccess(JSONObject response) {
@@ -260,34 +261,33 @@ public class MainService extends Service {
 			super.onSuccess(response);
 			parseJson(response);
 		}
-		
-	};
-	
 
-	private void parseJson(JSONObject response){
-		MoodaFoodBean moodaFoodBean=ShaiUtility.getParseInfo(response);
-		BingLog.i(TAG, "执行:"+response);
-		if (moodaFoodBean!=null&&!moodaFoodBean.getCreatetime().equals(time)) {
+	};
+
+	private void parseJson(JSONObject response) {
+		MoodaFoodBean moodaFoodBean = ShaiUtility.getParseInfo(response);
+		BingLog.i(TAG, "执行:" + response);
+		if (moodaFoodBean != null
+				&& !moodaFoodBean.getCreatetime().equals(time)) {
 			sendMoodaFoodBean2Discover(moodaFoodBean);
 		}
 	}
-	
-	private void sendMoodaFoodBean2Discover(MoodaFoodBean moodaFoodBean){
-		Intent intent=new Intent(ConstantS.ACTION_SEND_SHAI);
+
+	private void sendMoodaFoodBean2Discover(MoodaFoodBean moodaFoodBean) {
+		Intent intent = new Intent(ConstantS.ACTION_SEND_SHAI);
 		intent.putExtra("shai", moodaFoodBean);
 		sendBroadcast(intent);
-		BingLog.i(TAG, "执行:"+moodaFoodBean.getUser().getUsername());
+		BingLog.i(TAG, "执行:" + moodaFoodBean.getUser().getUsername());
 	}
-	
-	
-	private void stopRunable(){
+
+	private void stopRunable() {
 		try {
-			if (service!=null&&!service.isShutdown()) {
+			if (service != null && !service.isShutdown()) {
 				service.shutdown();
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
-	
+
 }

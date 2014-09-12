@@ -192,6 +192,7 @@
     <string name="today">今天</string>
     <string name="date_format">M月d日 HH:mm</string>
     <string name="year_format">yyyy年 M月d日 HH:mm</string>
+    <string name="year_format_">yy年 M月d日 HH:mm</string>
     <string name="resh">刷新</string>
     <string name="cant_insert_album">发生意外，无法写入相册</string>
     <string name="delsuccess">删除成功</string>
@@ -365,6 +366,8 @@
     <string name="total_reason">累计合理</string>
     <string name="time">次</string>
     <string name="time_">名</string>
+    <string name="x_date">时间</string>
+    <string name="y_values">星级</string>
     <string name="recommend_food">推荐美味</string>
 
 </resources>
