@@ -38,6 +38,12 @@ public class HealthReActivity extends ActionBarActivity implements
 	private TextView array_num_txt;
 
 	private TextView reason_num_txt;
+	
+	private HealthReListener lReListener;
+
+	public void setlReListener(HealthReListener lReListener) {
+		this.lReListener = lReListener;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +88,9 @@ public class HealthReActivity extends ActionBarActivity implements
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_share) {
+			if (lReListener!=null) {
+				lReListener.shareRecorder();
+			}
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -285,4 +294,8 @@ public class HealthReActivity extends ActionBarActivity implements
 		finish();
 	}
 
+	public interface HealthReListener{
+		public void shareRecorder();
+	}
+	
 }

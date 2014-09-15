@@ -1,5 +1,7 @@
 package com.wyy.myhealth.ui.healthrecorder;
 
+import java.io.File;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
@@ -10,15 +12,20 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 import com.wyy.myhealth.HealthReActivity;
+import com.wyy.myhealth.HealthReActivity.HealthReListener;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.contants.ConstantS;
+import com.wyy.myhealth.file.utils.FileUtils;
 import com.wyy.myhealth.imag.utils.SavePic;
 import com.wyy.myhealth.service.MainService;
 import com.wyy.myhealth.utils.BingDateUtils;
 import com.wyy.myhealth.utils.BingLog;
+import com.wyy.myhealth.utils.ShareUtils;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -26,7 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-public class RecorderChatFragment extends Fragment {
+public class RecorderChatFragment extends Fragment implements HealthReListener {
 
 	private static final String TAG = RecorderChatFragment.class
 			.getSimpleName();
@@ -36,6 +43,8 @@ public class RecorderChatFragment extends Fragment {
 	private static final int TYPE_SIZE = 2;
 
 	private int re_type = ConstantS.YINSHI;
+
+	private View rootView;
 
 	public static RecorderChatFragment newInstance(int id) {
 		RecorderChatFragment recorderChatFragment = new RecorderChatFragment();
@@ -62,6 +71,7 @@ public class RecorderChatFragment extends Fragment {
 		super.onAttach(activity);
 		((HealthReActivity) activity).onSectionAttached(getArguments().getInt(
 				ConstantS.RECEODER));
+		((HealthReActivity) activity).setlReListener(this);
 	}
 
 	@Override
@@ -75,7 +85,7 @@ public class RecorderChatFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View rootView = inflater.inflate(R.layout.wrapper, container, false);
+		rootView = inflater.inflate(R.layout.wrapper, container, false);
 		wrapper = (FrameLayout) rootView.findViewById(R.id.wrapper);
 		wrapper.addView(getChatView());
 		return rootView;
@@ -415,7 +425,7 @@ public class RecorderChatFragment extends Fragment {
 
 	}
 
-	private void saveScreen(final View graphicalView) {
+	public void saveScreen(final View graphicalView) {
 		new Thread() {
 
 			@Override
@@ -424,9 +434,13 @@ public class RecorderChatFragment extends Fragment {
 				super.run();
 				try {
 					graphicalView.setDrawingCacheEnabled(true);
-					SavePic.saveRecoredPic2Example(graphicalView
-							.getDrawingCache());
+					SavePic.saveRecoredPic2Example(Bitmap
+							.createBitmap(graphicalView.getDrawingCache()));
 					graphicalView.setDrawingCacheEnabled(false);
+					ShareUtils
+					.shareFood(getActivity(), getString(R.string.share_content_),
+							Uri.fromFile(new File(FileUtils.HEALTH_IMAG, "recored"
+									+ ".png")));
 				} catch (Exception e) {
 					// TODO: handle exception
 					BingLog.e(TAG, "±£´æ´íÎó:" + e.getMessage());
@@ -435,6 +449,12 @@ public class RecorderChatFragment extends Fragment {
 			}
 
 		}.start();
+	}
+
+	@Override
+	public void shareRecorder() {
+		// TODO Auto-generated method stub
+		saveScreen(rootView);
 	}
 
 }

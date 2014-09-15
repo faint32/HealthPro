@@ -443,24 +443,27 @@ public class FoodDetailsActivity extends BaseActivity {
 
 	private void shareFood() {
 		try {
-			ShareUtils.shareFood(context, foods.getTags(), Uri
-					.fromFile(new File(FileUtils.HEALTH_IMAG, "chc" + ".png")));
+			ShareUtils
+					.shareFood(context, getString(R.string.share_content_),
+							Uri.fromFile(new File(FileUtils.HEALTH_IMAG, "chc"
+									+ ".png")));
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 
 	}
-	
-	
-	private void callPhone(){
-		if (foods!=null&&foods.getCommercialPhone()!=null) {
-			Intent intent=new Intent("android.intent.action.CALL",Uri.parse("tel:"+foods.getCommercialPhone()));
+
+	private void callPhone() {
+		if (foods != null && foods.getCommercialPhone() != null) {
+			Intent intent = new Intent("android.intent.action.CALL",
+					Uri.parse("tel:" + foods.getCommercialPhone()));
 			startActivity(intent);
-		}else {
-			Toast.makeText(context, R.string.tel_error, Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(context, R.string.tel_error, Toast.LENGTH_SHORT)
+					.show();
 		}
-		
+
 	}
-	
+
 }

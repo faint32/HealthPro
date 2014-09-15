@@ -44,6 +44,8 @@ public interface ConstantS {
 	public static final String ACTION_SEND_CANEL_NOTICE = "ACTION.WYY.SEND.CANEL.NOTICE";
 
 	public static final String ACTION_CHANEG_PAGER_INDEX = "ACTION.WYY.CHANGE.PAGER";
+	
+	public static final String ACTION_SHARE_RECORDER = "ACTION.WYY.SHARE.RECORDER";
 
 	/************** NOTICE_ID *************/
 	public static final int NEW_LOGIN_ACTION_ID = 0;

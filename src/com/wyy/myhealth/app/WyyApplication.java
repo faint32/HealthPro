@@ -76,7 +76,11 @@ public class WyyApplication extends FrontiaApplication {
 		initImageLoader(this);
 
 		if (SdUtils.ExistSDCard()) {
-			LoadDate();
+			try {
+				LoadDate();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
 
 	}
