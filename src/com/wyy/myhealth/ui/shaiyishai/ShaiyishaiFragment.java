@@ -34,6 +34,7 @@ import com.wyy.myhealth.ui.customview.BingListView.IXListViewListener;
 import com.wyy.myhealth.ui.fooddetails.FoodDetailsActivity;
 import com.wyy.myhealth.ui.photoPager.PhotoPagerActivity;
 import com.wyy.myhealth.utils.BingLog;
+import com.wyy.myhealth.utils.InputUtlity;
 
 public class ShaiyishaiFragment extends ListBaseFragment implements
 		OnRefreshListener, IXListViewListener, OnItemClickListener,
@@ -186,6 +187,8 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		}
 
 		sendView.setVisibility(View.VISIBLE);
+		sendEditText.requestFocus();
+		InputUtlity.showInputWindow(getActivity(), sendEditText);
 	}
 
 	@Override

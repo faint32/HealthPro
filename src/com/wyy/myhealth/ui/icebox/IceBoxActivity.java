@@ -80,6 +80,8 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 	
 	private int infodex=0;
 
+	private int iceBox_count=0;
+	
 	public static boolean isIsvisible() {
 		return isDeletevisible;
 	}
@@ -321,6 +323,7 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 				iceBoxFoodBeansList.add(otherList);
 				iceBoxMainAdapter.notifyDataSetChanged();
 				json = content;
+				getFoodNum();
 			} else {
 				Toast.makeText(context, R.string.nodata, Toast.LENGTH_LONG)
 						.show();
@@ -528,6 +531,14 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 		if (iceBoxFoodBean!=null) {
 			HealthHttpClient.delFood4Icebox(
 					iceBoxFoodBean.getId(), new DelFood4Ice(infodex, iceBoxFoodBean.getType()));
+		}
+	}
+	
+	private void getFoodNum(){
+		iceBox_count=0;
+		int length=iceBoxFoodBeansList.size();
+		for (int i = 0; i < length; i++) {
+			iceBox_count=iceBoxFoodBeansList.get(i).size()+iceBox_count;
 		}
 	}
 	

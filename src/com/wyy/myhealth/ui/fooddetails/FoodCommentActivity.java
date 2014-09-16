@@ -14,6 +14,7 @@ import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.http.AsyncHttpResponseHandler;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.ui.baseactivity.SubmitActivity;
+import com.wyy.myhealth.utils.InputUtlity;
 import com.wyy.myhealth.utils.NoticeUtils;
 
 public class FoodCommentActivity extends SubmitActivity {
@@ -39,6 +40,8 @@ public class FoodCommentActivity extends SubmitActivity {
 	private void initView() {
 		foodid = getIntent().getStringExtra(ConstantS.ID);
 		content_text = (EditText) findViewById(R.id.comment_edit);
+		content_text.requestFocus();
+		InputUtlity.showInputWindow(context, content_text);
 	}
 
 	@Override

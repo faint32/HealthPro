@@ -21,6 +21,7 @@ import com.wyy.myhealth.ui.absfragment.utils.TimeUtils;
 import com.wyy.myhealth.ui.baseactivity.BaseListActivity;
 import com.wyy.myhealth.ui.fooddetails.FoodCommentAdapter.AdapterListener;
 import com.wyy.myhealth.utils.BingLog;
+import com.wyy.myhealth.utils.InputUtlity;
 
 public class FoodCommentInfoActivity extends BaseListActivity implements
 		AdapterListener {
@@ -75,6 +76,8 @@ public class FoodCommentInfoActivity extends BaseListActivity implements
 		this.position = position;
 		if (!sendView.isShown()) {
 			sendView.setVisibility(View.VISIBLE);
+			sendEditText.requestFocus();
+			InputUtlity.showInputWindow(context, sendEditText);
 		}
 	}
 

@@ -16,6 +16,7 @@
             android:layout_gravity="bottom"
             android:layout_weight="8"
             android:ems="10"
+            style="@style/bing_edit_style"
             android:hint="@string/pingjiayixia" >
         </EditText>
 
