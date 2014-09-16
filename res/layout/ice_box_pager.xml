@@ -9,14 +9,16 @@
         android:id="@+id/door_l"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:src="@drawable/bingxiang_01" 
-        android:layout_weight="1"/>
+        android:scaleType="centerCrop"/>
 
     <ImageView
         android:id="@+id/door_r"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/bingxiang_02" 
-         android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bingxiang_02" />
 
 </LinearLayout>

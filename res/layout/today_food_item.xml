@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="50dp"
-        android:src="@color/gray" />
+        android:src="@color/lightgray" />
 
     <ImageView
         android:layout_width="70dp"

@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -46,8 +47,8 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 		OnRefreshListener, IXListViewListener, LocationListener,
 		OnItemClickListener {
 
-	private static final String TAG=YaoyingyangFragment.class.getSimpleName();
-	
+	private static final String TAG = YaoyingyangFragment.class.getSimpleName();
+
 	private List<NearFoodBean> list = new ArrayList<>();
 
 	private List<NearFoodBean> list2 = new ArrayList<>();
@@ -82,6 +83,12 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 	}
 
 	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+	}
+
+	@Override
 	protected void onInitAdapter() {
 		// TODO Auto-generated method stub
 		super.onInitAdapter();
@@ -105,7 +112,7 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			
+
 		}
 
 		getActivity().unregisterReceiver(searchReceiver);
@@ -157,7 +164,7 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 		public void onFailure(Throwable error, String content) {
 			// TODO Auto-generated method stub
 			super.onFailure(error, content);
-			BingLog.i(TAG, "´íÎó:"+content);
+			BingLog.i(TAG, "´íÎó:" + content);
 			Toast.makeText(getActivity(), R.string.neterro, Toast.LENGTH_LONG)
 					.show();
 		}
@@ -193,7 +200,7 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 		public void onFailure(Throwable error, String content) {
 			// TODO Auto-generated method stub
 			super.onFailure(error, content);
-			BingLog.i(TAG, "´íÎó:"+content+"error:"+error.getMessage());
+			BingLog.i(TAG, "´íÎó:" + content + "error:" + error.getMessage());
 			Toast.makeText(getActivity(), R.string.neterro, Toast.LENGTH_LONG)
 					.show();
 		}
@@ -512,6 +519,7 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 	private void initFilter() {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ConstantS.ACTION_SEARCH_FOOD);
+		filter.addAction(ConstantS.ACTION_RECOOMEND_TODAY_FOOD);
 		getActivity().registerReceiver(searchReceiver, filter);
 	}
 
@@ -520,16 +528,22 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			// TODO Auto-generated method stub
-			key = intent.getStringExtra("key");
-			currtuindex = 0;
-			if (TextUtils.isEmpty(key)) {
-				searchFlag = false;
-				ReshNerabyFoods();
-			} else {
-				searchFlag = true;
-				list.clear();
-				yaoyingyangAdapter.notifyDataSetChanged();
-				searchReshFoodbyKey(key, "" + currtuindex);
+			String action = intent.getAction();
+			if (action.equals(ConstantS.ACTION_SEARCH_FOOD)) {
+				key = intent.getStringExtra("key");
+				currtuindex = 0;
+				if (TextUtils.isEmpty(key)) {
+					searchFlag = false;
+					ReshNerabyFoods();
+				} else {
+					searchFlag = true;
+					list.clear();
+					yaoyingyangAdapter.notifyDataSetChanged();
+					searchReshFoodbyKey(key, "" + currtuindex);
+				}
+			} else if (action.equals(ConstantS.ACTION_RECOOMEND_TODAY_FOOD)) {
+				startActivity(new Intent(getActivity(),
+						TodayFoodRecActivity.class));
 			}
 
 		}
@@ -551,7 +565,7 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 			}
 
 			yaoyingyangAdapter.notifyDataSetChanged();
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

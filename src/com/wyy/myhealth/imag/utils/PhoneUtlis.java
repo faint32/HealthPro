@@ -80,6 +80,20 @@ public class PhoneUtlis {
 	}
 	
 	
+	public static String bitmap_Small_ZoomToString(String filePath) {
+
+		Bitmap bm = getSmallNoCutBitmap(filePath);
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		bm.compress(Bitmap.CompressFormat.PNG, 40, baos);
+		byte[] b = baos.toByteArray();
+
+		return Base64.encodeToString(b, Base64.DEFAULT);
+
+	}
+	
+	
+	
 	/**
 	 * °Ñbitmap×ª»»³ÉString
 	 * 
@@ -179,6 +193,31 @@ public class PhoneUtlis {
 		SavePic.saveFoodPic2Example(mBitmap);
 		return mBitmap;
 	}
+	
+	
+	public static Bitmap getSmallNoCutBitmap(String filePath) {
+
+		Matrix matrix = new Matrix();
+		matrix.setRotate(ScanFoodActivity.angle);
+		
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filePath, options);
+
+		// Calculate inSampleSize
+		options.inSampleSize = calculateInSampleSize(options, 480, 800);
+
+		// Decode bitmap with inSampleSize set
+		options.inJustDecodeBounds = false;
+		
+		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
+		int width=mBitmap.getWidth();
+		int height=mBitmap.getHeight();
+		mBitmap=Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix, true);
+		
+		return mBitmap;
+	}
+	
 	
 	
 	/**

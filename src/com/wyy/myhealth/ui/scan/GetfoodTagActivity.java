@@ -21,7 +21,7 @@ public class GetfoodTagActivity extends SaveActivity implements
 		// TODO Auto-generated method stub
 		super.onInitActionBar();
 		getSupportActionBar()
-				.setTitle(R.string.abc_action_bar_home_description);
+				.setTitle(R.string.tags);
 	}
 
 	@Override

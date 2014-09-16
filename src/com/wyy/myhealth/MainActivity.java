@@ -397,7 +397,7 @@ public class MainActivity extends ActionBarActivity implements
 				showNotice();
 			} else if (action.equals(ConstantS.ACTION_SEND_CANEL_NOTICE)) {
 				canelNotice();
-			}else if (action.equals(ConstantS.ACTION_CHANEG_PAGER_INDEX)) {
+			} else if (action.equals(ConstantS.ACTION_CHANEG_PAGER_INDEX)) {
 				swipePager(intent);
 			}
 		}
@@ -472,7 +472,7 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	private void startUpdateData() {
-		if (mainService!=null&&mainService.getService() == null) {
+		if (mainService != null && mainService.getService() == null) {
 			mainService.initRunable();
 		}
 	}
@@ -492,8 +492,11 @@ public class MainActivity extends ActionBarActivity implements
 
 	private void swipePager(Intent intent) {
 		int postion;
-		postion=intent.getIntExtra("index", 0);
+		postion = intent.getIntExtra("index", 0);
 		try {
+			if (postion == 1) {
+				sendBroadcast(new Intent(ConstantS.ACTION_RECOOMEND_TODAY_FOOD));
+			}
 			mainPager.setCurrentItem(postion);
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -46,6 +46,8 @@ public interface ConstantS {
 	public static final String ACTION_CHANEG_PAGER_INDEX = "ACTION.WYY.CHANGE.PAGER";
 	
 	public static final String ACTION_SHARE_RECORDER = "ACTION.WYY.SHARE.RECORDER";
+	
+	public static final String ACTION_RECOOMEND_TODAY_FOOD = "ACTION.WYY.RECOMMEND.TODAYFOOD";
 
 	/************** NOTICE_ID *************/
 	public static final int NEW_LOGIN_ACTION_ID = 0;

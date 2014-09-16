@@ -254,6 +254,7 @@
     <string name="search">搜索</string>
     <string name="health_recoder">健康记录</string>
     <string name="my_ice_box">我的冰箱</string>
+    <string name="my_ice_box_store">冰箱库存</string>
     <string name="msg_box">消息盒子</string>
     <string name="title_activity_scan_success">ScanSuccess</string>
     <string name="myhonor">我的荣誉</string>
@@ -370,5 +371,13 @@
     <string name="y_values">星级</string>
     <string name="recommend_food">推荐美味</string>
     <string name="share_content_">饭前扫一扫，健康来的早，逆天了都！吃货的未来。 健康寻迹美味，今天你寻迹了吗？http://m.weidata.com.cn</string>
+    <string name="boot_title1">关于减肥</string>
+    <string name="boot_title2">关于亚健康</string>
+    <string name="boot_title3">智能营养</string>
+    <string name="boot_title4"> 关于健康</string>
+    <string name="boot_title1_content">每天减少饭量，蹲在健身房\n锻炼到虚脱？</string>
+    <string name="boot_title2_content">每天忙于工作，忽略营养合理，\n抵抗力差到不行？</string>
+    <string name="boot_title3_content">扫一扫真实菜品食物，知道营养\n成分和热量，还能预警？</string>
+    <string name="boot_title4_content">关于健康，微营养能做的是为你\n提供实时预警及跟踪？</string>
 
 </resources>

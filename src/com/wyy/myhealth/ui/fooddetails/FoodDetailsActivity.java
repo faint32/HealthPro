@@ -357,7 +357,12 @@ public class FoodDetailsActivity extends BaseActivity {
 		imageLoader.displayImage(
 				HealthHttpClient.IMAGE_URL + foods.getFoodpic(), foodpic,
 				options);
-		SavePic.saveFoodPic2Example(imageLoader.loadImageSync(imgurl));
+		new Thread() {
+			public void run() {
+				SavePic.saveFoodPic2Example(imageLoader.loadImageSync(imgurl));
+			};
+		}.start();
+
 		foodtag.setText("" + foods.getTags());
 		try {
 			tasteLevel.setImageResource(ConstantS.LEVEL_POINT[Integer
