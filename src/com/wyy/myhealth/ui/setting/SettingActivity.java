@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.tencent.tauth.Tencent;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.db.utils.CollectDatabaseUtils;
@@ -117,6 +118,20 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 	
 	private void finshAll(){
 		sendBroadcast(new Intent(ConstantS.ACTION_MAIN_FINSH));
+		loginoutQQ();
+	}
+	
+	
+	private void loginoutQQ(){
+		Tencent mTencent=Tencent.createInstance(ConstantS.TENCENT_APP_ID, getApplicationContext());
+		if (mTencent!=null&&mTencent.isSessionValid()) {
+			try {
+				mTencent.logout(context);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		}
 	}
 	
 }

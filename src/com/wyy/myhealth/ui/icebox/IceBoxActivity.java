@@ -24,7 +24,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -48,9 +48,9 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 
 	private static final String TAG = IceBoxActivity.class.getSimpleName();
 
-	private ImageView door_left;
+	private FrameLayout door_left;
 
-	private ImageView door_right;
+	private FrameLayout door_right;
 
 	private LinearLayout doorlayout;
 
@@ -144,9 +144,9 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 	@Override
 	public void initView() {
 		// TODO Auto-generated method stub
-		door_left = (ImageView) findViewById(R.id.door_l);
-		door_right = (ImageView) findViewById(R.id.door_r);
-		doorlayout = (LinearLayout) findViewById(R.id.ice_box_door);
+		door_left = (FrameLayout) findViewById(R.id.door_left);
+		door_right = (FrameLayout) findViewById(R.id.door_right);
+		doorlayout = (LinearLayout) findViewById(R.id.ice_box_door_);
 		animationHandler.sendEmptyMessageDelayed(0, 1000);
 		iceListv = (BingListView) findViewById(R.id.ice_box_list_v);
 		mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_swipe);

@@ -204,7 +204,7 @@ public class RecorderChatFragment extends Fragment implements HealthReListener {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		renderer.setXLabelsPadding(60f);
+		renderer.setXLabelsPadding(30f);
 		// BingLog.i(TAG, "×î´óÊý:"+series.getMaxX());
 		// renderer.setXAxisMin(series.getMaxX() - 100000);
 		// renderer.setXAxisMax(series.getMaxX());

@@ -168,4 +168,7 @@ public interface ConstantS {
 			+ "friendships_groups_read,friendships_groups_write,statuses_to_me_read,"
 			+ "follow_app_official_microblog," + "invitation_write";
 
+	
+	/*******************QQ********************/
+	public static final String TENCENT_APP_ID="1102856689";
 }

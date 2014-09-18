@@ -310,8 +310,9 @@
     <string name="commercial_name_edit_hint">商家名称</string>
     <string name="commercial_tel_hint">商家电话</string>
     <string name="pleasew">请稍后</string>
-    <string name="share_content">扫描食物实时知道营养成分和热量，适合减肥和养生，最近都在用，感觉还不错，推荐你和家人用用，下载地址：http://m.weidata.com.cn</string>
+    <string name="share_content" formatted="false">98%的人第一次接触过微营养该智能服务，90%的人因此更加关爱自己和家人。扫描食物实时知道营养成分和热量，适合减肥和养生，最近都在用，感觉还不错 。下载地址：http://m.weidata.com.cn</string>
     <string name="weimalogin">微码登陆</string>
+    <string name="qq_login">QQ登陆</string>
     <string name="loginfailure">登录失败</string>
     <string name="loginsuccess">登陆成功</string>
     <string name="ok">确定</string>

@@ -3,32 +3,48 @@ package com.wyy.myhealth.ui.login;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.tencent.connect.UserInfo;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 import com.wyy.myhealth.MainActivity;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.PersonalInfo;
+import com.wyy.myhealth.bean.TencentTokenBean;
+import com.wyy.myhealth.bean.TencentUserInfoBean;
 import com.wyy.myhealth.bean.UserAccountBean;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.db.utils.AccountUtils;
 import com.wyy.myhealth.http.JsonHttpResponseHandler;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.http.utils.JsonUtils;
+import com.wyy.myhealth.imag.utils.Bmprcy;
+import com.wyy.myhealth.imag.utils.PhoneUtlis;
+import com.wyy.myhealth.imag.utils.PhotoUtils;
 import com.wyy.myhealth.ui.login.AccountAdapter.OnAccountClickListener;
 import com.wyy.myhealth.utils.BingLog;
 import com.wyy.myhealth.utils.CharacterParser;
+import com.wyy.myhealth.utils.ImageUtil;
 import com.wyy.myhealth.utils.ListUtils;
 import com.wyy.myhealth.utils.MD5;
 import com.wyy.myhealth.utils.SavePersonInfoUtlis;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -39,6 +55,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -67,12 +84,24 @@ public class LoginActivity extends ActionBarActivity implements
 
 	private ProgressDialog loginProgressDialog;
 
+	private ImageView userHeadImageView;
+
+	private Bitmap headBitmap = null;
+
+	private PersonalInfo info;
+
+	private Activity context;
+
+	private Tencent mTencent;
+
+	private UserInfo userInfo;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-
+		context = this;
 		getSupportActionBar().setBackgroundDrawable(
 				new ColorDrawable(getResources().getColor(R.color.themecolor)));
 		initUI();
@@ -87,6 +116,7 @@ public class LoginActivity extends ActionBarActivity implements
 	}
 
 	private void initUI() {
+		userHeadImageView = (ImageView) findViewById(R.id.head_img);
 		loginButton = (Button) findViewById(R.id.login_btn);
 		accounEditText = (EditText) findViewById(R.id.account_edit);
 		passwordEditText = (EditText) findViewById(R.id.password_edit);
@@ -100,11 +130,12 @@ public class LoginActivity extends ActionBarActivity implements
 		findViewById(R.id.regist).setOnClickListener(listener);
 		findViewById(R.id.login_ScrollView).setOnClickListener(listener);
 		findViewById(R.id.login_Liner).setOnClickListener(listener);
+		findViewById(R.id.qq_login_btn).setOnClickListener(listener);
 		passwordEditText.setOnClickListener(listener);
 		accountListV.setOnItemClickListener(this);
 
 		getAccount();
-
+		initData();
 	}
 
 	private OnClickListener listener = new OnClickListener() {
@@ -131,6 +162,9 @@ public class LoginActivity extends ActionBarActivity implements
 			case R.id.password_edit:
 			case R.id.login_Liner:
 				hideList();
+				break;
+			case R.id.qq_login_btn:
+				qqLogin();
 				break;
 
 			default:
@@ -295,6 +329,29 @@ public class LoginActivity extends ActionBarActivity implements
 
 	}
 
+	public class RegistHander extends JsonHttpResponseHandler {
+
+		@Override
+		public void onSuccess(JSONObject response) {
+			// TODO Auto-generated method stub
+			super.onSuccess(response);
+		}
+
+		@Override
+		public void onFailure(Throwable e, JSONArray errorResponse) {
+			// TODO Auto-generated method stub
+			super.onFailure(e, errorResponse);
+		}
+
+		@Override
+		public void onFinish() {
+			// TODO Auto-generated method stub
+			super.onFinish();
+			startMainActivity();
+		}
+
+	};
+
 	private JsonHttpResponseHandler handler = new JsonHttpResponseHandler() {
 
 		@Override
@@ -329,6 +386,41 @@ public class LoginActivity extends ActionBarActivity implements
 
 	};
 
+	private JsonHttpResponseHandler handler2 = new JsonHttpResponseHandler() {
+
+		@Override
+		public void onSuccess(JSONObject response) {
+			// TODO Auto-generated method stub
+			super.onSuccess(response);
+			BingLog.i(TAG, "µÇÂ½·µ»Ø:" + response);
+			parseJson2(response);
+		}
+
+		@Override
+		public void onFailure(Throwable e, JSONObject errorResponse) {
+			// TODO Auto-generated method stub
+			super.onFailure(e, errorResponse);
+			Toast.makeText(LoginActivity.this, R.string.net_erro,
+					Toast.LENGTH_SHORT).show();
+			loginProgressDialog.dismiss();
+		}
+
+		@Override
+		public void onStart() {
+			// TODO Auto-generated method stub
+			super.onStart();
+			loginProgressDialog.show();
+		}
+
+		@Override
+		public void onFinish() {
+			// TODO Auto-generated method stub
+			super.onFinish();
+
+		}
+
+	};
+
 	private void parseJson(JSONObject response) {
 		try {
 			if (JsonUtils.isSuccess(response)) {
@@ -352,9 +444,230 @@ public class LoginActivity extends ActionBarActivity implements
 		}
 	}
 
+	private void parseJson2(JSONObject response) {
+		try {
+			if (JsonUtils.isSuccess(response)) {
+				JSONObject object = response.getJSONObject("user");
+				PersonalInfo info = JsonUtils.getInfo(object);
+				WyyApplication.setInfo(info);
+				SavePersonInfoUtlis.setPersonInfo(info, LoginActivity.this);
+				if (null != info) {
+					if (TextUtils.isEmpty(info.getUsername())
+							|| TextUtils.isEmpty(info.getHeadimage())) {
+						updateUserInfo();
+					} else {
+						startMainActivity();
+					}
+
+				}
+
+			} else {
+				Toast.makeText(LoginActivity.this, R.string.loginfailure,
+						Toast.LENGTH_LONG).show();
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			Toast.makeText(LoginActivity.this, R.string.loginfailure,
+					Toast.LENGTH_LONG).show();
+		}
+	}
+
 	private void startMainActivity() {
 		startActivity(new Intent(LoginActivity.this, MainActivity.class));
 		finish();
+	}
+
+	private void initData() {
+		info = SavePersonInfoUtlis.getPersonInfo(context);
+		if (info == null) {
+			return;
+		}
+
+		if (!TextUtils.isEmpty(info.getHeadimage())) {
+			if (WyyApplication.getHeaderImaList() == null) {
+				return;
+			}
+			if (WyyApplication.getHeaderImaList().size() > 0) {
+				for (int i = 0; i < WyyApplication.getHeaderImaList().size(); i++) {
+					if (WyyApplication.getHeaderImaList().get(i).getImaname()
+							.equals(info.getUsername())) {
+						headBitmap = BitmapFactory.decodeFile(WyyApplication
+								.getHeaderImaList().get(i).getImapath());
+						userHeadImageView.setImageBitmap(headBitmap);
+						return;
+					}
+				}
+			}
+
+			if (null == headBitmap) {
+				new Thread(loadImgRunnable).start();
+			}
+
+		}
+	}
+
+	private Runnable loadImgRunnable = new Runnable() {
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			try {
+				String headimage = HealthHttpClient.IMAGE_URL
+						+ info.getHeadimage();
+				headBitmap = ImageUtil.getBitmapFromUrl(headimage);
+				headBitmap = Bmprcy.toRoundBitmap(headBitmap);
+				loadBitmap.sendEmptyMessage(0);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	};
+
+	private Handler loadBitmap = new Handler(new Handler.Callback() {
+
+		@Override
+		public boolean handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			if (null != headBitmap) {
+				try {
+					userHeadImageView.setImageBitmap(headBitmap);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+
+			}
+
+			return false;
+		}
+	});
+
+	private void qqLogin() {
+		if (mTencent == null) {
+			mTencent = Tencent.createInstance(ConstantS.TENCENT_APP_ID,
+					getApplicationContext());
+		}
+		if (mTencent != null && !mTencent.isSessionValid()) {
+			mTencent.login(context, "all", loginIUiListener);
+		}
+	}
+
+	private IUiListener loginIUiListener = new LoginQQListenter() {
+
+		@Override
+		protected void doComplete(JSONObject values) {
+			// TODO Auto-generated method stub
+			super.doComplete(values);
+			initOpenidAndToken(values);
+		}
+
+	};
+
+	private class LoginQQListenter implements IUiListener {
+
+		@Override
+		public void onCancel() {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onComplete(Object arg0) {
+			// TODO Auto-generated method stub
+			if (null == arg0) {
+				Toast.makeText(context, R.string.loginfailure,
+						Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+			JSONObject jsonResponse = (JSONObject) arg0;
+			if (null != jsonResponse && jsonResponse.length() == 0) {
+				Toast.makeText(context, R.string.loginfailure,
+						Toast.LENGTH_SHORT).show();
+				return;
+			}
+			doComplete((JSONObject) arg0);
+		}
+
+		protected void doComplete(JSONObject values) {
+
+		}
+
+		@Override
+		public void onError(UiError arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
+	private void initOpenidAndToken(JSONObject values) {
+		try {
+			TencentTokenBean tencentTokenBean = JsonUtils
+					.getTencentTokenBean(values);
+			if (!TextUtils.isEmpty(tencentTokenBean.getAccess_token())
+					&& !TextUtils.isEmpty(tencentTokenBean.getExpires_in())
+					&& !TextUtils.isEmpty(tencentTokenBean.getOpenid())) {
+				mTencent.setAccessToken(tencentTokenBean.getAccess_token(),
+						tencentTokenBean.getExpires_in());
+				mTencent.setOpenId(tencentTokenBean.getOpenid());
+				HealthHttpClient.registViaQQ(mTencent.getOpenId(), handler2);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	private void updateUserInfo() {
+		if (mTencent != null && mTencent.isSessionValid()) {
+			userInfo = new UserInfo(context, mTencent.getQQToken());
+			userInfo.getUserInfo(getUserInfoListener);
+		}
+	}
+
+	private IUiListener getUserInfoListener = new LoginQQListenter() {
+
+		@Override
+		protected void doComplete(JSONObject values) {
+			// TODO Auto-generated method stub
+			super.doComplete(values);
+			TencentUserInfoBean tencentUserInfoBean = JsonUtils
+					.geTencentUserInfoBean(values);
+			getInfo2WyyInfo(tencentUserInfoBean);
+		}
+
+	};
+
+	private void getInfo2WyyInfo(final TencentUserInfoBean tencentUserInfoBean) {
+		if (tencentUserInfoBean == null) {
+			startMainActivity();
+			return;
+		}
+		new Thread() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				super.run();
+				try {
+					Bitmap mBitmap = PhotoUtils.getbitmap(tencentUserInfoBean
+							.getFigureurl_qq_2());
+					PersonalInfo personalInfo = WyyApplication.getInfo();
+					personalInfo.setUsername(tencentUserInfoBean.getNickname());
+					personalInfo.setHeadimage(PhoneUtlis
+							.bitmapToString(mBitmap));
+					HealthHttpClient.doHttpFinishPersonInfoForName_(
+							personalInfo, handler);
+				} catch (Exception e) {
+					// TODO: handle exception
+					startMainActivity();
+				}
+
+			}
+
+		}.start();
+
 	}
 
 }

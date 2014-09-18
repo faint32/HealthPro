@@ -44,6 +44,8 @@ import android.widget.TextView;
 public class PersonCenterFragment extends Fragment implements
 		OnPageChangeListener {
 
+	private static final String TAG = PersonCenterFragment.class
+			.getSimpleName();
 	private ImageView userHeadImageView;
 
 	private TextView userName;
@@ -200,13 +202,17 @@ public class PersonCenterFragment extends Fragment implements
 
 	private void initPersonInfo() {
 		info = WyyApplication.getInfo();
-		if (info == null) {
-			info = (PersonalInfo) getArguments().getSerializable("info");
-		}
+		// if (info == null) {
+		// info = (PersonalInfo) getArguments().getSerializable("info");
+		// }
 
 		if (info == null) {
 			WelcomeActivity.getPersonInfo(getActivity());
 			info = WyyApplication.getInfo();
+		}
+
+		if (info == null) {
+			return;
 		}
 
 		userName.setText(WyyApplication.getInfo().getUsername() + "");
@@ -380,7 +386,7 @@ public class PersonCenterFragment extends Fragment implements
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			// TODO Auto-generated method stub
-			BingLog.i(getTag(), "个人中心"+intent.getAction());
+			BingLog.i(TAG, "个人中心" + intent.getAction());
 			initPersonInfo();
 		}
 	};

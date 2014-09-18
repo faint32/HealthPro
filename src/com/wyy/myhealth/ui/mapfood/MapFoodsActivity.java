@@ -67,6 +67,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
@@ -115,11 +116,11 @@ public class MapFoodsActivity extends ActionBarActivity {
 	private SearchView searchView;
 
 	private GeoPoint point;
-	
-	private boolean isone=false;
 
-	private String foodid="";
-	
+	private boolean isone = false;
+
+	private String foodid = "";
+
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	@SuppressLint("NewApi")
 	@Override
@@ -227,7 +228,7 @@ public class MapFoodsActivity extends ActionBarActivity {
 		mMapView.getOverlays().add(myLocationOverlay);
 
 		if (YaoyingyangFragment.isdingwei) {
-			foodid=PreferencesFoodsInfo.getfoodId(MapFoodsActivity.this);
+			foodid = PreferencesFoodsInfo.getfoodId(MapFoodsActivity.this);
 			Intent intent = getIntent();
 			double lat = intent.getDoubleExtra("lat", 0);
 			double lon = intent.getDoubleExtra("lon", 0);
@@ -292,6 +293,7 @@ public class MapFoodsActivity extends ActionBarActivity {
 		actionBar.setDisplayShowHomeEnabled(false);
 
 		searchView = new SearchView(this);
+		settingSearchView();
 		actionBar.setCustomView(searchView, new ActionBar.LayoutParams(
 				Gravity.RIGHT));
 		actionBar.setDisplayShowCustomEnabled(true);
@@ -434,25 +436,21 @@ public class MapFoodsActivity extends ActionBarActivity {
 
 	}
 
-	private void newSearch(){
+	private void newSearch() {
 		try {
-			double minx = (point.getLongitudeE6()-1)
-					/ SCALE;
-			double miny = (point.getLatitudeE6()-1)
-					/ SCALE;
-			double maxx = (point.getLongitudeE6()+1)
-					/ SCALE;
-			double maxy = (point.getLatitudeE6()+1)
-					/ SCALE;
-			BingLog.i("地图", "minx:" + minx + "miny:" + miny
-					+ "maxx:" + maxx + "maxy:" + maxy);
+			double minx = (point.getLongitudeE6() - 1) / SCALE;
+			double miny = (point.getLatitudeE6() - 1) / SCALE;
+			double maxx = (point.getLongitudeE6() + 1) / SCALE;
+			double maxy = (point.getLatitudeE6() + 1) / SCALE;
+			BingLog.i("地图", "minx:" + minx + "miny:" + miny + "maxx:" + maxx
+					+ "maxy:" + maxy);
 			searchByBox(minx, miny, maxx, maxy);
 		} catch (Exception e) {
 			// TODO: handle exception
 			BingLog.e("地图2", "解析错误:" + e.toString());
 		}
 	}
-	
+
 	/**
 	 * 重新添加Overlay
 	 * 
@@ -653,12 +651,12 @@ public class MapFoodsActivity extends ActionBarActivity {
 					if (foodid.equals(food.getId())) {
 						list.add(food);
 					}
-				}else {
+				} else {
 					list.add(food);
 				}
-				
+
 			}
-			isone=true;
+			isone = true;
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -1106,5 +1104,11 @@ public class MapFoodsActivity extends ActionBarActivity {
 	// }
 	//
 	// }
+
+	private void settingSearchView() {
+		ImageView icon = (ImageView) searchView
+				.findViewById(android.support.v7.appcompat.R.id.search_button);
+		icon.setImageResource(R.drawable.ic_search);
+	}
 
 }

@@ -3,7 +3,11 @@ package com.wyy.myhealth.imag.utils;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.app.WyyApplication;
@@ -25,6 +29,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -39,8 +44,10 @@ public class PhotoUtils {
 
 	// 图片上传选择途径
 	public static void MyDialog(final Activity context) {
-		final CharSequence[] items = { context.getString(R.string.photo), context.getString(R.string.takepic) };
-		AlertDialog dlg = new AlertDialog.Builder(context).setTitle(context.getString(R.string.changebg))
+		final CharSequence[] items = { context.getString(R.string.photo),
+				context.getString(R.string.takepic) };
+		AlertDialog dlg = new AlertDialog.Builder(context)
+				.setTitle(context.getString(R.string.changebg))
 				.setItems(items, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int item) {
 						// 这里item是根据选择的方式，
@@ -137,8 +144,10 @@ public class PhotoUtils {
 
 	// 图片上传选择途径
 	public static void secPic(final Activity context) {
-		final CharSequence[] items = {context.getString(R.string.photo), context.getString(R.string.takepic) };
-		AlertDialog dlg = new AlertDialog.Builder(context).setTitle(R.string.gl_choose_title)
+		final CharSequence[] items = { context.getString(R.string.photo),
+				context.getString(R.string.takepic) };
+		AlertDialog dlg = new AlertDialog.Builder(context)
+				.setTitle(R.string.gl_choose_title)
 				.setItems(items, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int item) {
 						// 这里item是根据选择的方式，
@@ -277,27 +286,23 @@ public class PhotoUtils {
 		intent.setAction(ConstantS.ACTION_BASE_INFO_CHANGE);
 		context.sendBroadcast(intent);
 	}
-	
-	
+
 	/**
 	 * 获取listview 头像
 	 */
 
 	public static Bitmap getListHeadBg() {
-		Bitmap mBitmap=null;
+		Bitmap mBitmap = null;
 		try {
-			mBitmap = BitmapFactory.decodeFile(FileUtils.HEALTH_IMAG
-					+ "/" + WyyApplication.getInfo().getUsername() + "hps"
-					+ ".jpg");
+			mBitmap = BitmapFactory.decodeFile(FileUtils.HEALTH_IMAG + "/"
+					+ WyyApplication.getInfo().getUsername() + "hps" + ".jpg");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 		return mBitmap;
-		
 
 	}
-	
 
 	public static Bitmap getScaledBitmap(String fileName, int dstWidth) {
 		BitmapFactory.Options localOptions = new BitmapFactory.Options();
@@ -312,5 +317,25 @@ public class PhotoUtils {
 
 		return BitmapFactory.decodeFile(fileName, localOptions);
 	}
-	
+
+	public static Bitmap getbitmap(String imageUri) {
+		// 显示网络上的图片
+		Bitmap bitmap = null;
+		try {
+			URL myFileUrl = new URL(imageUri);
+			HttpURLConnection conn = (HttpURLConnection) myFileUrl
+					.openConnection();
+			conn.setDoInput(true);
+			conn.connect();
+			InputStream is = conn.getInputStream();
+			bitmap = BitmapFactory.decodeStream(is);
+			is.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return bitmap;
+	}
+
 }

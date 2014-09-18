@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
@@ -43,7 +44,7 @@ public class ShareFoodActivity extends SubmitActivity implements
 
 	private TextView tags;
 
-	private String tagString;
+	private String tagString="";
 
 	private TextView commercainame;
 

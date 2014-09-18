@@ -20,11 +20,9 @@
     </android.support.v4.widget.SwipeRefreshLayout>
     
     <include
+        android:id="@+id/ice_box_door_"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        layout="@layout/ice_box_pager" />
-
-    
-     
+        layout="@layout/ice_box_door_include" />
     
 </FrameLayout>

@@ -36,10 +36,11 @@ public class WelcomeActivity extends Activity {
 	boolean isFirstIn = false;
 	private static final int GO_HOME = 1000;
 	private static final int GO_LOGIN = 1001;
-	// 延迟3秒
 	private static final long SPLASH_DELAY_MILLIS = 1500;
+	private static final long SPLASH_DELAY_MILLIS_ = 8000;
 	private ProgressBar wait_Onbind;
-	
+	private boolean isEnter=false;
+
 	/**
 	 * Handler:跳转到不同界面
 	 */
@@ -53,86 +54,87 @@ public class WelcomeActivity extends Activity {
 				break;
 			case GO_LOGIN:
 				goLogin();
-
 				break;
 			}
 			super.handleMessage(msg);
 		}
 
 	};
-	
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_welcome);
-		
+
 		initReceiveraPush();
 		initUI();
 	}
-	
-	
-	
-	private void initReceiveraPush(){
+
+	private void initReceiveraPush() {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ConstantS.BAIDU_ONBIND);
 		registerReceiver(onbindReceiver, filter);
-		
+
 		PushManager.startWork(getApplicationContext(),
 				PushConstants.LOGIN_TYPE_API_KEY,
 				Utils.getMetaValue(WelcomeActivity.this, "api_key"));
 		// Push: 如果想基于地理位置推送，可以打开支持地理位置的推送的开关
 		PushManager.enableLbs(getApplicationContext());
 	}
-	
-	
-	private void initUI(){
+
+	private void initUI() {
 		getPersonInfo(WelcomeActivity.this);
 		wait_Onbind = (ProgressBar) findViewById(R.id.welcome_pro);
-		if (WyyApplication.getInfo()!=null) {
+		if (WyyApplication.getInfo() != null) {
 			wait_Onbind.setVisibility(View.GONE);
 			unregisterReceiver(onbindReceiver);
 			mHandler.sendEmptyMessageDelayed(GO_HOME, SPLASH_DELAY_MILLIS);
-			LoginUtils.login(WelcomeActivity.this, WyyApplication.getInfo().getIdcode());
+			LoginUtils.login(WelcomeActivity.this, WyyApplication.getInfo()
+					.getIdcode());
+		} else {
+			mHandler.sendEmptyMessageDelayed(GO_LOGIN, SPLASH_DELAY_MILLIS_);
 		}
-		
-		
-		
+
 	}
-	
+
 	private void goHome() {
 		// TODO Auto-generated method stub
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 		finish();
 	}
-	
+
 	private void goLogin() {
-		Intent intent = new Intent(this, BootPagerActivity.class);
-		startActivity(intent);
-		finish();
+		if (isEnter) {
+			return;
+		}
+		try {
+			Intent intent = new Intent(this, BootPagerActivity.class);
+			startActivity(intent);
+			finish();
+			isEnter=true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 	}
-	
-	
+
 	private BroadcastReceiver onbindReceiver = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			// TODO Auto-generated method stub
-//			if (TextUtils.isEmpty(Utils.channelId)) {
-//				ToastUtils.showLong(context, "未知错误");
-//			}
-			
-			
+			// if (TextUtils.isEmpty(Utils.channelId)) {
+			// ToastUtils.showLong(context, "未知错误");
+			// }
+
 			goLogin();
 			unregisterReceiver(onbindReceiver);
 		}
 	};
-	
-	
-	
+
 	/**
 	 * 获取信息
 	 */
@@ -151,7 +153,7 @@ public class WelcomeActivity extends Activity {
 				try {
 					PersonalInfo personalInfo = (PersonalInfo) ois.readObject();
 					WyyApplication.setInfo(personalInfo);
-					
+
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -166,6 +168,5 @@ public class WelcomeActivity extends Activity {
 
 		}
 	}
-	
-	
+
 }

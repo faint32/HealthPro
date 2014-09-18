@@ -9,6 +9,7 @@
         android:layout_height="120dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="45dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/logo" />
 
     <include
@@ -37,6 +38,18 @@
         android:background="@drawable/login_sec"
         android:text="@string/login"
         android:textColor="@color/white" />
+    
+    
+    <Button
+        android:id="@+id/qq_login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_sec"
+        android:text="@string/qq_login"
+        android:textColor="@color/white" />
+    
 
     <FrameLayout
         android:layout_width="match_parent"

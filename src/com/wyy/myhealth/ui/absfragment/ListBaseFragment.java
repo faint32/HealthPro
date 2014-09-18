@@ -29,6 +29,7 @@ import com.wyy.myhealth.ui.absfragment.utils.TimeUtils;
 import com.wyy.myhealth.ui.customview.BingListView;
 import com.wyy.myhealth.utils.BingLog;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -81,7 +82,7 @@ public class ListBaseFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View rootView = inflater.inflate(R.layout.base_frag_lay, null);
+		View rootView = inflater.inflate(R.layout.base_frag_lay,container, false);
 		initView(rootView);
 		registerForContextMenu();
 		onGetLastData();
@@ -91,7 +92,7 @@ public class ListBaseFragment extends Fragment {
 	protected void initView(View v) {
 		mRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.list_swipe);
 		mListView = (BingListView) v.findViewById(R.id.m_listview);
-
+		mListView.setCacheColorHint(Color.TRANSPARENT);
 		mRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
 				android.R.color.holo_blue_dark,
 				android.R.color.holo_green_light,

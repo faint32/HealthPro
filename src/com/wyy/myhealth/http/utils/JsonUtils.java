@@ -13,6 +13,8 @@ import com.wyy.myhealth.bean.NearFoodBean;
 import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.bean.RecorderInfoBean;
 import com.wyy.myhealth.bean.ScanMoodBean;
+import com.wyy.myhealth.bean.TencentTokenBean;
+import com.wyy.myhealth.bean.TencentUserInfoBean;
 import com.wyy.myhealth.config.Config;
 import com.wyy.myhealth.utils.BingLog;
 
@@ -254,6 +256,30 @@ public class JsonUtils {
 		}
 
 		return scanMoodBean;
+	}
+
+	public static TencentTokenBean getTencentTokenBean(JSONObject object) {
+		TencentTokenBean tencentTokenBean = new TencentTokenBean();
+		try {
+			tencentTokenBean = new Gson().fromJson(object.toString(),
+					TencentTokenBean.class);
+		} catch (Exception e) {
+			// TODO: handle exception
+			BingLog.w(TAG, "解析出错:" + e.getMessage());
+		}
+		return tencentTokenBean;
+	}
+
+	public static TencentUserInfoBean geTencentUserInfoBean(JSONObject object) {
+		TencentUserInfoBean tencentUserInfoBean = new TencentUserInfoBean();
+		try {
+			tencentUserInfoBean = new Gson().fromJson(object.toString(),
+					TencentUserInfoBean.class);
+		} catch (Exception e) {
+			// TODO: handle exception
+			BingLog.w(TAG, "解析出错:" + e.getMessage());
+		}
+		return tencentUserInfoBean;
 	}
 
 }

@@ -41,7 +41,7 @@ public class ShaiyishaiActivity extends AbstractlistActivity implements
 		shaiyishaiFragment = new ShaiyishaiFragment();
 		getSupportFragmentManager().beginTransaction()
 				.add(R.id.wrapper, shaiyishaiFragment).commit();
-
+		
 	}
 
 	@Override
