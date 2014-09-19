@@ -15,7 +15,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
@@ -23,26 +26,47 @@ import android.widget.Toast;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.app.PreferencesFoodsInfo;
 import com.wyy.myhealth.app.WyyApplication;
+import com.wyy.myhealth.bean.CommentBean;
 import com.wyy.myhealth.bean.ListDataBead;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.db.utils.CollectDatabaseUtils;
 import com.wyy.myhealth.http.AsyncHttpResponseHandler;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
+import com.wyy.myhealth.support.collect.CollectUtils;
 import com.wyy.myhealth.ui.absfragment.ListBaseFragment;
 import com.wyy.myhealth.ui.absfragment.adapter.ShaiYiSaiAdapter2.ShaiItemOnclickListener;
 import com.wyy.myhealth.ui.absfragment.utils.TimeUtility;
 import com.wyy.myhealth.ui.customview.BingListView.IXListViewListener;
 import com.wyy.myhealth.ui.fooddetails.FoodDetailsActivity;
 import com.wyy.myhealth.ui.photoPager.PhotoPagerActivity;
+import com.wyy.myhealth.utils.BingLog;
+import com.wyy.myhealth.utils.InputUtlity;
 
 public class CollectFragment extends ListBaseFragment implements
 		OnItemClickListener, IXListViewListener, OnRefreshListener,
 		ShaiItemOnclickListener {
 
+	// 评论View
+	private View sendView;
+	// 评论编辑
+	private EditText sendEditText;
+	// 评论按钮
+	private Button sendButton;
+	// 美食ID
+	private String shaiFoodsid = "";
+	// 心情ID
+	private String shaimoodsid = "";
+
+	public View getSendView() {
+		return sendView;
+	}
+	
 	@Override
 	protected void initView(View v) {
 		// TODO Auto-generated method stub
 		super.initView(v);
+		sendView = v.findViewById(R.id.send_v);
+		initSendView(sendView);
 		mAdapter2.setListener(this);
 		mListView.setOnItemClickListener(this);
 		mListView.setXListViewListener(this);
@@ -105,6 +129,115 @@ public class CollectFragment extends ListBaseFragment implements
 
 		return super.onContextItemSelected(item);
 	}
+
+	private void initSendView(View v) {
+		sendButton = (Button) v.findViewById(R.id.send_msg_btn);
+		sendEditText = (EditText) v.findViewById(R.id.send_msg_editText);
+		sendButton.setOnClickListener(listener);
+	}
+
+	private OnClickListener listener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			switch (v.getId()) {
+
+			case R.id.send_msg_btn:
+				if (!TextUtils.isEmpty(shaiFoodsid)) {
+					sendComment(shaiFoodsid);
+				} else if (!TextUtils.isEmpty(shaimoodsid)) {
+					sendMoodComment(shaimoodsid);
+				}
+
+				break;
+
+			default:
+				break;
+			}
+		}
+	};
+
+	/**
+	 * 发送评论
+	 * 
+	 * @param foodsid
+	 *            食物ID
+	 */
+	private void sendComment(String foodsid) {
+		if (TextUtils.isEmpty(sendEditText.getText().toString())) {
+			Toast.makeText(getActivity(), R.string.nullcontentnotice,
+					Toast.LENGTH_LONG).show();
+			return;
+		}
+		HealthHttpClient.doHttpPostComment(foodsid, sendEditText.getText()
+				.toString(), "5", WyyApplication.getInfo().getId(),
+				commentHandler);
+	}
+
+	/**
+	 * 发送评论
+	 * 
+	 * @param moodsid
+	 *            食物ID
+	 */
+	private void sendMoodComment(String moodsid) {
+		if (TextUtils.isEmpty(sendEditText.getText().toString())) {
+			Toast.makeText(getActivity(), R.string.nullcontentnotice,
+					Toast.LENGTH_LONG).show();
+			return;
+		}
+		HealthHttpClient.postMoodComment(WyyApplication.getInfo().getId(),
+				moodsid, sendEditText.getText().toString(), commentHandler);
+	}
+
+	private AsyncHttpResponseHandler commentHandler = new AsyncHttpResponseHandler() {
+
+		@Override
+		public void onStart() {
+			// TODO Auto-generated method stub
+			super.onStart();
+
+			CommentBean commentBean = new CommentBean();
+			commentBean.setContent(sendEditText.getText().toString());
+			commentBean.setUser(WyyApplication.getInfo());
+			thList2.get(postion).getComment().add(commentBean);
+			mAdapter2.notifyDataSetChanged();
+
+			sendEditText.setText("");
+			sendView.setVisibility(View.GONE);
+			shaiFoodsid = "";
+			shaimoodsid = "";
+
+		}
+
+		@Override
+		public void onFinish() {
+			// TODO Auto-generated method stub
+			super.onFinish();
+		}
+
+		@Override
+		public void onSuccess(String content) {
+			// TODO Auto-generated method stub
+			super.onSuccess(content);
+			BingLog.i(TAG, "返回:" + content);
+			if (null == getActivity()) {
+				return;
+			}
+			Toast.makeText(getActivity(), R.string.comment_success_,
+					Toast.LENGTH_LONG).show();
+		}
+
+		@Override
+		public void onFailure(Throwable error, String content) {
+			// TODO Auto-generated method stub
+			super.onFailure(error, content);
+			Toast.makeText(getActivity(), R.string.comment_faliure,
+					Toast.LENGTH_LONG).show();
+		}
+
+	};
 
 	private void shaiMoodsshai(String moodid) {
 		HealthHttpClient.MoodShaiYIShai(moodid, shaiHandler);
@@ -255,13 +388,33 @@ public class CollectFragment extends ListBaseFragment implements
 	@Override
 	public void onCommentClick(int position) {
 		// TODO Auto-generated method stub
+		this.postion = position;
+		if (thList2.get(position).getType() == ConstantS.TYPE_FOOD) {
+			shaiFoodsid = thList2.get(position).getId();
+			shaimoodsid = "";
 
+		} else if (thList2.get(position).getType() == ConstantS.TYPE_MOOD) {
+			shaimoodsid = thList2.get(position).getId();
+			shaiFoodsid = "";
+
+		}
+
+		sendView.setVisibility(View.VISIBLE);
+		sendEditText.requestFocus();
+		InputUtlity.showInputWindow(getActivity(), sendEditText);
 	}
 
 	@Override
 	public void onCollectClick(int position) {
 		// TODO Auto-generated method stub
+		if (thList2.get(position).getType() == ConstantS.TYPE_FOOD) {
+			String foodsid = thList2.get(position).getId();
+			CollectUtils.collectFood(foodsid, getActivity());
 
+		} else if (thList2.get(position).getType() == ConstantS.TYPE_MOOD) {
+			String moodsid = thList2.get(position).getId();
+			CollectUtils.postMoodCollect(moodsid, getActivity());
+		}
 	}
 
 	@Override
@@ -312,7 +465,7 @@ public class CollectFragment extends ListBaseFragment implements
 		// HealthHttpClient.userCollects(WyyApplication.getInfo().getId(),
 		// first, limit, parseHandler);
 		HealthHttpClient.userCollects20(WyyApplication.getInfo().getId(),
-				first, limit, reshHandler2);
+				first, limit, loadMoreHandler);
 	}
 
 	@Override
@@ -322,7 +475,7 @@ public class CollectFragment extends ListBaseFragment implements
 		// HealthHttpClient.userCollects(WyyApplication.getInfo().getId(),
 		// first, limit, reshHandler);
 		HealthHttpClient.userCollects20(WyyApplication.getInfo().getId(),
-				first, limit, loadMoreHandler);
+				first, limit, reshHandler2);
 	}
 
 	@Override

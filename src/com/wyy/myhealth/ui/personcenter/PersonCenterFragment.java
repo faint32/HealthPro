@@ -164,7 +164,7 @@ public class PersonCenterFragment extends Fragment implements
 		bodyPager = (ViewPager) v.findViewById(R.id.person_tab_pager);
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		honorView = inflater.inflate(R.layout.my_honor_tab, bodyPager, false);
-		baseInfoView = inflater.inflate(R.layout.my_base_info_tab, null);
+		baseInfoView = inflater.inflate(R.layout.my_base_info_tab, bodyPager,false);
 
 		money = (TextView) honorView.findViewById(R.id.moeny);
 
@@ -189,6 +189,10 @@ public class PersonCenterFragment extends Fragment implements
 				listener);
 
 		if (centerViews.size() == 0) {
+			centerViews.add(honorView);
+			centerViews.add(baseInfoView);
+		}else {
+			centerViews.clear();
 			centerViews.add(honorView);
 			centerViews.add(baseInfoView);
 		}

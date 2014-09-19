@@ -871,7 +871,7 @@ public class ScanFragment extends Fragment {
 		if (scanView.isShown()) {
 			scanView.setVisibility(View.INVISIBLE);
 			saoImageView.setVisibility(View.INVISIBLE);
-			bottomLayout.setVisibility(View.INVISIBLE);
+			bottomLayout.setVisibility(View.GONE);//设置INVISIBLE会出现返回时无法显示的情况
 			scantTextView.setVisibility(View.GONE);
 			try {
 				mCamera.stopPreview();
@@ -884,6 +884,8 @@ public class ScanFragment extends Fragment {
 			saoImageView.setVisibility(View.INVISIBLE);
 			bottomLayout.setVisibility(View.VISIBLE);
 			scanView.setScroll(false);
+			bottomLayout.requestFocus();
+			BingLog.d(TAG, "显示tab_");
 			try {
 				mCamera.startPreview();
 			} catch (Exception e) {

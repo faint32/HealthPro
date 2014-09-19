@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
@@ -38,12 +39,29 @@ public class ShaiyishaiActivity extends AbstractlistActivity implements
 		// TODO Auto-generated method stub
 		super.onInitFragment();
 		getPushFood();
-		shaiyishaiFragment = new ShaiyishaiFragment();
-		getSupportFragmentManager().beginTransaction()
-				.add(R.id.wrapper, shaiyishaiFragment).commit();
+		
 		
 	}
 
+	
+	@Override
+	protected void onInitFragment(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onInitFragment(savedInstanceState);
+		if (savedInstanceState==null) {
+			shaiyishaiFragment = new ShaiyishaiFragment();
+			getSupportFragmentManager().beginTransaction()
+					.add(R.id.wrapper, shaiyishaiFragment).commit();
+		}
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+		outState.putBoolean("islive", true);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub

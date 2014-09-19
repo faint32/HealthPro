@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:drawableLeft="@drawable/career"
+            android:drawableLeft="@drawable/ic_micro_code"
             android:drawablePadding="16dp"
             android:gravity="center"
             android:layout_gravity="center_vertical"

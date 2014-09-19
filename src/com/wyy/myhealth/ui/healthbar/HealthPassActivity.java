@@ -2,6 +2,7 @@ package com.wyy.myhealth.ui.healthbar;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,10 +25,28 @@ public class HealthPassActivity extends AbstractlistActivity {
 	protected void onInitFragment() {
 		// TODO Auto-generated method stub
 		super.onInitFragment();
-		getSupportFragmentManager().beginTransaction()
-				.add(R.id.wrapper, new HealPassFragment()).commit();
+		
 	}
 
+	
+	@Override
+	protected void onInitFragment(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onInitFragment(savedInstanceState);
+		if (savedInstanceState==null) {
+			getSupportFragmentManager().beginTransaction()
+			.add(R.id.wrapper, new HealPassFragment()).commit();
+		}
+		
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+		outState.putBoolean("istran", isCustomActionBar);
+	}
+	
 	@Override
 	protected void onInitActionBar() {
 		// TODO Auto-generated method stub

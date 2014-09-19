@@ -55,9 +55,12 @@ public class FoodCommentInfoActivity extends BaseListActivity implements
 					.getSerializableExtra("comment");
 			TimeUtils.getCOmmentTime(mcomments);
 			arrangeComment(mcomments);
-
+			if (mcomments.size() == 0) {
+				findViewById(R.id.no_comment_txt).setVisibility(View.VISIBLE);
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			findViewById(R.id.no_comment_txt).setVisibility(View.VISIBLE);
 		}
 
 	}

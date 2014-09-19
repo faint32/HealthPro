@@ -1,5 +1,7 @@
 package com.wyy.myhealth.ui.yaoyingyang;
 
+import android.os.Bundle;
+
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.ui.baseactivity.AbstractlistActivity;
 
@@ -11,11 +13,29 @@ public class TodayFoodRecActivity extends AbstractlistActivity {
 	protected void onInitFragment() {
 		// TODO Auto-generated method stub
 		super.onInitFragment();
-		isTopten=true;
-		getSupportFragmentManager().beginTransaction()
-				.add(R.id.wrapper, new TodayFoodRecFragment()).commit();
+		
 	}
 
+	@Override
+	protected void onInitFragment(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onInitFragment(savedInstanceState);
+		if (savedInstanceState==null) {
+			isTopten=true;
+			getSupportFragmentManager().beginTransaction()
+			.add(R.id.wrapper, new TodayFoodRecFragment()).commit();
+		}else {
+			isTopten=savedInstanceState.getBoolean("isTopten", true);
+		}
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+		outState.putBoolean("isTopten", isTopten);
+	}
+	
 	@Override
 	protected void onInitActionBar() {
 		// TODO Auto-generated method stub

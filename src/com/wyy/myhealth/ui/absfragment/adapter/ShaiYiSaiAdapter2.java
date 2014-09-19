@@ -12,6 +12,7 @@ import com.wyy.myhealth.imag.utils.LoadImageUtils;
 import com.wyy.myhealth.utils.BingLog;
 import com.wyy.myhealth.utils.ListUtils;
 
+import android.R.integer;
 import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
@@ -47,6 +48,7 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 	private ImageView collectImageView;
 	private ImageView commentImageView;
 	private int realPostion = 0;
+	private static int pop_Width = 0;
 	int[] location = new int[2];
 	private ShaiItemOnclickListener listener;
 
@@ -67,6 +69,8 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 		popupWindow.setFocusable(false);
 		commentImageView.setFocusable(false);
 		collectImageView.setFocusable(false);
+		float screen_Width=context.getResources().getDisplayMetrics().widthPixels;
+		pop_Width=(int) (254*(screen_Width/720));
 	}
 
 	@Override
@@ -273,7 +277,7 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 					realPostion = adaposition;
 					int width = popView.getWidth();
 					if (width == 0) {
-						width = 254;
+						width = pop_Width;
 					}
 
 					if (popupWindow.isShowing()) {
@@ -282,6 +286,7 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 						popupWindow.showAtLocation(v, Gravity.NO_GRAVITY,
 								location[0] - width, location[1]);
 					} else {
+						BingLog.i(TAG, "window:" + width);
 						v.getLocationOnScreen(location);
 						popupWindow.showAtLocation(v, Gravity.NO_GRAVITY,
 								location[0] - width, location[1]);

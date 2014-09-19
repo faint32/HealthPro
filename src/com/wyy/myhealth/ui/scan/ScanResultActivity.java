@@ -1,6 +1,10 @@
 package com.wyy.myhealth.ui.scan;
 
+import java.io.File;
+
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,14 +18,17 @@ import com.wyy.myhealth.bean.HealthRecoderBean;
 import com.wyy.myhealth.bean.NearFoodBean;
 import com.wyy.myhealth.bean.ScanMoodBean;
 import com.wyy.myhealth.contants.ConstantS;
+import com.wyy.myhealth.file.utils.FileUtils;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.imag.utils.LoadImageUtils;
+import com.wyy.myhealth.imag.utils.SavePic;
 import com.wyy.myhealth.service.MainService;
 import com.wyy.myhealth.ui.baseactivity.BaseNutritionActivity;
 import com.wyy.myhealth.ui.baseactivity.BaseScanResultActivity;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 import com.wyy.myhealth.ui.scan.utils.DialogShow;
 import com.wyy.myhealth.utils.BingLog;
+import com.wyy.myhealth.utils.ShareUtils;
 
 public class ScanResultActivity extends BaseScanResultActivity implements
 		ActivityInterface {
@@ -41,8 +48,8 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_scan__success);
-		sendChangeUI();
 		initView();
+		sendChangeUI();
 	}
 
 	@Override
@@ -60,11 +67,25 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 	}
 
 	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		if (!failurelay.isShown()) {
+			menu.findItem(R.id.help).setIcon(android.R.drawable.ic_menu_share);
+		}
+		return super.onPrepareOptionsMenu(menu);
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.help:
-			DialogShow.showHelpDialog(context, getString(R.string.sao_help));
+			if (failurelay.isShown()) {
+				DialogShow.showHelpDialog(context, getString(R.string.sao_help));
+			}else {
+				saveScreen(successlay);
+			}
+			
 			break;
 
 		default:
@@ -197,4 +218,32 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 		startActivity(intent);
 	}
 
+	
+	
+	private void saveScreen(final View graphicalView) {
+		new Thread() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				super.run();
+				try {
+					graphicalView.setDrawingCacheEnabled(true);
+					SavePic.saveRecoredPic2Example(Bitmap
+							.createBitmap(graphicalView.getDrawingCache()));
+					graphicalView.setDrawingCacheEnabled(false);
+					ShareUtils
+					.shareFood(context, getString(R.string.share_content_),
+							Uri.fromFile(new File(FileUtils.HEALTH_IMAG, "recored"
+									+ ".png")));
+				} catch (Exception e) {
+					// TODO: handle exception
+					BingLog.e(TAG, "±£´æ´íÎó:" + e.getMessage());
+				}
+
+			}
+
+		}.start();
+	}
+	
 }

@@ -261,6 +261,9 @@ public class ShareFoodActivity extends SubmitActivity implements
 		contentString = content.getText().toString();
 		placeString = place.getText().toString();
 		String foodpicStr = "";
+		if (TextUtils.isEmpty(tagString)) {
+			tagString="";
+		}
 		foodpicStr = PhoneUtlis.bitmap_Small_ZoomToString(FileUtils.PIC_PATH);
 		HealthHttpClient.doHttpPostFoods(WyyApplication.getInfo().getId(),
 				foodpicStr, tagString, contentString, tasteStr,

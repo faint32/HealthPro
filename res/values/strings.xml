@@ -380,5 +380,6 @@
     <string name="boot_title2_content">每天忙于工作，忽略营养合理，\n抵抗力差到不行？</string>
     <string name="boot_title3_content">扫一扫真实菜品食物，知道营养\n成分和热量，还能预警？</string>
     <string name="boot_title4_content">关于健康，微营养能做的是为你\n提供实时预警及跟踪？</string>
+    <string name="no_comment">还没有人来评论哦，\n快去抢沙发！</string>
 
 </resources>

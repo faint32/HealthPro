@@ -33,11 +33,18 @@ public class AbstractlistActivity extends ActionBarActivity {
 		setContentView(R.layout.wrapper);
 		context = this;
 		onInitFragment();
+		onInitFragment(savedInstanceState);
 		onInitActionBar();
 		setCusmenutome();
 	}
-
+	/**
+	 * @deprecated ≤Œ’’{@link #onInitFragment(Bundle)}
+	 */
 	protected void onInitFragment() {
+
+	}
+	
+	protected void onInitFragment(Bundle savedInstanceState) {
 
 	}
 

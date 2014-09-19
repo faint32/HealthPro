@@ -18,4 +18,15 @@
         layout="@layout/send_msg_edit_layout"
         android:visibility="gone" />
 
+     <TextView
+         android:id="@+id/no_comment_txt"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:hint="@string/no_comment"
+         android:textSize="20sp"
+         android:drawableTop="@drawable/ic_no_comment"
+         android:gravity="center" 
+         android:visibility="gone"/>
+
 </FrameLayout>

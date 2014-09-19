@@ -408,6 +408,7 @@ public class MainActivity extends ActionBarActivity implements
 			tabs.setVisibility(View.INVISIBLE);
 		} else {
 			tabs.setVisibility(View.VISIBLE);
+			BingLog.d(TAG, "œ‘ ætab");
 		}
 	}
 
