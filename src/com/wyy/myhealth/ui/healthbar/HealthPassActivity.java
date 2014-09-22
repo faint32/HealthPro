@@ -1,6 +1,9 @@
 package com.wyy.myhealth.ui.healthbar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -13,48 +16,48 @@ import com.wyy.myhealth.ui.baseactivity.AbstractlistActivity;
 import com.wyy.myhealth.ui.collect.CollectActivity;
 
 public class HealthPassActivity extends AbstractlistActivity {
+	private static final String TAG = HealthPassActivity.class.getSimpleName();
 
 	@Override
 	protected void setCustomActionBar() {
 		// TODO Auto-generated method stub
 		super.setCustomActionBar();
-//		isCustomActionBar = true;
+		// isCustomActionBar = true;
 	}
 
 	@Override
 	protected void onInitFragment() {
 		// TODO Auto-generated method stub
 		super.onInitFragment();
-		
+
 	}
 
-	
 	@Override
 	protected void onInitFragment(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onInitFragment(savedInstanceState);
-		if (savedInstanceState==null) {
+		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-			.add(R.id.wrapper, new HealPassFragment()).commit();
+					.add(R.id.wrapper, new HealPassFragment()).commit();
 		}
-		
+
 	}
-	
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		// TODO Auto-generated method stub
 		super.onSaveInstanceState(outState);
 		outState.putBoolean("istran", isCustomActionBar);
 	}
-	
+
 	@Override
 	protected void onInitActionBar() {
 		// TODO Auto-generated method stub
 		super.onInitActionBar();
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setTitle(R.string.healthpass);
-//		actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
-//				.getColor(R.color.transparent)));
+		// actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
+		// .getColor(R.color.transparent)));
 		if (Utils.mstlList != null && Utils.mstlList.size() > 0) {
 			actionBar.setBackgroundDrawable(getResources().getDrawable(
 					R.drawable.action_bar_notice));
@@ -62,7 +65,6 @@ public class HealthPassActivity extends AbstractlistActivity {
 
 	}
 
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
@@ -111,6 +113,23 @@ public class HealthPassActivity extends AbstractlistActivity {
 
 	private void showCollect() {
 		startActivity(new Intent(context, CollectActivity.class));
+	}
+
+	public static boolean getIsFirstUse(Context context) {
+		boolean isFirstUse = false;
+		SharedPreferences sharedPreferences = context.getSharedPreferences(TAG,
+				Context.MODE_PRIVATE);
+		isFirstUse = sharedPreferences.getBoolean("isfirstuse", true);
+		return isFirstUse;
+
+	}
+
+	public static void setIsFristUse(Context context, boolean isFirstUse) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(TAG,
+				Context.MODE_PRIVATE);
+		Editor editor = sharedPreferences.edit();
+		editor.putBoolean("isfirstuse", isFirstUse);
+		editor.commit();
 	}
 
 }

@@ -381,5 +381,6 @@
     <string name="boot_title3_content">扫一扫真实菜品食物，知道营养\n成分和热量，还能预警？</string>
     <string name="boot_title4_content">关于健康，微营养能做的是为你\n提供实时预警及跟踪？</string>
     <string name="no_comment">还没有人来评论哦，\n快去抢沙发！</string>
+    <string name="hps_no_content" formatted="false">其实90%的人\n的健康可以从这里开始!</string>
 
 </resources>

@@ -25,6 +25,7 @@ import com.wyy.myhealth.ui.absfragment.utils.ListAddUtils;
 import com.wyy.myhealth.ui.absfragment.utils.SortUtils;
 import com.wyy.myhealth.ui.absfragment.utils.TimeUtils;
 import com.wyy.myhealth.ui.customview.BingListView;
+import com.wyy.myhealth.ui.healthbar.HealthPassActivity;
 import com.wyy.myhealth.utils.BingLog;
 
 import android.graphics.Color;
@@ -37,6 +38,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +87,7 @@ public class HealthPassBase extends Fragment {
 	protected ImageView userhead;
 	protected ImageButton publishV;
 	protected TextView username;
+	protected LinearLayout hps_no_content;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -107,6 +110,7 @@ public class HealthPassBase extends Fragment {
 		userhead = (ImageView) headView.findViewById(R.id.user_head);
 		username = (TextView) headView.findViewById(R.id.username);
 		publishV = (ImageButton) headView.findViewById(R.id.take_pic);
+		hps_no_content=(LinearLayout)headView.findViewById(R.id.hps_no_content_include);
 		mListView.addHeaderView(headView);
 
 		mRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
@@ -268,6 +272,10 @@ public class HealthPassBase extends Fragment {
 			} else {
 				reshParseJson(response);
 				json = response.toString();
+			}
+			
+			if (HealthPassActivity.getIsFirstUse(getActivity())&&(null==thList2||thList2.size()==0)) {
+				hps_no_content.setVisibility(View.VISIBLE);
 			}
 
 		}

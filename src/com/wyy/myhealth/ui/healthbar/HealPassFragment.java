@@ -260,6 +260,11 @@ public class HealPassFragment extends HealthPassBase implements
 			// TODO Auto-generated method stub
 			switch (v.getId()) {
 			case R.id.take_pic:
+				if (hps_no_content.isShown()) {
+					hps_no_content.setVisibility(View.GONE);
+					HealthPassActivity.setIsFristUse(getActivity(), false);
+				}
+				
 				startActivity(new Intent(getActivity(),
 						PublishMoodActivity.class));
 				break;

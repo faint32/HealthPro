@@ -12,7 +12,7 @@
 
     <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="80dp" >
+        android:layout_height="wrap_content" >
 
         <ImageButton
             android:id="@+id/take_pic"
@@ -21,6 +21,14 @@
             android:layout_marginLeft="15dp"
             android:background="@drawable/pic_preview"
             android:src="@drawable/pic_sec" />
+
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="65dp"
+            layout="@layout/hps_no_content_iclude" 
+            android:visibility="gone"/>
 
     </FrameLayout>
 

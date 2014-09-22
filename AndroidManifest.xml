@@ -64,6 +64,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
+            android:logo="@drawable/logo_top_actionbar"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -77,7 +78,8 @@
         </activity>
         <activity
             android:name=".ui.login.LoginActivity"
-            android:label="@string/login" >
+            android:label="@string/login"
+            android:logo="@drawable/logo_top_actionbar" >
         </activity>
 
         <service
@@ -139,10 +141,12 @@
         </activity>
         <activity
             android:name=".ui.shaiyishai.ShaiyishaiActivity"
-            android:configChanges="keyboardHidden|orientation" android:screenOrientation="portrait">
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.healthbar.HealthPassActivity" android:screenOrientation="portrait">
+            android:name=".ui.healthbar.HealthPassActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity android:name=".ui.message.ChatMsgActivity" >
         </activity>
@@ -227,13 +231,17 @@
         </activity>
         <activity android:name=".ui.photoPager.PhotoPagerActivity" >
         </activity>
-        <activity android:name=".ui.collect.CollectActivity" android:screenOrientation="portrait">
+        <activity
+            android:name=".ui.collect.CollectActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity android:name=".ui.healthbar.MsgListActivity" >
         </activity>
         <activity android:name=".ui.icebox.IceBoxActivity" >
         </activity>
-        <activity android:name=".ui.login.MicroCodeLoginActivity" >
+        <activity
+            android:name=".ui.login.MicroCodeLoginActivity"
+            android:logo="@drawable/logo_top_actionbar" >
         </activity>
         <activity android:name=".ui.icebox.IceBoxAddFood" >
         </activity>
@@ -244,9 +252,12 @@
         <activity android:name=".ui.icebox.IceBoxHistory" >
         </activity>
         <activity
-            android:name=".ui.yaoyingyang.TodayFoodRecActivity" android:configChanges="keyboardHidden|orientation">
+            android:name=".ui.yaoyingyang.TodayFoodRecActivity"
+            android:configChanges="keyboardHidden|orientation" >
         </activity>
-        <activity android:name=".ui.login.RegistActivity" >
+        <activity
+            android:name=".ui.login.RegistActivity"
+            android:logo="@drawable/logo_top_actionbar" >
         </activity>
         <activity
             android:name=".ui.icebox.IceBoxInfoActivity"
