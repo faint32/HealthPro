@@ -375,12 +375,19 @@
     <string name="boot_title1">关于减肥</string>
     <string name="boot_title2">关于亚健康</string>
     <string name="boot_title3">智能营养</string>
-    <string name="boot_title4"> 关于健康</string>
+    <string name="boot_title4">关于健康</string>
     <string name="boot_title1_content">每天减少饭量，蹲在健身房\n锻炼到虚脱？</string>
     <string name="boot_title2_content">每天忙于工作，忽略营养合理，\n抵抗力差到不行？</string>
     <string name="boot_title3_content">扫一扫真实菜品食物，知道营养\n成分和热量，还能预警？</string>
     <string name="boot_title4_content">关于健康，微营养能做的是为你\n提供实时预警及跟踪？</string>
     <string name="no_comment">还没有人来评论哦，\n快去抢沙发！</string>
     <string name="hps_no_content" formatted="false">其实90%的人\n的健康可以从这里开始!</string>
+    <string name="scan_nav_t">聚焦请对准中式美食，点击按钮\n就能快速知道食物营养与热量哦!</string>
+    <string name="scan_nav_v">你也可以通过语音或文字\n获知食物食物营养与热量哦!</string>
+    <string name="yao_nav">从此用户会知道美食营养与热量\n是否适合自己吃，口味如何、在哪里、\n怎么去、怎么联系&#8230;</string>
+    <string name="dis_nav_hr">随着每次扫描并记录\n这里自动建立摄取量连续走势图</string>
+    <string name="dis_nav_ice">把家里的食物搬进来吧!</string>
+    <string name="person_nav">微营养将会基于您的\n基本信息进行个性化营养健康服务\n基本信息一定要填哦!</string>
+    <string name="nutrion_nav">""建议值"必须在用户\n又一次纪录值之后才会有哦!</string>
 
 </resources>

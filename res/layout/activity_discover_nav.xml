@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/discover_nav"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transblack" >
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="250dp"
+        layout="@layout/discover_hr_include" />
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="320dp"
+        layout="@layout/dis_nav_ice_box"
+        android:visibility="gone" />
+
+</FrameLayout>

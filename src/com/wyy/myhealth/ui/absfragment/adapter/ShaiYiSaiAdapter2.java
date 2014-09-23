@@ -190,13 +190,13 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 
 	private void setFoodView(ViewHolder holder, int position) {
 		holder.shaitagTextView.setText(R.string.share_food);
-		if (!TextUtils.isEmpty(list.get(position).getTags())) {
-			holder.foodtagTextView.setVisibility(View.VISIBLE);
-			holder.foodtagTextView.setText(context.getString(R.string.tags_)
-					+ list.get(position).getTags());
-		} else {
-			holder.foodtagTextView.setVisibility(View.GONE);
-		}
+//		if (!TextUtils.isEmpty(list.get(position).getTags())) {
+//			holder.foodtagTextView.setVisibility(View.VISIBLE);
+//			holder.foodtagTextView.setText(context.getString(R.string.tags_)
+//					+ list.get(position).getTags());
+//		} else {
+//			holder.foodtagTextView.setVisibility(View.GONE);
+//		}
 		holder.levelTextView.setText(R.string.hps_share_list_2);
 		holder.shai_level_imgImageView.setImageResource(ConstantS.levels[list
 				.get(position).getTastelevel()]);
@@ -239,6 +239,11 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 			holder.gridAdapter = new GridAdapter2(context, list.get(position)
 					.getImg());
 			holder.picGridView.setAdapter(holder.gridAdapter);
+			if (!TextUtils.isEmpty(list.get(position).getTags())) {
+				holder.gridAdapter.setFoodtag(list.get(position).getTags());
+			}else {
+				holder.gridAdapter.setFoodtag("");
+			} 
 			holder.picGridView.setVisibility(View.VISIBLE);
 			holder.picGridView.setFocusable(false);
 			holder.picGridView.setFocusableInTouchMode(false);

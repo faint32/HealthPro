@@ -22,6 +22,12 @@
     </style>
     
 
+     <style name="BingTranslucentNotitleTheme" parent="AppBaseTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+         <item name="android:windowNoTitle">true</item>  
+    </style>
+    
     <style name="bing_edit_style" parent="@android:style/Widget.EditText">
         <item name="android:background">@drawable/bing_edit_sec</item>
     </style>

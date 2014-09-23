@@ -10,4 +10,20 @@
         android:layout_gravity="top"
         android:scaleType="centerCrop" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp" >
+
+        <TextView
+            android:id="@+id/tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/translightgray"
+            android:layout_gravity="bottom"
+            style="@style/White_normal_txt_theme"
+            android:visibility="gone"
+            android:text="" />
+
+    </FrameLayout>
+
 </FrameLayout>

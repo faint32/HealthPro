@@ -293,6 +293,11 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".ui.navigation.ScanNavActivity" android:launchMode="singleTask" android:theme="@style/BingTranslucentNotitleTheme" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.navigation.YaoNavActivity" android:screenOrientation="portrait" android:launchMode="singleTask" android:theme="@style/BingTranslucentNotitleTheme"></activity>
+        <activity android:name=".ui.navigation.DiscoverNavActivity" android:screenOrientation="portrait" android:launchMode="singleTask" android:theme="@style/BingTranslucentNotitleTheme"></activity>
+        <activity android:name=".ui.navigation.PersonalNavActivity" android:screenOrientation="portrait" android:launchMode="singleTask" android:theme="@style/BingTranslucentNotitleTheme"></activity>
+        <activity android:name=".ui.navigation.NutritionNavActivity" android:screenOrientation="portrait" android:launchMode="singleTask" android:theme="@style/BingTranslucentNotitleTheme"></activity>
     </application>
 
 </manifest>

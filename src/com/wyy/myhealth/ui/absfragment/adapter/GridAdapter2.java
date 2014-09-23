@@ -7,17 +7,25 @@ import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.imag.utils.LoadImageUtils;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class GridAdapter2 extends BaseAdapter {
 
 	private List<String> list;
 
 	private LayoutInflater inflater;
+
+	private String foodtag="";
+	
+	public void setFoodtag(String foodtag) {
+		this.foodtag = foodtag;
+	}
 
 	public GridAdapter2(Context context, List<String> list) {
 		this.list = list;
@@ -45,11 +53,13 @@ public class GridAdapter2 extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		ImageView mImageView;
+		ViewHolder holder;
 		if (convertView == null) {
+			holder=new ViewHolder();
 			switch (list.size()) {
 			case 1:
 				convertView = inflater.inflate(R.layout.pic_grid_, null);
+				holder.tagTextView=(TextView)convertView.findViewById(R.id.tag);
 				break;
 
 			case 2:
@@ -67,17 +77,32 @@ public class GridAdapter2 extends BaseAdapter {
 				break;
 			}
 
-			mImageView = (ImageView) convertView
+			holder.pic = (ImageView) convertView
 					.findViewById(R.id.shai_pic_muilt);
-			convertView.setTag(mImageView);
+			
+			convertView.setTag(holder);
 		} else {
-			mImageView = (ImageView) convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
 
-		LoadImageUtils.loadImage4ImageV(mImageView, HealthHttpClient.IMAGE_URL
+		LoadImageUtils.loadImage4ImageV(holder.pic, HealthHttpClient.IMAGE_URL
 				+ list.get(position));
-
+		if (null!=holder.tagTextView) {
+			if (!TextUtils.isEmpty(foodtag)) {
+				holder.tagTextView.setText(foodtag);
+				holder.tagTextView.setVisibility(View.VISIBLE);
+			}else {
+				holder.tagTextView.setVisibility(View.GONE);
+			}
+		}
+		
 		return convertView;
+	}
+
+	public class ViewHolder {
+		public ImageView pic;
+
+		public TextView tagTextView;
 	}
 
 }

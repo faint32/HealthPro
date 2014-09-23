@@ -11,6 +11,9 @@ import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.pager.utils.SuperAwesomeCardFragment;
 import com.wyy.myhealth.service.MainService;
 import com.wyy.myhealth.ui.discover.DiscoverFragment;
+import com.wyy.myhealth.ui.navigation.DiscoverNavActivity;
+import com.wyy.myhealth.ui.navigation.PersonalNavActivity;
+import com.wyy.myhealth.ui.navigation.YaoNavActivity;
 import com.wyy.myhealth.ui.personcenter.PersonCenterFragment;
 import com.wyy.myhealth.ui.scan.ScanFragment;
 import com.wyy.myhealth.ui.scan.utils.DialogShow;
@@ -78,11 +81,13 @@ public class MainActivity extends ActionBarActivity implements
 
 	ImageView help;
 
+	private Context context;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		context = this;
 		initActionBar();
 		initService();
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -329,6 +334,11 @@ public class MainActivity extends ActionBarActivity implements
 			sendPageIndex(arg0);
 		} else if (arg0 == 2) {
 			startUpdateData();
+			initDisNav();
+		} else if (arg0 == 3) {
+			initPersonNav();
+		} else if (arg0 == 1) {
+			initYaoNav();
 		}
 
 	}
@@ -501,6 +511,24 @@ public class MainActivity extends ActionBarActivity implements
 			mainPager.setCurrentItem(postion);
 		} catch (Exception e) {
 			// TODO: handle exception
+		}
+	}
+
+	private void initYaoNav() {
+		if (YaoNavActivity.getIsFirstUse(context)) {
+			startActivity(new Intent(context, YaoNavActivity.class));
+		}
+	}
+
+	private void initDisNav() {
+		if (DiscoverNavActivity.getIsFirstUse(context)) {
+			startActivity(new Intent(context, DiscoverNavActivity.class));
+		}
+	}
+
+	private void initPersonNav() {
+		if (PersonalNavActivity.getIsFirstUse(context)) {
+			startActivity(new Intent(context, PersonalNavActivity.class));
 		}
 	}
 

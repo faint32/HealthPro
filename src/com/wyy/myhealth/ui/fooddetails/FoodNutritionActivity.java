@@ -1,5 +1,6 @@
 package com.wyy.myhealth.ui.fooddetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +15,8 @@ import com.wyy.myhealth.imag.utils.LoadImageUtils;
 import com.wyy.myhealth.service.MainService;
 import com.wyy.myhealth.ui.baseactivity.BaseNutritionActivity;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
+import com.wyy.myhealth.ui.navigation.NutritionNavActivity;
+import com.wyy.myhealth.ui.navigation.PersonalNavActivity;
 import com.wyy.myhealth.utils.BingLog;
 
 public class FoodNutritionActivity extends BaseNutritionActivity implements
@@ -29,6 +32,7 @@ public class FoodNutritionActivity extends BaseNutritionActivity implements
 		setContentView(R.layout.activity_food_nutri_info);
 		initView();
 		setIshasScale(true);
+		initNutriNav();
 	}
 
 	@Override
@@ -122,4 +126,10 @@ public class FoodNutritionActivity extends BaseNutritionActivity implements
 		}
 	});
 
+	private void initNutriNav() {
+		if (NutritionNavActivity.getIsFirstUse(context)) {
+			startActivity(new Intent(context, NutritionNavActivity.class));
+		}
+	}
+	
 }

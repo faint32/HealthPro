@@ -28,6 +28,7 @@ import com.wyy.myhealth.imag.utils.PhotoUtils;
 import com.wyy.myhealth.imag.utils.SavePic;
 import com.wyy.myhealth.support.bitmap.BitmapRatioUtils;
 import com.wyy.myhealth.support.picfeure.Align;
+import com.wyy.myhealth.ui.navigation.ScanNavActivity;
 import com.wyy.myhealth.ui.photoview.utils.Utility;
 import com.wyy.myhealth.utils.BingLog;
 
@@ -118,7 +119,7 @@ public class ScanFragment extends Fragment {
 	private int feture = 0;
 	// 阈值
 	private double cw = 0;
-	
+
 	private ScanMoodBean scanMoodBean;
 
 	public static ScanFragment newInstance(int postion) {
@@ -208,6 +209,8 @@ public class ScanFragment extends Fragment {
 			initCameraView();
 			count = 1;
 		}
+
+		initNav();
 
 	}
 
@@ -634,7 +637,7 @@ public class ScanFragment extends Fragment {
 					// TODO: handle exception
 					e.printStackTrace();
 				}
-				
+
 				try {
 					Config.log = mJsonObject.getString("log");
 				} catch (Exception e) {
@@ -871,7 +874,7 @@ public class ScanFragment extends Fragment {
 		if (scanView.isShown()) {
 			scanView.setVisibility(View.INVISIBLE);
 			saoImageView.setVisibility(View.INVISIBLE);
-			bottomLayout.setVisibility(View.GONE);//设置INVISIBLE会出现返回时无法显示的情况
+			bottomLayout.setVisibility(View.GONE);// 设置INVISIBLE会出现返回时无法显示的情况
 			scantTextView.setVisibility(View.GONE);
 			try {
 				mCamera.stopPreview();
@@ -916,9 +919,15 @@ public class ScanFragment extends Fragment {
 	private void getFoodTag(JSONObject jsonObject) {
 		sameNearFoodBean = JsonUtils.getNearFoodBean(jsonObject);
 	}
-	
+
 	private void getFaceBean(JSONObject jsonObject) {
 		scanMoodBean = JsonUtils.getScanMoodBean(jsonObject);
 	}
-	
+
+	private void initNav() {
+		if (ScanNavActivity.getIsFirstUse(getActivity())) {
+			startActivity(new Intent(getActivity(), ScanNavActivity.class));
+		}
+	}
+
 }
