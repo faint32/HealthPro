@@ -2,7 +2,6 @@ package com.wyy.myhealth.ui.absfragment.adapter;
 
 import java.util.List;
 
-import javax.print.attribute.standard.Fidelity;
 
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.bean.MoodaFoodBean;
@@ -10,9 +9,7 @@ import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.imag.utils.LoadImageUtils;
 import com.wyy.myhealth.utils.BingLog;
-import com.wyy.myhealth.utils.ListUtils;
 
-import android.R.integer;
 import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
@@ -190,13 +187,13 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 
 	private void setFoodView(ViewHolder holder, int position) {
 		holder.shaitagTextView.setText(R.string.share_food);
-//		if (!TextUtils.isEmpty(list.get(position).getTags())) {
-//			holder.foodtagTextView.setVisibility(View.VISIBLE);
-//			holder.foodtagTextView.setText(context.getString(R.string.tags_)
-//					+ list.get(position).getTags());
-//		} else {
-//			holder.foodtagTextView.setVisibility(View.GONE);
-//		}
+		if (!list.get(position).isAdv()&&!TextUtils.isEmpty(list.get(position).getTags())) {
+			holder.foodtagTextView.setVisibility(View.VISIBLE);
+			holder.foodtagTextView.setText(context.getString(R.string.tags_)
+					+ list.get(position).getTags());
+		} else {
+			holder.foodtagTextView.setVisibility(View.GONE);
+		}
 		holder.levelTextView.setText(R.string.hps_share_list_2);
 		holder.shai_level_imgImageView.setImageResource(ConstantS.levels[list
 				.get(position).getTastelevel()]);
@@ -239,7 +236,7 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 			holder.gridAdapter = new GridAdapter2(context, list.get(position)
 					.getImg());
 			holder.picGridView.setAdapter(holder.gridAdapter);
-			if (!TextUtils.isEmpty(list.get(position).getTags())) {
+			if (list.get(position).isAdv()&&!TextUtils.isEmpty(list.get(position).getTags())) {
 				holder.gridAdapter.setFoodtag(list.get(position).getTags());
 			}else {
 				holder.gridAdapter.setFoodtag("");

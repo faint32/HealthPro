@@ -8,9 +8,9 @@
         android:id="@+id/food_tags"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="" 
-        android:gravity="center_vertical"/>
+        android:gravity="center_vertical"
+        android:text=""
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -32,22 +32,21 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:src="@drawable/star5" />
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-         android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:text="@string/energy"
             android:textColor="@color/slategray"
-               android:layout_gravity="center_vertical"
             android:textSize="15sp" />
-        
+
         <ImageView
             android:id="@+id/yao_enger_level"
             android:layout_width="wrap_content"
@@ -55,31 +54,42 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:src="@drawable/star5" />
-        
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="132dp"
         android:layout_height="wrap_content"
-         android:orientation="horizontal" >
+        android:orientation="horizontal" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:text="@string/renqi"
             android:textColor="@color/slategray"
-               android:layout_gravity="center_vertical"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/renqi_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-               android:layout_gravity="center_vertical"
+            android:layout_gravity="center_vertical"
             android:text=""
-            android:textColor="@color/home_txt" />
-
+            android:textColor="@color/home_txt"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_renqi_yao" />
+        
+         <TextView
+             android:id="@+id/comment_num"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_vertical"
+             android:drawableLeft="@drawable/ic_comment_yao"
+             android:layout_weight="1"
+             android:text=""
+             android:textColor="@color/home_txt" />
+        
     </LinearLayout>
 
 </LinearLayout>

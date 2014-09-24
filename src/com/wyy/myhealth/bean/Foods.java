@@ -111,7 +111,7 @@ public class Foods implements Serializable{
 	}
 
 	public String getCommentcount() {
-		return commentcount;
+		return ""+commentcount;
 	}
 
 	public void setCommentcount(String commentcount) {

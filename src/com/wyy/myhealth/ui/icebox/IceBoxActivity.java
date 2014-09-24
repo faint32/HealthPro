@@ -21,11 +21,13 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wyy.myhealth.R;
@@ -77,11 +79,15 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 	private boolean isLoading = false;
 
 	private static boolean isDeletevisible = false;
-	
-	private int infodex=0;
 
-	private int iceBox_count=0;
+	private int infodex = 0;
+
+	private int iceBox_count = 0;
+
+	private TextView iceBoxStoreTextView;
 	
+	private LinearLayout icenullLinearLayout;
+
 	public static boolean isIsvisible() {
 		return isDeletevisible;
 	}
@@ -147,12 +153,15 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 		door_left = (FrameLayout) findViewById(R.id.door_left);
 		door_right = (FrameLayout) findViewById(R.id.door_right);
 		doorlayout = (LinearLayout) findViewById(R.id.ice_box_door_);
+		iceBoxStoreTextView = (TextView) findViewById(R.id.ice_store);
+		icenullLinearLayout=(LinearLayout)findViewById(R.id.ice_box_null);
 		animationHandler.sendEmptyMessageDelayed(0, 1000);
 		iceListv = (BingListView) findViewById(R.id.ice_box_list_v);
 		mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_swipe);
 		mSwipeRefreshLayout.setColorScheme(R.color.deepskyblue,
 				R.color.darkslategrey, R.color.themecolor, R.color.home_txt);
 		mSwipeRefreshLayout.setOnRefreshListener(this);
+		icenullLinearLayout.setOnClickListener(listener);
 		initData();
 	}
 
@@ -286,6 +295,14 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 
 				JSONArray foods = object.getJSONArray("foods");
 				int length = foods.length();
+				if (length==0) {
+					iceListv.setVisibility(View.GONE);
+					findViewById(R.id.ice_box_null).setVisibility(View.VISIBLE);
+				}else {
+					iceListv.setVisibility(View.VISIBLE);
+					findViewById(R.id.ice_box_null).setVisibility(View.GONE);
+				}
+				iceBoxStoreTextView.setText("±ùÏä¿â´æ:" + length);
 				for (int i = 0; i < length; i++) {
 					IceBoxFoodBean iceBoxFoodBean = JsonUtils
 							.getIceBoxFoodBean(foods.getJSONObject(i));
@@ -486,13 +503,14 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 	@Override
 	public void getFoodInfo(int adapterposition, int position) {
 		// TODO Auto-generated method stub
-		infodex=position;
+		infodex = position;
 		try {
-			loopIceBoxInfo(iceBoxFoodBeansList.get(adapterposition).get(position));
+			loopIceBoxInfo(iceBoxFoodBeansList.get(adapterposition).get(
+					position));
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 	}
 
 	private void loopIceBoxInfo(IceBoxFoodBean iceBoxFoodBean) {
@@ -502,12 +520,10 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 		Intent intent = new Intent(context, IceBoxInfoActivity.class);
 		intent.putExtra("food", iceBoxFoodBean);
 		startActivity(intent);
-//		overridePendingTransition(R.anim.zoom_enter,
-//				R.anim.zoom_exit);
+		// overridePendingTransition(R.anim.zoom_enter,
+		// R.anim.zoom_exit);
 	}
 
-	
-	
 	private void initFilter() {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ConstantS.ACTION_SEND_DELETE_ICEFOOD);
@@ -521,25 +537,46 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 			// TODO Auto-generated method stub
 			String action = intent.getAction();
 			if (action.equals(ConstantS.ACTION_SEND_DELETE_ICEFOOD)) {
-				IceBoxFoodBean iceBoxFoodBean=(IceBoxFoodBean) intent.getSerializableExtra("food");
+				IceBoxFoodBean iceBoxFoodBean = (IceBoxFoodBean) intent
+						.getSerializableExtra("food");
 				delIceFood(iceBoxFoodBean);
 			}
 		}
 	};
 
-	private void delIceFood(IceBoxFoodBean iceBoxFoodBean){
-		if (iceBoxFoodBean!=null) {
-			HealthHttpClient.delFood4Icebox(
-					iceBoxFoodBean.getId(), new DelFood4Ice(infodex, iceBoxFoodBean.getType()));
+	private void delIceFood(IceBoxFoodBean iceBoxFoodBean) {
+		if (iceBoxFoodBean != null) {
+			HealthHttpClient.delFood4Icebox(iceBoxFoodBean.getId(),
+					new DelFood4Ice(infodex, iceBoxFoodBean.getType()));
 		}
 	}
-	
-	private void getFoodNum(){
-		iceBox_count=0;
-		int length=iceBoxFoodBeansList.size();
+
+	private void getFoodNum() {
+		iceBox_count = 0;
+		int length = iceBoxFoodBeansList.size();
 		for (int i = 0; i < length; i++) {
-			iceBox_count=iceBoxFoodBeansList.get(i).size()+iceBox_count;
+			iceBox_count = iceBoxFoodBeansList.get(i).size() + iceBox_count;
 		}
 	}
+
+	
+	private OnClickListener listener=new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			int id=v.getId();
+			switch (id) {
+			case R.id.ice_box_null:
+				if (!isLoading) {
+					reshIceBoxFood();
+				}
+				break;
+
+			default:
+				break;
+			}
+		}
+	};
 	
 }

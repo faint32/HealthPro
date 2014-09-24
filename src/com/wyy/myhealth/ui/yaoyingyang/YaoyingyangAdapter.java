@@ -10,7 +10,6 @@ import com.wyy.myhealth.R;
 import com.wyy.myhealth.bean.NearFoodBean;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.service.MainService;
-import com.wyy.myhealth.utils.BingLog;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -89,7 +88,8 @@ public class YaoyingyangAdapter extends BaseAdapter {
 					.findViewById(R.id.yao_enger_level);
 			holder.renqiTextView = (TextView) convertView
 					.findViewById(R.id.renqi_num);
-
+			holder.commentNumView = (TextView) convertView
+					.findViewById(R.id.comment_num);
 			holder.shoucang = (ImageView) convertView
 					.findViewById(R.id.shoucang_img);
 			holder.distanceTextView = (TextView) convertView
@@ -105,29 +105,27 @@ public class YaoyingyangAdapter extends BaseAdapter {
 		imageLoader.displayImage(list.get(position).getFoodpic(),
 				holder.foodimg, options);
 
-		
-		if (adapterPostion==2&&!TodayFoodRecActivity.isTopten) {
+		if (adapterPostion == 2 && !TodayFoodRecActivity.isTopten) {
 			holder.recView.setVisibility(View.VISIBLE);
-		}else {
+		} else {
 			holder.recView.setVisibility(View.GONE);
 		}
-		
-		
+
 		holder.recView.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (listener!=null) {
+				if (listener != null) {
 					listener.on3Click();
 				}
 			}
 		});
-		
+
 		holder.foodtags.setText(list.get(position).getTags());
 
 		holder.renqiTextView.setText("" + list.get(position).getVisitcount());
-
+		holder.commentNumView.setText(list.get(position).getCommentcount());
 		if (MainActivity.Wlatitude == 0) {
 
 			holder.distanceTextView.setVisibility(View.INVISIBLE);
@@ -206,7 +204,7 @@ public class YaoyingyangAdapter extends BaseAdapter {
 
 		if (MainService.getNextHealthRecoderBeans() != null
 				&& MainService.getNextHealthRecoderBeans().size() > 0
-				&& adapterPostion < 3&&!TodayFoodRecActivity.isTopten) {
+				&& adapterPostion < 3 && !TodayFoodRecActivity.isTopten) {
 			holder.tuijianImageView.setVisibility(View.VISIBLE);
 		} else {
 			holder.tuijianImageView.setVisibility(View.GONE);
@@ -224,6 +222,7 @@ public class YaoyingyangAdapter extends BaseAdapter {
 		public TextView foodtags;
 		public TextView distanceTextView;
 		public TextView renqiTextView;
+		public TextView commentNumView;
 		public ImageView shoucang;
 		public ImageView tuijianImageView;
 		public View recView;
@@ -233,7 +232,7 @@ public class YaoyingyangAdapter extends BaseAdapter {
 		public void onLocationClick(int postion);
 
 		public void onCollectClick(int postion, boolean isCollect);
-		
+
 		public void on3Click();
 	}
 

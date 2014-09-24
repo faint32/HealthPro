@@ -56,6 +56,32 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/function_intro"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/list_sec"
+        android:clickable="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@drawable/ic_func_intro"
+            android:drawablePadding="16dp"
+            android:gravity="center"
+            android:text="@string/function_intro" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/click_more" />
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/clear_coach_"
         android:layout_width="match_parent"
         android:layout_height="50dp"

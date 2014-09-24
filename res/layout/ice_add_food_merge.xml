@@ -68,8 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="30dp"
-            android:hint="@string/good_day_hint"
-            android:text=""
+            android:text="@string/good_day_hint"
             android:textColor="@color/gray" />
     </FrameLayout>
 

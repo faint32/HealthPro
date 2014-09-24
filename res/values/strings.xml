@@ -78,6 +78,7 @@
     <string name="versioninfo">版本信息</string>
     <string name="commfeedback">意见反馈</string>
     <string name="clearcoach">清空缓存</string>
+    <string name="function_intro">功能介绍</string>
     <string name="loginout">注销当前账号</string>
     <string name="logining">登录中&#8230;</string>
     <string name="regeit">注册</string>

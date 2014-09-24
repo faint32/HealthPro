@@ -44,6 +44,7 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 		findViewById(R.id.app_version_).setOnClickListener(listener);
 		findViewById(R.id.clear_coach_).setOnClickListener(listener);
 		findViewById(R.id.login_out).setOnClickListener(listener);
+		findViewById(R.id.function_intro).setOnClickListener(listener);
 	}
 
 	@Override
@@ -73,7 +74,11 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 			case R.id.login_out:
 				showLoginOut();
 				break;
-
+			
+			case R.id.function_intro:
+				
+				break;
+				
 			default:
 				break;
 			}

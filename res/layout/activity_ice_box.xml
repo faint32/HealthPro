@@ -3,7 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        layout="@layout/ice_box_null_include"
+        android:visibility="gone" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -18,11 +24,11 @@
             android:descendantFocusability="blocksDescendants" >
         </com.wyy.myhealth.ui.customview.BingListView>
     </android.support.v4.widget.SwipeRefreshLayout>
-    
+
     <include
         android:id="@+id/ice_box_door_"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         layout="@layout/ice_box_door_include" />
-    
+
 </FrameLayout>

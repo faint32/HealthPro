@@ -32,7 +32,7 @@ public class NearFoodBean extends Foods{
 	}
 
 	public String getVisitcount() {
-		return visitcount;
+		return ""+visitcount;
 	}
 
 	public void setVisitcount(String visitcount) {
