@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -25,6 +24,7 @@ import com.wyy.myhealth.imag.utils.PhoneUtlis;
 import com.wyy.myhealth.imag.utils.PhotoUtils;
 import com.wyy.myhealth.ui.baseactivity.SubmitActivity;
 import com.wyy.myhealth.ui.personcenter.modify.utils.AgeUtils;
+import com.wyy.myhealth.utils.BingLog;
 
 public class ModifyBaseInfoActivity extends SubmitActivity implements
 		OnCheckedChangeListener {
@@ -238,7 +238,7 @@ public class ModifyBaseInfoActivity extends SubmitActivity implements
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
-				Log.e(ModifyBaseInfoActivity.class.getSimpleName(), "发送出错");
+				BingLog.e(ModifyBaseInfoActivity.class.getSimpleName(), "发送出错");
 			}
 		}
 	};
@@ -250,7 +250,7 @@ public class ModifyBaseInfoActivity extends SubmitActivity implements
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			Log.e(ModifyBaseInfoActivity.class.getSimpleName(), "发送出错");
+			BingLog.e(ModifyBaseInfoActivity.class.getSimpleName(), "发送出错");
 		}
 	}
 

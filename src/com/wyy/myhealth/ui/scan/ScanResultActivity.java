@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.bean.HealthRecoderBean;
@@ -23,7 +22,6 @@ import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.imag.utils.LoadImageUtils;
 import com.wyy.myhealth.imag.utils.SavePic;
 import com.wyy.myhealth.service.MainService;
-import com.wyy.myhealth.ui.baseactivity.BaseNutritionActivity;
 import com.wyy.myhealth.ui.baseactivity.BaseScanResultActivity;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 import com.wyy.myhealth.ui.scan.utils.DialogShow;
@@ -37,7 +35,7 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 
 	private FrameLayout successlay;
 
-	private LinearLayout failurelay;
+	private FrameLayout failurelay;
 
 	private NearFoodBean samefood;
 
@@ -109,7 +107,7 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 
 		setIshasScale(true);
 		successlay = (FrameLayout) findViewById(R.id.scan_success_lay);
-		failurelay = (LinearLayout) findViewById(R.id.scan_failure_lay);
+		failurelay = (FrameLayout) findViewById(R.id.scan_failure_lay);
 
 		findViewById(R.id.open_ligth).setOnClickListener(listener);
 		findViewById(R.id.take_pic).setOnClickListener(listener);
@@ -175,7 +173,7 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 			}
 
 		} else {
-			successlay.setVisibility(View.INVISIBLE);
+			successlay.setVisibility(View.GONE);
 			failurelay.setVisibility(View.VISIBLE);
 		}
 	}

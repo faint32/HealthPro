@@ -200,7 +200,11 @@ public class RecorderChatFragment extends Fragment implements HealthReListener {
 								.getCreatetime()));
 			}
 			renderer.setXLabels(0);
-
+			String [] yIndex=getResources().getStringArray(R.array.recorder_index);
+			int lengthy=yIndex.length;
+			for (int i = 0; i < lengthy; i++) {
+				renderer.addYTextLabel(i+1, yIndex[i]);
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

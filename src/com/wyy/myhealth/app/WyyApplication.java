@@ -71,8 +71,12 @@ public class WyyApplication extends FrontiaApplication {
 		super.onCreate();
 
 		wInstance = this;
+		try {
+			initEngineManager(this);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
-		initEngineManager(this);
 		initImageLoader(this);
 
 		if (SdUtils.ExistSDCard()) {
@@ -112,8 +116,8 @@ public class WyyApplication extends FrontiaApplication {
 				.showImageOnLoading(R.drawable.pic_loading_)
 				.showImageForEmptyUri(R.drawable.pic_empty)
 				.showImageOnFail(R.drawable.pic_failure).cacheInMemory(true)
-				.displayer(new RoundedBitmapDisplayer(50))
-				.cacheOnDisc(true).considerExifParams(true).build();
+				.displayer(new RoundedBitmapDisplayer(50)).cacheOnDisc(true)
+				.considerExifParams(true).build();
 
 	}
 
@@ -122,14 +126,14 @@ public class WyyApplication extends FrontiaApplication {
 	 * 
 	 * @param context
 	 */
-	public void initEngineManager(Context context) {
+	public void initEngineManager(Context context) throws Exception {
 		if (mBMapManager == null) {
 			mBMapManager = new BMapManager(context);
 		}
 
 		if (!mBMapManager.init(strKey, new MyGeneralListener())) {
 			Toast.makeText(
-					WyyApplication.getInstance().getApplicationContext(),
+					WyyApplication.getInstance(),
 					getString(R.string.neterro), Toast.LENGTH_LONG).show();
 		}
 	}

@@ -57,6 +57,7 @@ public class MessageAdapter extends BaseAdapter {
 			holder.timeTextView=(TextView)convertView.findViewById(R.id.time);
 			holder.typemsg=(TextView)convertView.findViewById(R.id.msg_type);
 			holder.userName=(TextView)convertView.findViewById(R.id.username);
+			holder.headima=(ImageView)convertView.findViewById(R.id.head_pic);
 			convertView.setTag(holder);
 			
 		}else {
@@ -77,7 +78,14 @@ public class MessageAdapter extends BaseAdapter {
 			holder.foodima.setVisibility(View.INVISIBLE);
 		}
 
-
+		try {
+			LoadImageUtils.loadImage4ImageV(holder.headima, list.get(position).get("userhead")+"");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+		
 		if (list.get(position).containsKey("time")) {
 			holder.timeTextView.setText("" + list.get(position).get("time"));
 		}
@@ -91,6 +99,7 @@ public class MessageAdapter extends BaseAdapter {
 
 	
 	private class ViewHolder {
+		public ImageView headima;
 		public TextView typemsg;//消息类型
 		public TextView userName;// 用户名称
 		public ImageView foodima;// 食物图片

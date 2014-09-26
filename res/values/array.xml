@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="recorder_index">
+        <item>很少</item>
+        <item>一般</item>
+        <item>中等</item>
+        <item>较高</item>
+        <item>很高</item>
+    </string-array>
+
+</resources>

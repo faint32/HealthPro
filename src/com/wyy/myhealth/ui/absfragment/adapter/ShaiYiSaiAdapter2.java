@@ -197,7 +197,14 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 		holder.levelTextView.setText(R.string.hps_share_list_2);
 		holder.shai_level_imgImageView.setImageResource(ConstantS.levels[list
 				.get(position).getTastelevel()]);
-		holder.reasonTextView.setText(list.get(position).getSummary());
+		String reason=list.get(position).getSummary();
+		if (TextUtils.isEmpty(reason)) {
+			holder.reasonTextView.setVisibility(View.GONE);
+		}else {
+			holder.reasonTextView.setText(reason);
+			holder.reasonTextView.setVisibility(View.VISIBLE);
+		}
+		
 
 	}
 
@@ -217,8 +224,13 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 			holder.levelTextView.setVisibility(View.GONE);
 			holder.shai_level_imgImageView.setVisibility(View.GONE);
 		}
-
-		holder.reasonTextView.setText(list.get(position).getContext());
+		String reason=list.get(position).getContext();
+		if (TextUtils.isEmpty(reason)) {
+			holder.reasonTextView.setVisibility(View.GONE);
+		}else {
+			holder.reasonTextView.setText(reason);
+			holder.reasonTextView.setVisibility(View.VISIBLE);
+		}
 
 	}
 

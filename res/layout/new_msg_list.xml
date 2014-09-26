@@ -7,10 +7,19 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
 
+    
+    <ImageView
+        android:id="@+id/head_pic"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="centerCrop" />
+    
     <include
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center_vertical"
+        android:layout_marginLeft="65dp"
         layout="@layout/msg_left" />
 
     <ImageView

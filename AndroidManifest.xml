@@ -146,7 +146,7 @@
         </activity>
         <activity
             android:name=".ui.healthbar.HealthPassActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait" android:launchMode="singleTask">
         </activity>
         <activity android:name=".ui.message.ChatMsgActivity" >
         </activity>
@@ -175,7 +175,7 @@
         </activity>
         <activity
             android:name=".ui.fooddetails.FoodDetailsActivity"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:uiOptions="splitActionBarWhenNarrow">
         </activity>
         <activity android:name=".ui.fooddetails.FoodCommentInfoActivity" >
         </activity>
@@ -215,7 +215,7 @@
             android:name=".ui.scan.VoiceSearceActivity"
             android:theme="@style/BingparenceTheme" >
         </activity>
-        <activity android:name=".ui.setting.SettingActivity" >
+        <activity android:name=".ui.setting.SettingActivity" android:launchMode="singleTask" android:screenOrientation="portrait">
         </activity>
         <activity android:name=".ui.setting.FeedbackActivity" >
         </activity>
@@ -298,6 +298,18 @@
         <activity android:name=".ui.navigation.DiscoverNavActivity" android:screenOrientation="portrait" android:launchMode="singleTask" android:theme="@style/BingTranslucentNotitleTheme"></activity>
         <activity android:name=".ui.navigation.PersonalNavActivity" android:screenOrientation="portrait" android:launchMode="singleTask" android:theme="@style/BingTranslucentNotitleTheme"></activity>
         <activity android:name=".ui.navigation.NutritionNavActivity" android:screenOrientation="portrait" android:launchMode="singleTask" android:theme="@style/BingTranslucentNotitleTheme"></activity>
+        <receiver android:name=".receiver.PostFootReceiver">
+            <intent-filter>
+                <action android:name="COM.BING.POST.FOOTS"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receiver.DownCompleReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+            </intent-filter>
+        </receiver>
+        <activity android:name=".ui.setting.FunctionIntroActivity" android:launchMode="singleTask"></activity>
+        <service android:name=".stepcount.StepService"></service>
     </application>
 
 </manifest>

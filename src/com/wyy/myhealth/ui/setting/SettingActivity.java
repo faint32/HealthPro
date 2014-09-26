@@ -74,11 +74,11 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 			case R.id.login_out:
 				showLoginOut();
 				break;
-			
+
 			case R.id.function_intro:
-				
+				showFuncIntro();
 				break;
-				
+
 			default:
 				break;
 			}
@@ -91,6 +91,10 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 
 	private void showVersion() {
 		startActivity(new Intent(context, AboutVersion.class));
+	}
+
+	private void showFuncIntro() {
+		startActivity(new Intent(context, FunctionIntroActivity.class));
 	}
 
 	private void showLoginOut() {
@@ -120,23 +124,22 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 				MODE_PRIVATE).edit().clear().commit();
 	}
 
-	
-	private void finshAll(){
+	private void finshAll() {
 		sendBroadcast(new Intent(ConstantS.ACTION_MAIN_FINSH));
 		loginoutQQ();
 	}
-	
-	
-	private void loginoutQQ(){
-		Tencent mTencent=Tencent.createInstance(ConstantS.TENCENT_APP_ID, getApplicationContext());
-		if (mTencent!=null&&mTencent.isSessionValid()) {
+
+	private void loginoutQQ() {
+		Tencent mTencent = Tencent.createInstance(ConstantS.TENCENT_APP_ID,
+				getApplicationContext());
+		if (mTencent != null && mTencent.isSessionValid()) {
 			try {
 				mTencent.logout(context);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			
+
 		}
 	}
-	
+
 }

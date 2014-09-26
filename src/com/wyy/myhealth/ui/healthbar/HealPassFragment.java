@@ -43,6 +43,7 @@ import com.wyy.myhealth.R;
 import com.wyy.myhealth.app.PreferencesFoodsInfo;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.MoodaFoodBean;
+import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.file.utils.FileUtils;
 import com.wyy.myhealth.http.AsyncHttpResponseHandler;
@@ -56,6 +57,7 @@ import com.wyy.myhealth.ui.mood.MoodDetailsActivity;
 import com.wyy.myhealth.ui.photoPager.PhotoPagerActivity;
 import com.wyy.myhealth.utils.BingDateUtils;
 import com.wyy.myhealth.utils.BingLog;
+import com.wyy.myhealth.welcome.WelcomeActivity;
 
 public class HealPassFragment extends HealthPassBase implements
 		OnRefreshListener, IXListViewListener, OnItemClickListener,
@@ -67,6 +69,8 @@ public class HealPassFragment extends HealthPassBase implements
 
 	private Bitmap headbg;
 
+	private PersonalInfo personalInfo;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -113,12 +117,18 @@ public class HealPassFragment extends HealthPassBase implements
 
 		publishV.setOnClickListener(listener);
 		bgImageView.setOnClickListener(listener);
+		personalInfo=WyyApplication.getInfo();
+		if (null==personalInfo) {
+			WelcomeActivity.getPersonInfo(getActivity());
+			personalInfo=WyyApplication.getInfo();
+		}
+		if (personalInfo!=null) {
+			imageLoader.displayImage(HealthHttpClient.IMAGE_URL
+					+ personalInfo.getHeadimage(), userhead, options);
 
-		imageLoader.displayImage(HealthHttpClient.IMAGE_URL
-				+ WyyApplication.getInfo().getHeadimage(), userhead, options);
-
-		username.setText("" + WyyApplication.getInfo().getUsername());
-
+			username.setText("" + personalInfo.getUsername());
+		}
+		
 		headbg = PhotoUtils.getListHeadBg();
 		if (headbg != null) {
 			bgImageView.setImageBitmap(headbg);

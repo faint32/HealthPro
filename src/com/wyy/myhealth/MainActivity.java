@@ -10,6 +10,7 @@ import com.baidu.location.LocationClientOption;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.pager.utils.SuperAwesomeCardFragment;
 import com.wyy.myhealth.service.MainService;
+import com.wyy.myhealth.stepcount.StepService;
 import com.wyy.myhealth.ui.discover.DiscoverFragment;
 import com.wyy.myhealth.ui.navigation.DiscoverNavActivity;
 import com.wyy.myhealth.ui.navigation.PersonalNavActivity;
@@ -19,6 +20,7 @@ import com.wyy.myhealth.ui.scan.ScanFragment;
 import com.wyy.myhealth.ui.scan.utils.DialogShow;
 import com.wyy.myhealth.ui.setting.SettingActivity;
 import com.wyy.myhealth.ui.yaoyingyang.YaoyingyangFragment;
+import com.wyy.myhealth.utils.AlarmUtils;
 import com.wyy.myhealth.utils.BingLog;
 
 import android.support.v7.app.ActionBar;
@@ -114,6 +116,7 @@ public class MainActivity extends ActionBarActivity implements
 
 		setCusmenutome();
 
+		initPostFoot();
 	}
 
 	private void initActionBar() {
@@ -531,5 +534,13 @@ public class MainActivity extends ActionBarActivity implements
 			startActivity(new Intent(context, PersonalNavActivity.class));
 		}
 	}
-
+	private void initPostFoot(){
+		try {
+			AlarmUtils.setAler(MainActivity.this);
+			StepService.startService(this);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
 }

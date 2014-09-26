@@ -43,6 +43,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+@SuppressWarnings("deprecation")
 public class HealthPassBase extends Fragment {
 
 	protected static final String TAG = ListBaseFragment.class.getSimpleName();
@@ -122,7 +123,7 @@ public class HealthPassBase extends Fragment {
 		mAdapter2 = new HealthAdapter2(thList2, getActivity());
 
 		mListView.setAdapter(mAdapter2);
-		mListView.setCacheColorHint(Color.TRANSPARENT);
+//		mListView.setCacheColorHint(Color.TRANSPARENT);
 	}
 
 	protected void onGetLastData() {

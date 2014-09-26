@@ -4,6 +4,7 @@ import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.service.MainService;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 import com.wyy.myhealth.ui.healthrecorder.RecorderChatFragment;
+import com.wyy.myhealth.utils.ReshUserDataUtlis;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -264,7 +265,7 @@ public class HealthReActivity extends ActionBarActivity implements
 			reason_num_txt.setText(getString(R.string.total_reason) + "\n"
 					+ MainService.getRecorderInfoBean().getReasonableNum()
 					+ getString(R.string.time));
-
+			ReshUserDataUtlis.reshUserRecorder(HealthReActivity.this);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

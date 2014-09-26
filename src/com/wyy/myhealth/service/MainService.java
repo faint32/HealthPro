@@ -239,6 +239,8 @@ public class MainService extends Service {
 		service = Executors.newScheduledThreadPool(2);
 		service.scheduleAtFixedRate(checkRunnable, ConstantS.DELAY_TIME,
 				ConstantS.PERIOD_TIME, TimeUnit.SECONDS);
+		service.scheduleAtFixedRate(userDataRunnable, ConstantS.DELAY_TIME,
+				ConstantS.PERIOD_TIME_, TimeUnit.MINUTES);
 	}
 
 	private Runnable checkRunnable = new Runnable() {
@@ -250,6 +252,15 @@ public class MainService extends Service {
 			BingLog.i(TAG, "Ö´ÐÐ:" + time);
 			HealthHttpClient.aired20(WyyApplication.getInfo().getId(),
 					ConstantS.FIRST, ConstantS.LIMIT, checkHandler);
+		}
+	};
+
+	private Runnable userDataRunnable = new Runnable() {
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			getUserRecorder();
 		}
 	};
 

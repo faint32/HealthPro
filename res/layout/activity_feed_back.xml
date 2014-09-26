@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/feedbackconent_hint" >
-
+        android:hint="@string/feedbackconent_hint"
+        style="@style/bing_edit_style" >
         <requestFocus />
     </EditText>
 
@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
+        style="@style/bing_edit_style"
         android:hint="@string/feekbackcontact_hint" />
 
 </LinearLayout>

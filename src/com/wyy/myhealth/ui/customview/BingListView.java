@@ -95,7 +95,13 @@ public class BingListView extends ListView implements OnScrollListener {
 			}
 			break;
 		}
-		return super.onTouchEvent(ev);
+		try {
+			return super.onTouchEvent(ev);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return false;
 	}
 	
 	

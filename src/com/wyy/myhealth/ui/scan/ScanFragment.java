@@ -31,6 +31,7 @@ import com.wyy.myhealth.support.picfeure.Align;
 import com.wyy.myhealth.ui.navigation.ScanNavActivity;
 import com.wyy.myhealth.ui.photoview.utils.Utility;
 import com.wyy.myhealth.utils.BingLog;
+import com.wyy.myhealth.utils.JudgePersInfoUtlity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -214,6 +215,9 @@ public class ScanFragment extends Fragment {
 
 	}
 
+	
+	
+	
 	private void initView(View v) {
 		saoImageView = (ImageView) v.findViewById(R.id.saomiao_k_img);
 		mFrameLayout = (FrameLayout) v.findViewById(R.id.camera_view);
@@ -268,9 +272,13 @@ public class ScanFragment extends Fragment {
 			surfaceHolder = getHolder();
 			surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 			surfaceHolder.addCallback(this);
-
-			mSupportedPreviewSizes = mCamera.getParameters()
-					.getSupportedPreviewSizes();
+			try {
+				mSupportedPreviewSizes = mCamera.getParameters()
+						.getSupportedPreviewSizes();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
 		}
 
 		@Override
@@ -278,6 +286,9 @@ public class ScanFragment extends Fragment {
 				int height) {
 			// TODO Auto-generated method stub
 			if (holder.getSurface() == null) {
+				return;
+			}
+			if (mCamera==null) {
 				return;
 			}
 			mCamera.stopPreview();
@@ -352,6 +363,9 @@ public class ScanFragment extends Fragment {
 				// Log.i(TAG, "Camera:" + mCamera);
 				if (null == mCamera) {
 					mCamera = Camera.open();
+				}
+				if (null==mCamera) {
+					return;
 				}
 				mCamera.setPreviewDisplay(holder);
 				mCamera.startPreview();
@@ -826,6 +840,12 @@ public class ScanFragment extends Fragment {
 	};
 
 	private void takepic2web() {
+
+		if (!JudgePersInfoUtlity.isComplete()) {
+			Toast.makeText(getActivity(), R.string.usersaoynotice,
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
 
 		if (Utility.isConnected(getActivity())) {
 			takpic = true;

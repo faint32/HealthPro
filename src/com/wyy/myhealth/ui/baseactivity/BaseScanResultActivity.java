@@ -105,7 +105,7 @@ public class BaseScanResultActivity extends BaseActivity {
 
 	protected void getnextsugarimgs(int score) {
 
-		if (sugarsocre > score && score != 0) {
+		if (sugarsocre > score ||(score == 0&&sugarsocre>3) ) {
 			sugartxt.setBackgroundResource(stateImgs[1]);
 		}else {
 			sugartxt.setBackgroundResource(stateImgs[0]);
@@ -118,7 +118,7 @@ public class BaseScanResultActivity extends BaseActivity {
 	}
 
 	protected void getnextenergysimgs(int score) {
-		if (energysocre > score && score != 0) {
+		if (energysocre > score ||(score == 0&&energysocre>3)) {
 			energytxt.setBackgroundResource(stateImgs[1]);
 			BingLog.i("指数", "正常:"+energysocre+"::"+score);
 		}else {

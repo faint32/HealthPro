@@ -110,6 +110,29 @@ public class FoodDetailsActivity extends BaseActivity {
 		foodsDetail(foodid);
 	}
 
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		BingLog.i(TAG, "===========onPause============");
+	}
+	
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		BingLog.i(TAG, "===========onStop============");
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		BingLog.i(TAG, "===========onDestroy============");
+	}
+	
 	private void initView() {
 		mydiatance = getIntent().getStringExtra("distance");
 		scrollView = (ScrollView) findViewById(R.id.details_scroll);

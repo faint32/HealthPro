@@ -211,8 +211,11 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 			super.onSuccess(content);
 			BingLog.i(TAG, "附近数据:" + content);
 			if (lastJson.equals(content)) {
-				Toast.makeText(getActivity(), R.string.nomore,
-						Toast.LENGTH_LONG).show();
+				if (getActivity()!=null) {
+					Toast.makeText(getActivity(), R.string.nomore,
+							Toast.LENGTH_LONG).show();
+				}
+				
 			} else {
 				parseFoodsReshList(content);
 			}
@@ -230,6 +233,9 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 		JSONObject result;
 		JSONArray resultlist;
 		try {
+			if (TextUtils.isEmpty(content)) {
+				return;
+			}
 			result = new JSONObject(content);
 			if (result.get("result").toString().equals("1")) {
 				resultlist = result.getJSONObject("foods").getJSONArray(
@@ -306,6 +312,9 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 		JSONArray resultlist;
 		list2.clear();
 		try {
+			if (TextUtils.isEmpty(content)) {
+				return;
+			}
 			result = new JSONObject(content);
 			if (result.get("result").toString().equals("1")) {
 				resultlist = result.getJSONObject("foods").getJSONArray(
@@ -376,7 +385,7 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 						Toast.LENGTH_LONG).show();
 			}
 
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -462,15 +471,24 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 	 * @param result
 	 */
 	private void saveLie_Current_Result(String result) {
+		if (TextUtils.isEmpty(result)) {
+			return;
+		}
 		BingLog.i(TAG, "保存此次数据:" + result);
-		SharedPreferences preferences = getActivity()
-				.getSharedPreferences(
-						YaoyingyangFragment.class.getSimpleName(),
-						Context.MODE_PRIVATE);
-		Editor editor = preferences.edit();
+		try {
+			
+			SharedPreferences preferences = getActivity()
+					.getSharedPreferences(
+							TAG,
+							Context.MODE_PRIVATE);
+			Editor editor = preferences.edit();
 
-		editor.putString(ConstantS.RESULT, result);
-		editor.commit();
+			editor.putString(ConstantS.RESULT, result);
+			editor.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 
 	}
 

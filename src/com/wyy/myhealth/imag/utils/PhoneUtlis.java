@@ -3,11 +3,9 @@ package com.wyy.myhealth.imag.utils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-
-
-
 
 import com.wyy.myhealth.file.utils.FileUtils;
 import com.wyy.myhealth.ui.scan.ScanFoodActivity;
@@ -18,6 +16,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Bitmap.Config;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Base64;
@@ -41,8 +40,7 @@ public class PhoneUtlis {
 		return Base64.encodeToString(b, Base64.DEFAULT);
 
 	}
-	
-	
+
 	/**
 	 * 把bitmap转换成String
 	 * 
@@ -58,9 +56,7 @@ public class PhoneUtlis {
 		return Base64.encodeToString(b, Base64.DEFAULT);
 
 	}
-	
-	
-	
+
 	/**
 	 * 把bitmap转换成String并压缩图片大小
 	 * 
@@ -78,8 +74,7 @@ public class PhoneUtlis {
 		return Base64.encodeToString(b, Base64.DEFAULT);
 
 	}
-	
-	
+
 	public static String bitmap_Small_ZoomToString(String filePath) {
 
 		Bitmap bm = getSmallNoCutBitmap(filePath);
@@ -91,9 +86,7 @@ public class PhoneUtlis {
 		return Base64.encodeToString(b, Base64.DEFAULT);
 
 	}
-	
-	
-	
+
 	/**
 	 * 把bitmap转换成String
 	 * 
@@ -111,7 +104,6 @@ public class PhoneUtlis {
 		return Base64.encodeToString(b, Base64.DEFAULT);
 
 	}
-	
 
 	/**
 	 * bitmap转String
@@ -171,7 +163,7 @@ public class PhoneUtlis {
 
 		Matrix matrix = new Matrix();
 		matrix.setRotate(ScanFoodActivity.angle);
-		
+
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath, options);
@@ -181,25 +173,66 @@ public class PhoneUtlis {
 
 		// Decode bitmap with inSampleSize set
 		options.inJustDecodeBounds = false;
-		
+
 		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
-		float width=mBitmap.getWidth();
-		float height=mBitmap.getHeight();
-		float ratio=width/height;
-		mBitmap = Bitmap.createBitmap(mBitmap, (int) (mBitmap.getWidth()/3),
-				(int) (mBitmap.getHeight()-mBitmap.getHeight()*ratio/3)/2, (int) (mBitmap.getWidth()/3),
-				(int) (mBitmap.getHeight() / 3*ratio), matrix, true);
+		float width = mBitmap.getWidth();
+		float height = mBitmap.getHeight();
+		float ratio = width / height;
+		mBitmap = Bitmap
+				.createBitmap(mBitmap, (int) (mBitmap.getWidth() / 3),
+						(int) (mBitmap.getHeight() - mBitmap.getHeight()
+								* ratio / 3) / 2,
+						(int) (mBitmap.getWidth() / 3),
+						(int) (mBitmap.getHeight() / 3 * ratio), matrix, true);
+
+		ExifInterface exif = null;
+		try {
+			exif = new ExifInterface(filePath);
+		} catch (IOException e) {
+			e.printStackTrace();
+			exif = null;
+		}
+
+		int digree = 0;
+		if (exif != null) {
+			// 读取图片中相机方向信息
+			int ori = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+					ExifInterface.ORIENTATION_UNDEFINED);
+			// 计算旋转角度
+			switch (ori) {
+			case ExifInterface.ORIENTATION_ROTATE_90:
+				digree = 90;
+				break;
+			case ExifInterface.ORIENTATION_ROTATE_180:
+				digree = 180;
+				break;
+			case ExifInterface.ORIENTATION_ROTATE_270:
+				digree = 270;
+				break;
+			default:
+				digree = 0;
+				break;
+			}
+		}
+
+		if (digree != 0) {
+			// 旋转图片
+			Matrix m = new Matrix();
+			m.postRotate(digree);
+			mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(),
+					mBitmap.getHeight(), m, true);
+		}
+		
 		
 		SavePic.saveFoodPic2Example(mBitmap);
 		return mBitmap;
 	}
-	
-	
+
 	public static Bitmap getSmallNoCutBitmap(String filePath) {
 
 		Matrix matrix = new Matrix();
 		matrix.setRotate(ScanFoodActivity.angle);
-		
+
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath, options);
@@ -209,17 +242,55 @@ public class PhoneUtlis {
 
 		// Decode bitmap with inSampleSize set
 		options.inJustDecodeBounds = false;
-		
+
 		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
-		int width=mBitmap.getWidth();
-		int height=mBitmap.getHeight();
-		mBitmap=Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix, true);
+		int width = mBitmap.getWidth();
+		int height = mBitmap.getHeight();
+		mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix,
+				true);
+
+		ExifInterface exif = null;
+		try {
+			exif = new ExifInterface(filePath);
+		} catch (IOException e) {
+			e.printStackTrace();
+			exif = null;
+		}
+
+		int digree = 0;
+		if (exif != null) {
+			// 读取图片中相机方向信息
+			int ori = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+					ExifInterface.ORIENTATION_UNDEFINED);
+			// 计算旋转角度
+			switch (ori) {
+			case ExifInterface.ORIENTATION_ROTATE_90:
+				digree = 90;
+				break;
+			case ExifInterface.ORIENTATION_ROTATE_180:
+				digree = 180;
+				break;
+			case ExifInterface.ORIENTATION_ROTATE_270:
+				digree = 270;
+				break;
+			default:
+				digree = 0;
+				break;
+			}
+		}
+
+		if (digree != 0) {
+			// 旋转图片
+			Matrix m = new Matrix();
+			m.postRotate(digree);
+			mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(),
+					mBitmap.getHeight(), m, true);
+		}
+		
 		
 		return mBitmap;
 	}
-	
-	
-	
+
 	/**
 	 * 根据路径获得突破并压缩返回bitmap用于显示
 	 * 
@@ -228,11 +299,9 @@ public class PhoneUtlis {
 	 */
 	public static Bitmap getNoCutSmallBitmap(String filePath) {
 
-//		Matrix matrix = new Matrix();
-//		matrix.setRotate(ScanningActivity.angle);
+		// Matrix matrix = new Matrix();
+		// matrix.setRotate(ScanningActivity.angle);
 
-	
-		
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath, options);
@@ -242,22 +311,57 @@ public class PhoneUtlis {
 
 		// Decode bitmap with inSampleSize set
 		options.inJustDecodeBounds = false;
-		
+
 		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
-//		float width=mBitmap.getWidth();
-//		float height=mBitmap.getHeight();
-//		float ratio=width/height;
-//		mBitmap = Bitmap.createBitmap(mBitmap, (int) (mBitmap.getWidth()/3),
-//				(int) (mBitmap.getHeight()-mBitmap.getHeight()*ratio/3)/2, (int) (mBitmap.getWidth()/3),
-//				(int) (mBitmap.getHeight() / 3*ratio), matrix, true);
-		
+
+		ExifInterface exif = null;
+		try {
+			exif = new ExifInterface(filePath);
+		} catch (IOException e) {
+			e.printStackTrace();
+			exif = null;
+		}
+
+		int digree = 0;
+		if (exif != null) {
+			// 读取图片中相机方向信息
+			int ori = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+					ExifInterface.ORIENTATION_UNDEFINED);
+			// 计算旋转角度
+			switch (ori) {
+			case ExifInterface.ORIENTATION_ROTATE_90:
+				digree = 90;
+				break;
+			case ExifInterface.ORIENTATION_ROTATE_180:
+				digree = 180;
+				break;
+			case ExifInterface.ORIENTATION_ROTATE_270:
+				digree = 270;
+				break;
+			default:
+				digree = 0;
+				break;
+			}
+		}
+
+		if (digree != 0) {
+			// 旋转图片
+			Matrix m = new Matrix();
+			m.postRotate(digree);
+			mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(),
+					mBitmap.getHeight(), m, true);
+		}
+		// float width=mBitmap.getWidth();
+		// float height=mBitmap.getHeight();
+		// float ratio=width/height;
+		// mBitmap = Bitmap.createBitmap(mBitmap, (int) (mBitmap.getWidth()/3),
+		// (int) (mBitmap.getHeight()-mBitmap.getHeight()*ratio/3)/2, (int)
+		// (mBitmap.getWidth()/3),
+		// (int) (mBitmap.getHeight() / 3*ratio), matrix, true);
 
 		return mBitmap;
 	}
-	
 
-	
-	
 	/**
 	 * 根据路径获得突破并压缩返回bitmap用于显示且压缩大小为100x100
 	 * 
@@ -269,7 +373,6 @@ public class PhoneUtlis {
 		Matrix matrix = new Matrix();
 		matrix.setRotate(ScanFoodActivity.angle);
 
-		
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath, options);
@@ -279,23 +382,27 @@ public class PhoneUtlis {
 
 		// Decode bitmap with inSampleSize set
 		options.inJustDecodeBounds = false;
-		
-		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
-		float width=mBitmap.getWidth();
-		float height=mBitmap.getHeight();
-		float ratio=width/height;
-		mBitmap = Bitmap.createBitmap(mBitmap, (int) (mBitmap.getWidth()/3),
-				(int) (mBitmap.getHeight()-mBitmap.getHeight()*ratio/3)/2, (int) (mBitmap.getWidth()/3),
-				(int) (mBitmap.getHeight() / 3*ratio), matrix, true);
 
-		mBitmap=zoomImage(mBitmap, 100, 100);
+		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
+		float width = mBitmap.getWidth();
+		float height = mBitmap.getHeight();
+		float ratio = width / height;
+		mBitmap = Bitmap
+				.createBitmap(mBitmap, (int) (mBitmap.getWidth() / 3),
+						(int) (mBitmap.getHeight() - mBitmap.getHeight()
+								* ratio / 3) / 2,
+						(int) (mBitmap.getWidth() / 3),
+						(int) (mBitmap.getHeight() / 3 * ratio), matrix, true);
+
+		mBitmap = zoomImage(mBitmap, 100, 100);
 		
-//		SavePic.saveFoodPic2Example(mBitmap);
+		mBitmap=getORIENTATIONBitmap(filePath, mBitmap);
 		
+		// SavePic.saveFoodPic2Example(mBitmap);
+
 		return mBitmap;
 	}
-	
-	
+
 	/**
 	 * 根据路径获得突破并压缩返回bitmap用于显示且压缩大小为60x60
 	 * 
@@ -307,7 +414,6 @@ public class PhoneUtlis {
 		Matrix matrix = new Matrix();
 		matrix.setRotate(ScanFoodActivity.angle);
 
-		
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath, options);
@@ -317,22 +423,22 @@ public class PhoneUtlis {
 
 		// Decode bitmap with inSampleSize set
 		options.inJustDecodeBounds = false;
-		
-		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
-		float width=mBitmap.getWidth();
-		float height=mBitmap.getHeight();
-		float ratio=width/height;
-		mBitmap = Bitmap.createBitmap(mBitmap, (int) (mBitmap.getWidth()/3),
-				(int) (mBitmap.getHeight()-mBitmap.getHeight()*ratio/3)/2, (int) (mBitmap.getWidth()/3),
-				(int) (mBitmap.getHeight() / 3*ratio), matrix, true);
 
-		mBitmap=zoomImage(mBitmap, 60, 60);
-		
-		
+		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
+		float width = mBitmap.getWidth();
+		float height = mBitmap.getHeight();
+		float ratio = width / height;
+		mBitmap = Bitmap
+				.createBitmap(mBitmap, (int) (mBitmap.getWidth() / 3),
+						(int) (mBitmap.getHeight() - mBitmap.getHeight()
+								* ratio / 3) / 2,
+						(int) (mBitmap.getWidth() / 3),
+						(int) (mBitmap.getHeight() / 3 * ratio), matrix, true);
+
+		mBitmap = zoomImage(mBitmap, 60, 60);
+		mBitmap=getORIENTATIONBitmap(filePath, mBitmap);
 		return mBitmap;
 	}
-	
-	
 
 	/**
 	 * 根据路径获得突破并压缩返回bitmap用于显示且压缩大小为60x60
@@ -345,7 +451,6 @@ public class PhoneUtlis {
 		Matrix matrix = new Matrix();
 		matrix.setRotate(ScanFoodActivity.angle);
 
-		
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath, options);
@@ -355,23 +460,23 @@ public class PhoneUtlis {
 
 		// Decode bitmap with inSampleSize set
 		options.inJustDecodeBounds = false;
-		
-		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
-		float width=mBitmap.getWidth();
-		float height=mBitmap.getHeight();
-		float ratio=width/height;
-		mBitmap = Bitmap.createBitmap(mBitmap, (int) (mBitmap.getWidth()/3),
-				(int) (mBitmap.getHeight()-mBitmap.getHeight()*ratio/3)/2, (int) (mBitmap.getWidth()/3),
-				(int) (mBitmap.getHeight() / 3*ratio), matrix, true);
 
-		mBitmap=zoomImage(mBitmap, 40, 40);
-		
-		
+		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
+		float width = mBitmap.getWidth();
+		float height = mBitmap.getHeight();
+		float ratio = width / height;
+		mBitmap = Bitmap
+				.createBitmap(mBitmap, (int) (mBitmap.getWidth() / 3),
+						(int) (mBitmap.getHeight() - mBitmap.getHeight()
+								* ratio / 3) / 2,
+						(int) (mBitmap.getWidth() / 3),
+						(int) (mBitmap.getHeight() / 3 * ratio), matrix, true);
+
+		mBitmap = zoomImage(mBitmap, 40, 40);
+
 		return mBitmap;
 	}
-	
-	
-	
+
 	/**
 	 * 根据路径获得突破并压缩返回bitmap用于显示且压缩大小为30x30
 	 * 
@@ -383,7 +488,6 @@ public class PhoneUtlis {
 		Matrix matrix = new Matrix();
 		matrix.setRotate(ScanFoodActivity.angle);
 
-		
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath, options);
@@ -393,31 +497,71 @@ public class PhoneUtlis {
 
 		// Decode bitmap with inSampleSize set
 		options.inJustDecodeBounds = false;
-		
+
 		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
-		float width=mBitmap.getWidth();
-		float height=mBitmap.getHeight();
-		float ratio=width/height;
-		mBitmap = Bitmap.createBitmap(mBitmap, (int) (mBitmap.getWidth()/3),
-				(int) (mBitmap.getHeight()-mBitmap.getHeight()*ratio/3)/2, (int) (mBitmap.getWidth()/3),
-				(int) (mBitmap.getHeight() / 3*ratio), matrix, true);
+		float width = mBitmap.getWidth();
+		float height = mBitmap.getHeight();
+		float ratio = width / height;
+		mBitmap = Bitmap
+				.createBitmap(mBitmap, (int) (mBitmap.getWidth() / 3),
+						(int) (mBitmap.getHeight() - mBitmap.getHeight()
+								* ratio / 3) / 2,
+						(int) (mBitmap.getWidth() / 3),
+						(int) (mBitmap.getHeight() / 3 * ratio), matrix, true);
 
 		SavePic.saveFoodPic2Example(mBitmap);
+
+		mBitmap = zoomImage(mBitmap, 30, 30);
+
 		
-		mBitmap=zoomImage(mBitmap, 30, 30);
+		ExifInterface exif = null;
+		try {
+			exif = new ExifInterface(filePath);
+		} catch (IOException e) {
+			e.printStackTrace();
+			exif = null;
+		}
+
+		int digree = 0;
+		if (exif != null) {
+			// 读取图片中相机方向信息
+			int ori = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+					ExifInterface.ORIENTATION_UNDEFINED);
+			// 计算旋转角度
+			switch (ori) {
+			case ExifInterface.ORIENTATION_ROTATE_90:
+				digree = 90;
+				break;
+			case ExifInterface.ORIENTATION_ROTATE_180:
+				digree = 180;
+				break;
+			case ExifInterface.ORIENTATION_ROTATE_270:
+				digree = 270;
+				break;
+			default:
+				digree = 0;
+				break;
+			}
+		}
+
+		if (digree != 0) {
+			// 旋转图片
+			Matrix m = new Matrix();
+			m.postRotate(digree);
+			mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(),
+					mBitmap.getHeight(), m, true);
+		}
 		
-//		SavePic.saveFoodPic2Example(mBitmap);
-		
+		// SavePic.saveFoodPic2Example(mBitmap);
+
 		return mBitmap;
 	}
-	
-	
+
 	public static Bitmap getSmall8ZoomBitmap(String filePath) {
 
 		Matrix matrix = new Matrix();
 		matrix.setRotate(ScanFoodActivity.angle);
 
-		
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath, options);
@@ -427,24 +571,25 @@ public class PhoneUtlis {
 
 		// Decode bitmap with inSampleSize set
 		options.inJustDecodeBounds = false;
-		
+
 		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
-		float width=mBitmap.getWidth();
-		float height=mBitmap.getHeight();
-		float ratio=width/height;
-		mBitmap = Bitmap.createBitmap(mBitmap, (int) (mBitmap.getWidth()/3),
-				(int) (mBitmap.getHeight()-mBitmap.getHeight()*ratio/3)/2, (int) (mBitmap.getWidth()/3),
-				(int) (mBitmap.getHeight() / 3*ratio), matrix, true);
-		
-		mBitmap=zoomImage(mBitmap, 80, 80);
-		
-//		SavePic.saveFoodPic2Example(mBitmap);
-		
+		float width = mBitmap.getWidth();
+		float height = mBitmap.getHeight();
+		float ratio = width / height;
+		mBitmap = Bitmap
+				.createBitmap(mBitmap, (int) (mBitmap.getWidth() / 3),
+						(int) (mBitmap.getHeight() - mBitmap.getHeight()
+								* ratio / 3) / 2,
+						(int) (mBitmap.getWidth() / 3),
+						(int) (mBitmap.getHeight() / 3 * ratio), matrix, true);
+
+		mBitmap = zoomImage(mBitmap, 80, 80);
+
+		// SavePic.saveFoodPic2Example(mBitmap);
+
 		return mBitmap;
 	}
-	
-	
-	
+
 	/**
 	 * 从手机内存获得图片
 	 * 
@@ -556,7 +701,6 @@ public class PhoneUtlis {
 		return "sheguantong";
 	}
 
-	
 	public static Bitmap comp(Bitmap image) {
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -594,34 +738,75 @@ public class PhoneUtlis {
 		bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
 		return bitmap;
 	}
-	
-	
+
 	/***
-     * 图片的缩放方法
-     * 
-     * @param bgimage
-     *            ：源图片资源
-     * @param newWidth
-     *            ：缩放后宽度
-     * @param newHeight
-     *            ：缩放后高度
-     * @return
-     */
-    public static Bitmap zoomImage(Bitmap bgimage, double newWidth,
-                    double newHeight) {
-            // 获取这个图片的宽和高
-            float width = bgimage.getWidth();
-            float height = bgimage.getHeight();
-            // 创建操作图片用的matrix对象
-            Matrix matrix = new Matrix();
-            // 计算宽高缩放率
-            float scaleWidth = ((float) newWidth) / width;
-            float scaleHeight = ((float) newHeight) / height;
-            // 缩放图片动作
-            matrix.postScale(scaleWidth, scaleHeight);
-            Bitmap bitmap = Bitmap.createBitmap(bgimage, 0, 0, (int) width,
-                            (int) height, matrix, true);
-            return bitmap;
-    }
+	 * 图片的缩放方法
+	 * 
+	 * @param bgimage
+	 *            ：源图片资源
+	 * @param newWidth
+	 *            ：缩放后宽度
+	 * @param newHeight
+	 *            ：缩放后高度
+	 * @return
+	 */
+	public static Bitmap zoomImage(Bitmap bgimage, double newWidth,
+			double newHeight) {
+		// 获取这个图片的宽和高
+		float width = bgimage.getWidth();
+		float height = bgimage.getHeight();
+		// 创建操作图片用的matrix对象
+		Matrix matrix = new Matrix();
+		// 计算宽高缩放率
+		float scaleWidth = ((float) newWidth) / width;
+		float scaleHeight = ((float) newHeight) / height;
+		// 缩放图片动作
+		matrix.postScale(scaleWidth, scaleHeight);
+		Bitmap bitmap = Bitmap.createBitmap(bgimage, 0, 0, (int) width,
+				(int) height, matrix, true);
+		return bitmap;
+	}
+
+	
+	public static Bitmap getORIENTATIONBitmap(String filePath,Bitmap mBitmap){
+		ExifInterface exif = null;
+		try {
+			exif = new ExifInterface(filePath);
+		} catch (IOException e) {
+			e.printStackTrace();
+			exif = null;
+		}
+
+		int digree = 0;
+		if (exif != null) {
+			// 读取图片中相机方向信息
+			int ori = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+					ExifInterface.ORIENTATION_UNDEFINED);
+			// 计算旋转角度
+			switch (ori) {
+			case ExifInterface.ORIENTATION_ROTATE_90:
+				digree = 90;
+				break;
+			case ExifInterface.ORIENTATION_ROTATE_180:
+				digree = 180;
+				break;
+			case ExifInterface.ORIENTATION_ROTATE_270:
+				digree = 270;
+				break;
+			default:
+				digree = 0;
+				break;
+			}
+		}
+
+		if (digree != 0) {
+			// 旋转图片
+			Matrix m = new Matrix();
+			m.postRotate(digree);
+			mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(),
+					mBitmap.getHeight(), m, true);
+		}
+		return mBitmap;
+	}
 	
 }

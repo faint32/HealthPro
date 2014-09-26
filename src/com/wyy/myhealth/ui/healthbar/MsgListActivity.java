@@ -144,8 +144,7 @@ public class MsgListActivity extends BaseListActivity {
 	
 	
 	private void initList() {
-		int length = Utils.mstlList.size();
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i < Utils.mstlList.size(); i++) {
 			String json = Utils.mstlList.get(i);
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			try {

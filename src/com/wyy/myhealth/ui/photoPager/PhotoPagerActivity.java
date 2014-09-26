@@ -80,7 +80,11 @@ public class PhotoPagerActivity extends BaseActivity implements
 		sumTextView = (TextView) findViewById(R.id.sum_textV);
 		postionTextView = (TextView) findViewById(R.id.index_textV);
 		loadingBar = (ProgressBar) findViewById(R.id.pic_progressBar);
-
+		
+		if (imgurList==null) {
+			return;
+		}
+		
 		sumTextView.setText("" + imgurList.size());
 		int postion = getIntent().getIntExtra("postion", 0) + 1;
 		postionTextView.setText("" + postion);

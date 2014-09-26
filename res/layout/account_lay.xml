@@ -12,8 +12,6 @@
         android:drawableLeft="@drawable/iconfont_account"
         android:ems="10"
         android:hint="@string/account_hint" >
-
-        <requestFocus />
     </EditText>
 
     <ListView

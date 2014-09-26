@@ -82,6 +82,7 @@
     <string name="loginout">注销当前账号</string>
     <string name="logining">登录中&#8230;</string>
     <string name="regeit">注册</string>
+     <string name="regeit_">手机注册</string>
     <string name="regeiting">注册中&#8230;</string>
     <string name="regeit_success">注册成功</string>
     <string name="regeit_failure">注册失败</string>
@@ -145,7 +146,7 @@
     <string name="jianyizhi">建议值</string>
     <string name="shuruma">请输入您的微码</string>
     <string name="useyaonotice">使用yao营养之前请先完善您的个人信息!</string>
-    <string name="usersaoynotice">使用扫营养之前请先完善您的个人信息!</string>
+    <string name="usersaoynotice">识别需要知晓一个人的健康情况，请您完善资料!</string>
     <string name="net_erro">您的网络出错了!</string>
     <string name="downnotice">下载提示</string>
     <string name="downmessage">是否进行下载</string>
@@ -294,7 +295,7 @@
     <string name="jiluyingyang">记录营养</string>
     <string name="takepic">拍照</string>
     <string name="photo">相册</string>
-    <string name="voiceengineerro">语音不可用</string>
+    <string name="voiceengineerro">语音正在升级，请改为手动输入</string>
     <string name="voicerecogniseing">正在识别</string>
     <string name="speaknotice">请讲话</string>
     <string name="submitrecogise">提交识别</string>

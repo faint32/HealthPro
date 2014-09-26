@@ -1,33 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scan_failure_lay"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
-    <ImageView
+    <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/scan_error" />
+        android:layout_gravity="center"
+        layout="@layout/scan_failure_include" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5dp"
-        android:text="@string/scanfiure_0"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
-    
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:text="@string/scanfilure_1"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
-    
-
-</LinearLayout>
+</FrameLayout>

@@ -123,6 +123,8 @@ public interface ConstantS {
 	public static final long DELAY_TIME = 2;
 
 	public static final long PERIOD_TIME = 5 * 60;
+	
+	public static final long PERIOD_TIME_ = 5 ;
 
 	/**************** RESH *******************/
 
