@@ -9,10 +9,10 @@
 
     <EditText
         android:id="@+id/summary_editText"
+        style="@style/bing_edit_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-            style="@style/bing_edit_style"
         android:hint="@string/remark_hint" >
 
         <requestFocus />

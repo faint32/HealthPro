@@ -26,6 +26,7 @@
         android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/iconfont_password"
         android:ems="10"
+        android:singleLine="true"
         android:hint="@string/password"
         android:inputType="textPassword" />
 

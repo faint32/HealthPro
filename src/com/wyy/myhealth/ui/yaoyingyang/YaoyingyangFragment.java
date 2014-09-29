@@ -42,6 +42,7 @@ import com.wyy.myhealth.ui.mapfood.MapFoodsActivity;
 import com.wyy.myhealth.ui.yaoyingyang.YaoyingyangAdapter.LocationListener;
 import com.wyy.myhealth.utils.BingLog;
 import com.wyy.myhealth.utils.DistanceUtils;
+import com.wyy.myhealth.welcome.WelcomeActivity;
 
 public class YaoyingyangFragment extends ListBaseFragYP implements
 		OnRefreshListener, IXListViewListener, LocationListener,
@@ -131,15 +132,27 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 	}
 
 	private void LoadModreNerabyFoods() {
-		HealthHttpClient.doHttpGetFoodsList("" + MainActivity.Wlatitude, ""
-				+ MainActivity.Wlongitude, "" + currtuindex, limit,
-				responseHandler, WyyApplication.getInfo().getId());
+		if (null==WyyApplication.getInfo()) {
+			WelcomeActivity.getPersonInfo(getActivity());
+		}
+		if (null!=WyyApplication.getInfo()) {
+			HealthHttpClient.doHttpGetFoodsList("" + MainActivity.Wlatitude, ""
+					+ MainActivity.Wlongitude, "" + currtuindex, limit,
+					responseHandler, WyyApplication.getInfo().getId());
+		}
+		
 	}
 
 	private void ReshNerabyFoods() {
-		HealthHttpClient.doHttpGetFoodsList("" + MainActivity.Wlatitude, ""
-				+ MainActivity.Wlongitude, "0", limit, reShResponseHandler,
-				WyyApplication.getInfo().getId());
+		if (null==WyyApplication.getInfo()) {
+			WelcomeActivity.getPersonInfo(getActivity());
+		}
+		if (null!=WyyApplication.getInfo()) {
+			HealthHttpClient.doHttpGetFoodsList("" + MainActivity.Wlatitude, ""
+					+ MainActivity.Wlongitude, "0", limit, reShResponseHandler,
+					WyyApplication.getInfo().getId());
+		}
+		
 	}
 
 	private AsyncHttpResponseHandler responseHandler = new AsyncHttpResponseHandler() {
@@ -193,7 +206,9 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 			// TODO Auto-generated method stub
 			super.onStart();
 			isLoaing = true;
-			mRefreshLayout.setRefreshing(true);
+			if (mRefreshLayout!=null) {
+				mRefreshLayout.setRefreshing(true);
+			}
 		}
 
 		@Override

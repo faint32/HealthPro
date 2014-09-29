@@ -32,6 +32,7 @@ import com.wyy.myhealth.ui.mapfood.MapFoodsActivity;
 import com.wyy.myhealth.ui.yaoyingyang.YaoyingyangAdapter.LocationListener;
 import com.wyy.myhealth.utils.BingLog;
 import com.wyy.myhealth.utils.DistanceUtils;
+import com.wyy.myhealth.welcome.WelcomeActivity;
 
 public class TodayFoodRecFragment extends ListBaseTodayFrag implements
 		OnRefreshListener, OnItemClickListener, LocationListener {
@@ -68,8 +69,14 @@ public class TodayFoodRecFragment extends ListBaseTodayFrag implements
 	}
 
 	private void ReshNerabyFoods() {
-		HealthHttpClient.gettop10dayBefore(WyyApplication.getInfo().getId(),
-				reShResponseHandler);
+		if (null==WyyApplication.getInfo()) {
+			WelcomeActivity.getPersonInfo(getActivity());
+		}
+		if (null!=WyyApplication.getInfo()) {
+			HealthHttpClient.gettop10dayBefore(WyyApplication.getInfo().getId(),
+					reShResponseHandler);
+		}
+		
 	}
 
 	private AsyncHttpResponseHandler reShResponseHandler = new AsyncHttpResponseHandler() {

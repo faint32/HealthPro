@@ -390,6 +390,7 @@ public class MainActivity extends ActionBarActivity implements
 		filter.addAction(ConstantS.ACTION_SEND_SHAI);
 		filter.addAction(ConstantS.ACTION_SEND_CANEL_NOTICE);
 		filter.addAction(ConstantS.NEW_FOOD_COMMENT);
+		filter.addAction(ConstantS.ACTION_RECORED_NOTICE);
 		registerReceiver(mainReceiver, filter);
 	}
 
@@ -404,7 +405,8 @@ public class MainActivity extends ActionBarActivity implements
 				changeUI();
 			} else if (action.equals(ConstantS.ACTION_MAIN_FINSH)) {
 				finish();
-			} else if (action.equals(ConstantS.ACTION_SEND_SHAI)) {
+			} else if (action.equals(ConstantS.ACTION_SEND_SHAI)
+					|| action.equals(ConstantS.ACTION_RECORED_NOTICE)) {
 				showNotice();
 			} else if (action.equals(ConstantS.NEW_FOOD_COMMENT)) {
 				showNotice();
@@ -534,13 +536,14 @@ public class MainActivity extends ActionBarActivity implements
 			startActivity(new Intent(context, PersonalNavActivity.class));
 		}
 	}
-	private void initPostFoot(){
+
+	private void initPostFoot() {
 		try {
 			AlarmUtils.setAler(MainActivity.this);
 			StepService.startService(this);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 	}
 }

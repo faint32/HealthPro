@@ -43,10 +43,12 @@ public interface ConstantS {
 
 	public static final String ACTION_SEND_CANEL_NOTICE = "ACTION.WYY.SEND.CANEL.NOTICE";
 
+	public static final String ACTION_RECORED_NOTICE = "ACTION.WYY.RECORED.NOTICE";
+
 	public static final String ACTION_CHANEG_PAGER_INDEX = "ACTION.WYY.CHANGE.PAGER";
-	
+
 	public static final String ACTION_SHARE_RECORDER = "ACTION.WYY.SHARE.RECORDER";
-	
+
 	public static final String ACTION_RECOOMEND_TODAY_FOOD = "ACTION.WYY.RECOMMEND.TODAYFOOD";
 
 	/************** NOTICE_ID *************/
@@ -123,8 +125,8 @@ public interface ConstantS {
 	public static final long DELAY_TIME = 2;
 
 	public static final long PERIOD_TIME = 5 * 60;
-	
-	public static final long PERIOD_TIME_ = 5 ;
+
+	public static final long PERIOD_TIME_ = 5;
 
 	/**************** RESH *******************/
 
@@ -135,9 +137,9 @@ public interface ConstantS {
 	/******************** É¨Ãè±ê×¼ **********************/
 
 	public static final int FOOD_FETURE_MIN = 15;
-	
+
 	public static final int FOOD_FETURE_MAX = 80;
-	
+
 	public static final double THRESHOLD_INDEX = 0.4;
 
 	/*************** Sina_Weobo **************/
@@ -170,7 +172,6 @@ public interface ConstantS {
 			+ "friendships_groups_read,friendships_groups_write,statuses_to_me_read,"
 			+ "follow_app_official_microblog," + "invitation_write";
 
-	
-	/*******************QQ********************/
-	public static final String TENCENT_APP_ID="1102856689";
+	/******************* QQ ********************/
+	public static final String TENCENT_APP_ID = "1102856689";
 }

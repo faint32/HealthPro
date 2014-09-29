@@ -199,9 +199,14 @@ public class HealPassFragment extends HealthPassBase implements
 	protected void reshShayiSai(String first, String limit) {
 		// TODO Auto-generated method stub
 		super.reshShayiSai(first, limit);
-		if (null == WyyApplication.getInfo().getId()) {
+		if (null == WyyApplication.getInfo()) {
+			WelcomeActivity.getPersonInfo(getActivity());
+		}
+		
+		if (null == WyyApplication.getInfo()) {
 			return;
 		}
+		
 		// HealthHttpClient.userFoodsAndMoods2(WyyApplication.getInfo().getId(),
 		// first, limit, reshHandler);
 		HealthHttpClient.userAired20(WyyApplication.getInfo().getId(), first,

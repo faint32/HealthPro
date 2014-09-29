@@ -44,6 +44,7 @@ import com.wyy.myhealth.ui.customview.BingListView;
 import com.wyy.myhealth.ui.icebox.IceBoxChildAdapter.DelPicClickListener;
 import com.wyy.myhealth.ui.icebox.IceBoxMainAdapter.GridCilckListener;
 import com.wyy.myhealth.utils.BingLog;
+import com.wyy.myhealth.welcome.WelcomeActivity;
 
 public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 		OnRefreshListener, DelPicClickListener, GridCilckListener {
@@ -237,8 +238,14 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 	}
 
 	private void reshIceBoxFood() {
-		HealthHttpClient.getIceBoxFood(WyyApplication.getInfo().getId(), "0",
-				"100", responseHandler);
+		if (null==WyyApplication.getInfo()) {
+			WelcomeActivity.getPersonInfo(context);
+		}
+		if (null!=WyyApplication.getInfo()) {
+			HealthHttpClient.getIceBoxFood(WyyApplication.getInfo().getId(), "0",
+					"100", responseHandler);
+		}
+		
 	}
 
 	private JsonHttpResponseHandler responseHandler = new JsonHttpResponseHandler() {

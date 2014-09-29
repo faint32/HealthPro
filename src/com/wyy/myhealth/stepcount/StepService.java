@@ -97,7 +97,10 @@ public class StepService extends Service {
 			userID = WyyApplication.getInfo().getId();
 		} else {
 			WelcomeActivity.getPersonInfo(this);
-			userID = WyyApplication.getInfo().getId();
+			if (null!=WyyApplication.getInfo()) {
+				userID = WyyApplication.getInfo().getId();
+			}
+			
 		}
 
 		Log.i("service", "=======userID=======" + userID);

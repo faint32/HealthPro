@@ -171,7 +171,7 @@ public class ShaiyishaiActivity extends AbstractlistActivity implements
 				}
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
-				BingLog.i(TAG, "´íÎó:" + e.getMessage());
+				BingLog.e(TAG, "´íÎó:" + e.getMessage());
 			}
 		}
 	}

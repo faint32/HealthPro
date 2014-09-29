@@ -297,7 +297,13 @@ public class ListBaseFragment extends Fragment {
 				arrangeDayMonth();
 				first = thList2.size();
 				addGg();
-				mAdapter2.notifyDataSetChanged();
+				try {
+					mAdapter2.notifyDataSetChanged();
+				} catch (Exception e) {
+					// TODO: handle exception
+					BingLog.e(TAG, "´íÎó:"+e.getMessage());
+				}
+				
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

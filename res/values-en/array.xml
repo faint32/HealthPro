@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="recorder_index">
+        <item>Few</item>
+        <item>General</item>
+        <item>Medium</item>
+        <item>Higher</item>
+        <item>High</item>
+    </string-array>
+
+</resources>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wyy.myhealth"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="4"
+    android:versionName="3.0" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -147,8 +147,6 @@
         <activity
             android:name=".ui.healthbar.HealthPassActivity"
             android:screenOrientation="portrait" android:launchMode="singleTask">
-        </activity>
-        <activity android:name=".ui.message.ChatMsgActivity" >
         </activity>
         <activity android:name=".ui.shaiyishai.PublishActivity" >
             <intent-filter>
@@ -310,6 +308,7 @@
         </receiver>
         <activity android:name=".ui.setting.FunctionIntroActivity" android:launchMode="singleTask"></activity>
         <service android:name=".stepcount.StepService"></service>
+        <activity android:name=".ui.navigation.ShareFoodNavActivity" android:launchMode="singleTask" android:theme="@style/BingTranslucentNotitleTheme" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

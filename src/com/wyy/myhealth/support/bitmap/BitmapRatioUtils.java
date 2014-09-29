@@ -5,19 +5,24 @@ import android.graphics.Bitmap;
 public class BitmapRatioUtils {
 
 	public static double ratio(Bitmap srcImage) {
-
+		if (srcImage==null) {
+			return 0;
+		}
 		int[] inPixels = new int[srcImage.getWidth() * srcImage.getHeight()];
 		int[] intensity = new int[256];
-		for (int i = 0; i < intensity.length; i++) {
+		int mlength=intensity.length;
+		for (int i = 0; i < mlength; i++) {
 			intensity[i] = 0;
 		}
-		srcImage.getPixels(inPixels, 0, srcImage.getWidth(), 0, 0, srcImage.getWidth(), srcImage.getHeight());
+		int width=srcImage.getWidth();
+		int heigth=srcImage.getHeight();
+		srcImage.getPixels(inPixels, 0,width, 0, 0, width, heigth);
 		int index = 0;
 		int count = 0;
-		for (int row = 0; row < srcImage.getHeight(); row++) {
+		for (int row = 0; row < heigth; row++) {
 			int ta = 0, tr = 0, tg = 0, tb = 0;
-			for (int col = 0; col < srcImage.getWidth(); col++) {
-				index = row * srcImage.getWidth() + col;
+			for (int col = 0; col < width; col++) {
+				index = row * width + col;
 				ta = (inPixels[index] >> 24) & 0xff;
 				tr = (inPixels[index] >> 16) & 0xff;
 				tg = (inPixels[index] >> 8) & 0xff;
@@ -27,7 +32,7 @@ public class BitmapRatioUtils {
 
 			}
 		}
-		for (int i = 0; i < intensity.length; i++) {
+		for (int i = 0; i < mlength; i++) {
 			if (intensity[i] > 0)
 				count++;
 		}

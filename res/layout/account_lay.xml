@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/iconfont_account"
         android:ems="10"
+        android:singleLine="true"
         android:hint="@string/account_hint" >
     </EditText>
 

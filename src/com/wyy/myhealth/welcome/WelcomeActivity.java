@@ -139,6 +139,9 @@ public class WelcomeActivity extends Activity {
 	 * 获取信息
 	 */
 	public static void getPersonInfo(Context context) {
+		if (context==null) {
+			return;
+		}
 		SharedPreferences sharedPreferences = context.getSharedPreferences(
 				ConstantS.USER_DATA, Context.MODE_PRIVATE);
 		String personstr = sharedPreferences.getString("personinfo", "");

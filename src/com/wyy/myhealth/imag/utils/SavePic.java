@@ -57,7 +57,38 @@ public class SavePic {
 		}).start();
 
 	}
+
+	public static void saveFoodPic20Example(final Bitmap mBitmap) {
+		File file = new File(FileUtils.HEALTH_IMAG, "cl" + ".png");
+		BufferedOutputStream bos;
+		try {
+			bos = new BufferedOutputStream(new FileOutputStream(file));
+			mBitmap.compress(CompressFormat.PNG, 100, bos);
+			bos.flush();
+			bos.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 	
+	public static void saveFoodPicHalfExample(final Bitmap mBitmap) {
+		File file = new File(FileUtils.HEALTH_IMAG, "clc" + ".png");
+		BufferedOutputStream bos;
+		try {
+			bos = new BufferedOutputStream(new FileOutputStream(file));
+			mBitmap.compress(CompressFormat.PNG, 100, bos);
+			bos.flush();
+			bos.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+
 	/**
 	 * 保存图片示例
 	 * 
@@ -84,7 +115,6 @@ public class SavePic {
 		}).start();
 
 	}
-	
 
 	/**
 	 * 将拍下来的照片存放在SD卡中

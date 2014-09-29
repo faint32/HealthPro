@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.bean.HealthRecoderBean;
@@ -24,6 +25,7 @@ import com.wyy.myhealth.imag.utils.SavePic;
 import com.wyy.myhealth.service.MainService;
 import com.wyy.myhealth.ui.baseactivity.BaseScanResultActivity;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
+import com.wyy.myhealth.ui.navigation.ShareFoodNavActivity;
 import com.wyy.myhealth.ui.scan.utils.DialogShow;
 import com.wyy.myhealth.utils.BingLog;
 import com.wyy.myhealth.utils.ShareUtils;
@@ -40,6 +42,10 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 	private NearFoodBean samefood;
 
 	private ScanMoodBean scanMoodBean;
+	
+	private TextView failre_up;
+	
+	private TextView failre_bo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,18 +78,19 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 		}
 		return super.onPrepareOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.help:
 			if (failurelay.isShown()) {
-				DialogShow.showHelpDialog(context, getString(R.string.sao_help));
-			}else {
+				DialogShow
+						.showHelpDialog(context, getString(R.string.sao_help));
+			} else {
 				saveScreen(successlay);
 			}
-			
+
 			break;
 
 		default:
@@ -108,7 +115,9 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 		setIshasScale(true);
 		successlay = (FrameLayout) findViewById(R.id.scan_success_lay);
 		failurelay = (FrameLayout) findViewById(R.id.scan_failure_lay);
-
+		failre_up=(TextView)findViewById(R.id.failre_up);
+		failre_bo=(TextView)findViewById(R.id.failre_bottom);
+		
 		findViewById(R.id.open_ligth).setOnClickListener(listener);
 		findViewById(R.id.take_pic).setOnClickListener(listener);
 		findViewById(R.id.take_bottom_lay).setOnClickListener(listener);
@@ -116,6 +125,10 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 		findViewById(R.id.jilufood).setOnClickListener(listener);
 
 		initData();
+
+		if (ShareFoodNavActivity.getIsFirstUse(context)) {
+			startActivity(new Intent(context, ShareFoodNavActivity.class));
+		}
 
 		// DialogShowFeture.showFetureDialog(context, Config.log + "\n"
 		// + Config.feture_Value + "\n" + Config.placeValue);
@@ -175,6 +188,10 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 		} else {
 			successlay.setVisibility(View.GONE);
 			failurelay.setVisibility(View.VISIBLE);
+			if (ScanFragment.isfuture) {
+				failre_up.setText(R.string.scanfiure_up);
+				failre_bo.setText(R.string.scanfilure_bottom);
+			}
 		}
 	}
 
@@ -216,8 +233,6 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 		startActivity(intent);
 	}
 
-	
-	
 	private void saveScreen(final View graphicalView) {
 		new Thread() {
 
@@ -230,10 +245,10 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 					SavePic.saveRecoredPic2Example(Bitmap
 							.createBitmap(graphicalView.getDrawingCache()));
 					graphicalView.setDrawingCacheEnabled(false);
-					ShareUtils
-					.shareFood(context, getString(R.string.share_content_),
-							Uri.fromFile(new File(FileUtils.HEALTH_IMAG, "recored"
-									+ ".png")));
+					ShareUtils.shareFood(context,
+							getString(R.string.share_content_),
+							Uri.fromFile(new File(FileUtils.HEALTH_IMAG,
+									"recored" + ".png")));
 				} catch (Exception e) {
 					// TODO: handle exception
 					BingLog.e(TAG, "±£´æ´íÎó:" + e.getMessage());
@@ -243,5 +258,5 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 
 		}.start();
 	}
-	
+
 }

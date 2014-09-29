@@ -35,6 +35,7 @@ import com.wyy.myhealth.ui.fooddetails.FoodDetailsActivity;
 import com.wyy.myhealth.ui.photoPager.PhotoPagerActivity;
 import com.wyy.myhealth.utils.BingLog;
 import com.wyy.myhealth.utils.InputUtlity;
+import com.wyy.myhealth.welcome.WelcomeActivity;
 
 public class ShaiyishaiFragment extends ListBaseFragment implements
 		OnRefreshListener, IXListViewListener, OnItemClickListener,
@@ -148,12 +149,18 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		// TODO Auto-generated method stub
 		super.reshShayiSai(first, limit);
 		// HealthHttpClient.doHttpGetShayiSai(first, limit, reshHandler);
-		if (adversie!=null&&thList2.size()>1) {
+		if (adversie!=null&&thList2.size()>1&&thList2.get(1).isAdv()) {
 			thList2.remove(2);
 			this.first=thList2.size();
 		}
-		HealthHttpClient.aired20(WyyApplication.getInfo().getId(), first,
-				limit, key, reshHandler2);
+		if (null==WyyApplication.getInfo()) {
+			WelcomeActivity.getPersonInfo(getActivity());
+		}
+		if (null!=WyyApplication.getInfo()) {
+			HealthHttpClient.aired20(WyyApplication.getInfo().getId(), first,
+					limit, key, reshHandler2);
+		}
+		
 	}
 
 	@Override
@@ -161,8 +168,13 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		// TODO Auto-generated method stub
 		super.getLoadMore(first, limit);
 		// HealthHttpClient.doHttpGetShayiSai(first, limit, parseHandler);
-		HealthHttpClient.aired20(WyyApplication.getInfo().getId(), first,
-				limit, key, loadMoreHandler);
+		if (null==WyyApplication.getInfo()) {
+			WelcomeActivity.getPersonInfo(getActivity());
+		}
+		if (null!=WyyApplication.getInfo()) {
+			HealthHttpClient.aired20(WyyApplication.getInfo().getId(), first,
+					limit, key, loadMoreHandler);
+		}
 	}
 
 	@Override
@@ -290,29 +302,13 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		public void onStart() {
 			// TODO Auto-generated method stub
 			super.onStart();
-
-			CommentBean commentBean = new CommentBean();
-			commentBean.setContent(sendEditText.getText().toString());
-			commentBean.setUser(WyyApplication.getInfo());
-			thList2.get(postion).getComment().add(commentBean);
-			mAdapter2.notifyDataSetChanged();
-
-			// Map<String, Object> map = thList.get(postion);
-			// String lastcommentString = map.get("comment") + "";
-			// if (!TextUtils.isEmpty("" + map.get("comment"))) {
-			// lastcommentString = lastcommentString + "\n";
-			// }
-			//
-			// thList.get(postion).put(
-			// "comment",
-			// lastcommentString + WyyApplication.getInfo().getUsername()
-			// + ":" + sendEditText.getText().toString());
-			//
-			// mAdapter.notifyDataSetChanged();
-
-			// sendButton.setEnabled(false);
-			// sendButton.setBackgroundColor(getResources().getColor(
-			// R.color.home_txt));
+			if (WyyApplication.getInfo()!=null) {
+				CommentBean commentBean = new CommentBean();
+				commentBean.setContent(sendEditText.getText().toString());
+				commentBean.setUser(WyyApplication.getInfo());
+				thList2.get(postion).getComment().add(commentBean);
+				mAdapter2.notifyDataSetChanged();
+			}
 
 			sendEditText.setText("");
 			sendView.setVisibility(View.GONE);
@@ -325,10 +321,6 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		public void onFinish() {
 			// TODO Auto-generated method stub
 			super.onFinish();
-			// sendButton.setEnabled(true);
-			// sendButton.setText(R.string.send);
-			// sendButton.setBackgroundColor(getResources().getColor(
-			// R.color.transparent));
 		}
 
 		@Override
@@ -397,6 +389,7 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 			mAdapter2.notifyDataSetChanged();
 		} catch (Exception e) {
 			// TODO: handle exception
+			BingLog.e(TAG, "´íÎó:"+e.getMessage());
 		}
 		
 

@@ -21,13 +21,17 @@ import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.http.utils.JsonUtils;
 import com.wyy.myhealth.ui.shaiyishai.utils.ShaiUtility;
 import com.wyy.myhealth.utils.BingLog;
+import com.wyy.myhealth.utils.UpdateAppUtils;
 import com.wyy.myhealth.welcome.WelcomeActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Binder;
 import android.os.IBinder;
 import android.text.TextUtils;
@@ -92,8 +96,8 @@ public class MainService extends Service {
 		super.onCreate();
 		BingLog.i(TAG, "Service===onCreate===");
 		context = this;
-		getUserRecorder();
 		initFilter();
+		UpdateAppUtils.upDateApp(context);
 		// initRunable();
 	}
 
@@ -108,6 +112,9 @@ public class MainService extends Service {
 	private void getUserRecorder() {
 		if (WyyApplication.getInfo() == null) {
 			WelcomeActivity.getPersonInfo(this);
+		}
+		if (null == WyyApplication.getInfo()) {
+			return;
 		}
 		getHealthRecored();
 		getFoots();
@@ -139,6 +146,7 @@ public class MainService extends Service {
 		public void onFailure(Throwable error, String content) {
 			// TODO Auto-generated method stub
 			super.onFailure(error, content);
+			parseJson(getUserRecored(context));
 		}
 
 	};
@@ -177,6 +185,8 @@ public class MainService extends Service {
 
 			}
 
+			saveRecored(context, content);
+			saveRecoredsize(context, nextHealthRecoderBeans.size());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			if (Config.DEVELOPER_MODE) {
@@ -186,7 +196,7 @@ public class MainService extends Service {
 		}
 	}
 
-	private static void getFoots() {
+	private void getFoots() {
 		HealthHttpClient.doHttpGetMyFoots(WyyApplication.getInfo().getId(),
 				new AsyncHttpResponseHandler() {
 
@@ -198,10 +208,17 @@ public class MainService extends Service {
 
 					}
 
+					@Override
+					public void onFailure(Throwable error, String content) {
+						// TODO Auto-generated method stub
+						super.onFailure(error, content);
+						parseFoots(getUserFoots(context));
+					}
+
 				});
 	}
 
-	private static void parseFoots(String json) {
+	private void parseFoots(String json) {
 		try {
 			JSONObject jsonObject = new JSONObject(json);
 			int length = jsonObject.getJSONArray("foots").length();
@@ -211,6 +228,9 @@ public class MainService extends Service {
 						.getJSONObject(i).getString("level");
 				sports.add(level);
 			}
+
+			saveFoots(context, json);
+			saveFootssize(context, sports.size());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -235,12 +255,13 @@ public class MainService extends Service {
 		}
 	};
 
+	@SuppressLint("NewApi")
 	public void initRunable() {
 		service = Executors.newScheduledThreadPool(2);
 		service.scheduleAtFixedRate(checkRunnable, ConstantS.DELAY_TIME,
 				ConstantS.PERIOD_TIME, TimeUnit.SECONDS);
 		service.scheduleAtFixedRate(userDataRunnable, ConstantS.DELAY_TIME,
-				ConstantS.PERIOD_TIME_, TimeUnit.MINUTES);
+				ConstantS.PERIOD_TIME, TimeUnit.SECONDS);
 	}
 
 	private Runnable checkRunnable = new Runnable() {
@@ -299,6 +320,153 @@ public class MainService extends Service {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+	}
+	/**
+	 * 获得记录数据
+	 * @param context
+	 * @return
+	 */
+	public static String getUserRecored(Context context) {
+		String mString = "";
+		if (context != null) {
+			SharedPreferences preferences = context.getSharedPreferences(TAG,
+					MODE_PRIVATE);
+			mString = preferences.getString("recored", "");
+		}
+		return mString;
+	}
+	
+	/**
+	 * 获得记录次数
+	 * @param context
+	 * @return
+	 */
+	public static int getUserRecoredsize(Context context) {
+		int size = 0;
+		if (context != null) {
+			SharedPreferences preferences = context.getSharedPreferences(TAG,
+					MODE_PRIVATE);
+			try {
+				size = preferences.getInt("recoredsize", 0);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		}
+		return size;
+	}
+	/**
+	 * 保存记录数据
+	 * @param context
+	 * @param json
+	 */
+	private static void saveRecored(Context context, String json) {
+		if (context == null) {
+			return;
+		}
+
+		SharedPreferences preferences = context.getSharedPreferences(TAG,
+				MODE_PRIVATE);
+		Editor editor = preferences.edit();
+		editor.putString("recored", json);
+		editor.commit();
+	}
+	
+	/**
+	 * 保存记录次数
+	 * @param context
+	 * @param size
+	 */
+	private static void saveRecoredsize(Context context, int size) {
+		if (context == null) {
+			return;
+		}
+
+		if (size>getUserRecoredsize(context)) {
+			sendNewRecoredShai(context);
+		}
+
+		SharedPreferences preferences = context.getSharedPreferences(TAG,
+				MODE_PRIVATE);
+		Editor editor = preferences.edit();
+		editor.putInt("recoredsize", size);
+		editor.commit();
+	}
+	
+	/**
+	 * 获得步伐数据
+	 * @param context
+	 * @return
+	 */
+	public static String getUserFoots(Context context) {
+		String mString = "";
+		if (context != null) {
+			SharedPreferences preferences = context.getSharedPreferences(TAG,
+					MODE_PRIVATE);
+			mString = preferences.getString("foots", "");
+		}
+		return mString;
+	}
+	/**
+	 * 获得步伐次数
+	 * @param context
+	 * @return
+	 */
+	public static int getUserFootssize(Context context) {
+		int size=0;
+		if (context != null) {
+			SharedPreferences preferences = context.getSharedPreferences(TAG,
+					MODE_PRIVATE);
+			try {
+				size = preferences.getInt("footssize", 0);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		}
+		return size;
+	}
+	
+	/**
+	 * 保存步伐数据
+	 * @param context
+	 * @param json
+	 */
+	private static void saveFoots(Context context, String json) {
+		if (context == null) {
+			return;
+		}
+
+		SharedPreferences preferences = context.getSharedPreferences(TAG,
+				MODE_PRIVATE);
+		Editor editor = preferences.edit();
+		editor.putString("foots", json);
+		editor.commit();
+	}
+	/**
+	 * 保存步伐次数
+	 * @param context
+	 * @param json
+	 */
+	private static void saveFootssize(Context context, int size) {
+		if (context == null) {
+			return;
+		}
+
+		if (size>getUserFootssize(context)) {
+			sendNewRecoredShai(context);
+		}
+
+		SharedPreferences preferences = context.getSharedPreferences(TAG,
+				MODE_PRIVATE);
+		Editor editor = preferences.edit();
+		editor.putInt("footssize", size);
+		editor.commit();
+	}
+	
+
+	private static void sendNewRecoredShai(Context context) {
+		context.sendBroadcast(new Intent(ConstantS.ACTION_RECORED_NOTICE));
 	}
 
 }

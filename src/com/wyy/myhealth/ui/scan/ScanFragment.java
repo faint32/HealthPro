@@ -1,6 +1,7 @@
 package com.wyy.myhealth.ui.scan;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -116,10 +117,16 @@ public class ScanFragment extends Fragment {
 	private TextView scantTextView;
 
 	private NearFoodBean sameNearFoodBean;
-	// 特征点
+	/**
+	 * 特征点
+	 */
 	private int feture = 0;
-	// 阈值
+	/**
+	 * 阈值
+	 */
 	private double cw = 0;
+
+	public static boolean isfuture = false;
 
 	private ScanMoodBean scanMoodBean;
 
@@ -215,9 +222,6 @@ public class ScanFragment extends Fragment {
 
 	}
 
-	
-	
-	
 	private void initView(View v) {
 		saoImageView = (ImageView) v.findViewById(R.id.saomiao_k_img);
 		mFrameLayout = (FrameLayout) v.findViewById(R.id.camera_view);
@@ -278,7 +282,7 @@ public class ScanFragment extends Fragment {
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			
+
 		}
 
 		@Override
@@ -288,7 +292,7 @@ public class ScanFragment extends Fragment {
 			if (holder.getSurface() == null) {
 				return;
 			}
-			if (mCamera==null) {
+			if (mCamera == null) {
 				return;
 			}
 			mCamera.stopPreview();
@@ -364,7 +368,7 @@ public class ScanFragment extends Fragment {
 				if (null == mCamera) {
 					mCamera = Camera.open();
 				}
-				if (null==mCamera) {
+				if (null == mCamera) {
 					return;
 				}
 				mCamera.setPreviewDisplay(holder);
@@ -722,13 +726,39 @@ public class ScanFragment extends Fragment {
 		long time = System.currentTimeMillis();
 		Align align = new Align();
 		List<Feature> fs1;
+		List<Feature> fs2;
 		fs1 = align.createHistogram(PhoneUtlis
 				.getSmall100ZoomBitmap(FileUtils.HEALTH_IMAG + "/wyy.png"));
-		int featureNumber = fs1.size();
+		fs2 = align.createHistogram(PhoneUtlis
+				.getSmall20Bitmap(FileUtils.HEALTH_IMAG + "/cl.png"));
+		if (fs1 == null) {
+			fs1 = new ArrayList<>();
+		}
+
+		if (fs2 == null) {
+			fs2 = new ArrayList<>();
+		}
+
+		int featureNumber1 = fs1.size();
+
+		int featureNumber2 = fs2.size();
+		double f = (double) featureNumber2 / (double) featureNumber1;
+		if (featureNumber1 < ConstantS.FOOD_FETURE_MIN) {
+			if (f >= 0.6) {
+				isfuture = false;
+			} else {
+				isfuture = true;
+			}
+		}
+		if (featureNumber1 > 0) {
+			BingLog.i(TAG, "特征点o:" + featureNumber1 + "特征点t:" + featureNumber2
+					+ "比值:" + (featureNumber2 / featureNumber1));
+		}
+
 		BingLog.i(TAG,
-				"指数:" + featureNumber + "耗时:"
+				"指数:" + featureNumber1 + "耗时:"
 						+ ((System.currentTimeMillis() - time) / 1000.00) + "s");
-		return featureNumber;
+		return featureNumber1;
 	}
 
 	private boolean isComfortAble() {
@@ -738,7 +768,7 @@ public class ScanFragment extends Fragment {
 		Config.feture_Value = "特征值:" + feturenum;
 		feture = feturenum;
 		if (feturenum > ConstantS.FOOD_FETURE_MIN
-				&& feturenum < ConstantS.FOOD_FETURE_MAX) {
+				&& feturenum < ConstantS.FOOD_FETURE_MAX && !isfuture) {
 			iscomple = true;
 			return true;
 		}
@@ -751,8 +781,8 @@ public class ScanFragment extends Fragment {
 		double k = 0;
 		k = BitmapRatioUtils.ratio(PhoneUtlis
 				.getSmall40ZoomBitmap(FileUtils.HEALTH_IMAG + "/wyy.png"));
-		BingLog.i(TAG, "阈值计算:" + k);
 		Config.placeValue = "阈值:" + k;
+		BingLog.i(TAG, "阈值:" + k);
 		isplace = true;
 		cw = k;
 		if (k > ConstantS.THRESHOLD_INDEX) {
@@ -806,6 +836,11 @@ public class ScanFragment extends Fragment {
 				new Thread(sendbmp).start();
 				break;
 
+			case 3:
+				Toast.makeText(getActivity(), "请选择正确距离", Toast.LENGTH_LONG)
+						.show();
+				break;
+
 			default:
 				break;
 			}
@@ -844,6 +879,7 @@ public class ScanFragment extends Fragment {
 		if (!JudgePersInfoUtlity.isComplete()) {
 			Toast.makeText(getActivity(), R.string.usersaoynotice,
 					Toast.LENGTH_SHORT).show();
+			send2Person();
 			return;
 		}
 
@@ -948,6 +984,13 @@ public class ScanFragment extends Fragment {
 		if (ScanNavActivity.getIsFirstUse(getActivity())) {
 			startActivity(new Intent(getActivity(), ScanNavActivity.class));
 		}
+	}
+
+	private void send2Person() {
+		Intent intent = new Intent();
+		intent.setAction(ConstantS.ACTION_CHANEG_PAGER_INDEX);
+		intent.putExtra("index", 3);
+		getActivity().sendBroadcast(intent);
 	}
 
 }

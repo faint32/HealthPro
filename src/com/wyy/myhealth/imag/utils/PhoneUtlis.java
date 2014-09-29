@@ -80,7 +80,7 @@ public class PhoneUtlis {
 		Bitmap bm = getSmallNoCutBitmap(filePath);
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		bm.compress(Bitmap.CompressFormat.PNG, 40, baos);
+		bm.compress(Bitmap.CompressFormat.JPEG, 40, baos);
 		byte[] b = baos.toByteArray();
 
 		return Base64.encodeToString(b, Base64.DEFAULT);
@@ -175,6 +175,9 @@ public class PhoneUtlis {
 		options.inJustDecodeBounds = false;
 
 		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
+		if (mBitmap == null) {
+			return null;
+		}
 		float width = mBitmap.getWidth();
 		float height = mBitmap.getHeight();
 		float ratio = width / height;
@@ -222,8 +225,7 @@ public class PhoneUtlis {
 			mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(),
 					mBitmap.getHeight(), m, true);
 		}
-		
-		
+
 		SavePic.saveFoodPic2Example(mBitmap);
 		return mBitmap;
 	}
@@ -244,6 +246,9 @@ public class PhoneUtlis {
 		options.inJustDecodeBounds = false;
 
 		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
+		if (mBitmap == null) {
+			return null;
+		}
 		int width = mBitmap.getWidth();
 		int height = mBitmap.getHeight();
 		mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix,
@@ -286,8 +291,7 @@ public class PhoneUtlis {
 			mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(),
 					mBitmap.getHeight(), m, true);
 		}
-		
-		
+
 		return mBitmap;
 	}
 
@@ -313,7 +317,9 @@ public class PhoneUtlis {
 		options.inJustDecodeBounds = false;
 
 		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
-
+		if (mBitmap == null) {
+			return null;
+		}
 		ExifInterface exif = null;
 		try {
 			exif = new ExifInterface(filePath);
@@ -384,6 +390,9 @@ public class PhoneUtlis {
 		options.inJustDecodeBounds = false;
 
 		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
+		if (mBitmap == null) {
+			return null;
+		}
 		float width = mBitmap.getWidth();
 		float height = mBitmap.getHeight();
 		float ratio = width / height;
@@ -395,10 +404,10 @@ public class PhoneUtlis {
 						(int) (mBitmap.getHeight() / 3 * ratio), matrix, true);
 
 		mBitmap = zoomImage(mBitmap, 100, 100);
-		
-		mBitmap=getORIENTATIONBitmap(filePath, mBitmap);
-		
-		// SavePic.saveFoodPic2Example(mBitmap);
+
+		mBitmap = getORIENTATIONBitmap(filePath, mBitmap);
+
+		SavePic.saveFoodPic20Example(mBitmap);
 
 		return mBitmap;
 	}
@@ -425,6 +434,9 @@ public class PhoneUtlis {
 		options.inJustDecodeBounds = false;
 
 		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
+		if (mBitmap == null) {
+			return null;
+		}
 		float width = mBitmap.getWidth();
 		float height = mBitmap.getHeight();
 		float ratio = width / height;
@@ -436,7 +448,7 @@ public class PhoneUtlis {
 						(int) (mBitmap.getHeight() / 3 * ratio), matrix, true);
 
 		mBitmap = zoomImage(mBitmap, 60, 60);
-		mBitmap=getORIENTATIONBitmap(filePath, mBitmap);
+		mBitmap = getORIENTATIONBitmap(filePath, mBitmap);
 		return mBitmap;
 	}
 
@@ -462,6 +474,9 @@ public class PhoneUtlis {
 		options.inJustDecodeBounds = false;
 
 		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
+		if (mBitmap == null) {
+			return null;
+		}
 		float width = mBitmap.getWidth();
 		float height = mBitmap.getHeight();
 		float ratio = width / height;
@@ -473,7 +488,38 @@ public class PhoneUtlis {
 						(int) (mBitmap.getHeight() / 3 * ratio), matrix, true);
 
 		mBitmap = zoomImage(mBitmap, 40, 40);
+		// SavePic.saveFoodPic20Example(mBitmap);
+		return mBitmap;
+	}
 
+	public static Bitmap getSmall20Bitmap(String filePath) {
+
+		Matrix matrix = new Matrix();
+		matrix.setRotate(0);
+
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+//		options.inJustDecodeBounds = true;
+//		BitmapFactory.decodeFile(filePath, options);
+//
+//		// Calculate inSampleSize
+//		options.inSampleSize = calculateInSampleSize(options, 480, 800);
+//
+//		// Decode bitmap with inSampleSize set
+//		options.inJustDecodeBounds = false;
+
+		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
+		if (mBitmap == null) {
+			return null;
+		}
+		float width = mBitmap.getWidth();
+		float height = mBitmap.getHeight();
+//		mBitmap = Bitmap.createBitmap(mBitmap, (int) (mBitmap.getWidth() / 4),
+//				(int) (height) / 4, (int) (width / 2), (int) (height / 2),
+//				matrix, true);
+		mBitmap = Bitmap.createBitmap(mBitmap, (int) (mBitmap.getWidth() / 10),
+				(int) (height) / 10, (int) (width / 5*4), (int) (height / 5*4),
+				matrix, true);
+		 SavePic.saveFoodPicHalfExample(mBitmap);
 		return mBitmap;
 	}
 
@@ -499,6 +545,9 @@ public class PhoneUtlis {
 		options.inJustDecodeBounds = false;
 
 		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
+		if (mBitmap == null) {
+			return null;
+		}
 		float width = mBitmap.getWidth();
 		float height = mBitmap.getHeight();
 		float ratio = width / height;
@@ -513,7 +562,6 @@ public class PhoneUtlis {
 
 		mBitmap = zoomImage(mBitmap, 30, 30);
 
-		
 		ExifInterface exif = null;
 		try {
 			exif = new ExifInterface(filePath);
@@ -551,7 +599,7 @@ public class PhoneUtlis {
 			mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(),
 					mBitmap.getHeight(), m, true);
 		}
-		
+
 		// SavePic.saveFoodPic2Example(mBitmap);
 
 		return mBitmap;
@@ -573,17 +621,23 @@ public class PhoneUtlis {
 		options.inJustDecodeBounds = false;
 
 		Bitmap mBitmap = BitmapFactory.decodeFile(filePath, options);
-		float width = mBitmap.getWidth();
-		float height = mBitmap.getHeight();
-		float ratio = width / height;
-		mBitmap = Bitmap
-				.createBitmap(mBitmap, (int) (mBitmap.getWidth() / 3),
-						(int) (mBitmap.getHeight() - mBitmap.getHeight()
-								* ratio / 3) / 2,
-						(int) (mBitmap.getWidth() / 3),
-						(int) (mBitmap.getHeight() / 3 * ratio), matrix, true);
+		if (mBitmap == null) {
+			return null;
+		}
+		try {
+			float width = mBitmap.getWidth();
+			float height = mBitmap.getHeight();
+			float ratio = width / height;
+			mBitmap = Bitmap.createBitmap(mBitmap,
+					(int) (mBitmap.getWidth() / 3),
+					(int) (mBitmap.getHeight() - mBitmap.getHeight() * ratio
+							/ 3) / 2, (int) (mBitmap.getWidth() / 3),
+					(int) (mBitmap.getHeight() / 3 * ratio), matrix, true);
 
-		mBitmap = zoomImage(mBitmap, 80, 80);
+			mBitmap = zoomImage(mBitmap, 80, 80);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 		// SavePic.saveFoodPic2Example(mBitmap);
 
@@ -767,8 +821,7 @@ public class PhoneUtlis {
 		return bitmap;
 	}
 
-	
-	public static Bitmap getORIENTATIONBitmap(String filePath,Bitmap mBitmap){
+	public static Bitmap getORIENTATIONBitmap(String filePath, Bitmap mBitmap) {
 		ExifInterface exif = null;
 		try {
 			exif = new ExifInterface(filePath);
@@ -808,5 +861,5 @@ public class PhoneUtlis {
 		}
 		return mBitmap;
 	}
-	
+
 }

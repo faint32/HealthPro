@@ -13,6 +13,8 @@ public class DisCoverStateBean implements Serializable {
 	
 	private boolean hasNewHps;
 	
+	private boolean hasNewRecored;
+	
 	private String imgUrl;
 
 	public boolean isHasNewShai() {
@@ -37,6 +39,14 @@ public class DisCoverStateBean implements Serializable {
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+
+	public boolean isHasNewRecored() {
+		return hasNewRecored;
+	}
+
+	public void setHasNewRecored(boolean hasNewRecored) {
+		this.hasNewRecored = hasNewRecored;
 	}
 	
 	

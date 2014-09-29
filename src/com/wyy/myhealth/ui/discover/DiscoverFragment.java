@@ -31,6 +31,8 @@ public class DiscoverFragment extends Fragment {
 	private ImageView shaiNoticeView;
 
 	private ImageView healthNoticeView;
+	
+	private ImageView recoredNoticeView;
 
 	private DisCoverStateBean disCoverStateBean = new DisCoverStateBean();
 
@@ -80,6 +82,7 @@ public class DiscoverFragment extends Fragment {
 	private void initView(View v) {
 		shaiNoticeView = (ImageView) v.findViewById(R.id.shaiyishai_notice);
 		healthNoticeView = (ImageView) v.findViewById(R.id.health_notice);
+		recoredNoticeView = (ImageView) v.findViewById(R.id.recored_notice);
 		v.findViewById(R.id.shaiyishai_fr).setOnClickListener(listener);
 		v.findViewById(R.id.healthpass_fr).setOnClickListener(listener);
 		v.findViewById(R.id.healthrecord_fr).setOnClickListener(listener);
@@ -145,6 +148,9 @@ public class DiscoverFragment extends Fragment {
 	}
 
 	private void showHealthRecorder() {
+		recoredNoticeView.setVisibility(View.GONE);
+		disCoverStateBean.setHasNewRecored(false);
+		sendCanelNotice();
 		startActivity(new Intent(getActivity(), HealthReActivity.class));
 	}
 
@@ -156,6 +162,7 @@ public class DiscoverFragment extends Fragment {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ConstantS.ACTION_SEND_SHAI);
 		filter.addAction(ConstantS.NEW_FOOD_COMMENT);
+		filter.addAction(ConstantS.ACTION_RECORED_NOTICE);
 		getActivity().registerReceiver(disReceiver, filter);
 	}
 
@@ -170,6 +177,10 @@ public class DiscoverFragment extends Fragment {
 			healthNoticeView.setVisibility(View.VISIBLE);
 		}
 
+		if (disCoverStateBean.isHasNewRecored()) {
+			recoredNoticeView.setVisibility(View.VISIBLE);
+		}
+		
 		if (disCoverStateBean.isHasNewShai()) {
 			shaiNoticeView.setVisibility(View.VISIBLE);
 			LoadImageUtils.loadImage4ImageV(shaiNoticeView,
@@ -187,6 +198,8 @@ public class DiscoverFragment extends Fragment {
 				handlerShai(intent);
 			} else if (action.equals(ConstantS.NEW_FOOD_COMMENT)) {
 				handlerHps();
+			} else if (action.equals(ConstantS.ACTION_RECORED_NOTICE)) {
+				handlerRecored();
 			}
 
 		}
@@ -209,10 +222,22 @@ public class DiscoverFragment extends Fragment {
 		healthNoticeView.setVisibility(View.VISIBLE);
 		disCoverStateBean.setHasNewHps(true);
 	}
+	
+	
+
+	private void handlerRecored() {
+		recoredNoticeView.setVisibility(View.VISIBLE);
+		disCoverStateBean.setHasNewRecored(true);
+	}
 
 	private void sendCanelNotice() {
-		Intent intent = new Intent(ConstantS.ACTION_SEND_CANEL_NOTICE);
-		getActivity().sendBroadcast(intent);
+		if (disCoverStateBean != null && !disCoverStateBean.isHasNewHps()
+				&& !disCoverStateBean.isHasNewRecored()
+				&& !disCoverStateBean.isHasNewShai()) {
+			Intent intent = new Intent(ConstantS.ACTION_SEND_CANEL_NOTICE);
+			getActivity().sendBroadcast(intent);
+		}
+
 	}
 
 }

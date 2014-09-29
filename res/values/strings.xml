@@ -82,7 +82,7 @@
     <string name="loginout">注销当前账号</string>
     <string name="logining">登录中&#8230;</string>
     <string name="regeit">注册</string>
-     <string name="regeit_">手机注册</string>
+    <string name="regeit_">手机注册</string>
     <string name="regeiting">注册中&#8230;</string>
     <string name="regeit_success">注册成功</string>
     <string name="regeit_failure">注册失败</string>
@@ -136,6 +136,8 @@
     <string name="compleinfojiangli">恭喜您获得十个营养币</string>
     <string name="scanfiure_0">扫描失败，请扫描中餐美食</string>
     <string name="scanfilure_1">你可以先点击记录，体验智能匹配服务！</string>
+    <string name="scanfiure_up">扫描失败，请扫描中餐美食</string>
+    <string name="scanfilure_bottom">你可以先点击记录，体验智能匹配服务！</string>
     <string name="save">保存</string>
     <string name="saving">保存中</string>
     <string name="tell_other">告知亲友</string>
@@ -391,5 +393,6 @@
     <string name="dis_nav_ice">把家里的食物搬进来吧!</string>
     <string name="person_nav">微营养将会基于您的\n基本信息进行个性化营养健康服务\n基本信息一定要填哦!</string>
     <string name="nutrion_nav">""建议值"必须在用户\n又一次纪录值之后才会有哦!</string>
+    <string name="share_nav">记录一下，微营养将会判断你\n下一顿的美食营养与热量哦，并\n提供预警与跟踪服务!</string>
 
 </resources>

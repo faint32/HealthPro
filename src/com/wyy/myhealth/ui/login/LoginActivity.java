@@ -51,6 +51,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -311,6 +312,7 @@ public class LoginActivity extends ActionBarActivity implements
 		if (TextUtils.isEmpty(accountString)) {
 			accounEditText.setError(getString(R.string.nullcontentnotice));
 			accounEditText.requestFocus();
+			accounEditText.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake));
 			return;
 		}
 
@@ -319,6 +321,7 @@ public class LoginActivity extends ActionBarActivity implements
 		if (TextUtils.isEmpty(password)) {
 			passwordEditText.setError(getString(R.string.nullcontentnotice));
 			passwordEditText.requestFocus();
+			passwordEditText.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake));
 			return;
 		}
 
