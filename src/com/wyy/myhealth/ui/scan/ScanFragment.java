@@ -32,6 +32,7 @@ import com.wyy.myhealth.support.picfeure.Align;
 import com.wyy.myhealth.ui.navigation.ScanNavActivity;
 import com.wyy.myhealth.ui.photoview.utils.Utility;
 import com.wyy.myhealth.utils.BingLog;
+import com.wyy.myhealth.utils.CameraUtlity;
 import com.wyy.myhealth.utils.JudgePersInfoUtlity;
 
 import android.annotation.SuppressLint;
@@ -70,6 +71,7 @@ public class ScanFragment extends Fragment {
 
 	private static final String TAG = ScanFragment.class.getSimpleName();
 	private static final int SPLASH_DELAY_MILLIS = 1000;
+	private static final int SPLASH_DELAY_MILLIS_ = 10000;
 	private Camera mCamera;
 	private Camera.Parameters parameters;// 照相机参数集
 	private FrameLayout mFrameLayout;
@@ -141,8 +143,6 @@ public class ScanFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		BingLog.i(TAG, "======onCreateView======");
-
-		initFilter();
 		View rootView = inflater.inflate(R.layout.scan_lay, container, false);
 		initView(rootView);
 		return rootView;
@@ -154,6 +154,7 @@ public class ScanFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		BingLog.i(TAG, "======onCreate======");
+		initFilter();
 	}
 
 	@Override
@@ -168,7 +169,12 @@ public class ScanFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onDetach();
 		BingLog.i(TAG, "======onDetach======");
-		getActivity().unregisterReceiver(pageIndexReceiver);
+		try {
+			getActivity().unregisterReceiver(pageIndexReceiver);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 	}
 
 	@Override
@@ -215,6 +221,7 @@ public class ScanFragment extends Fragment {
 		context = getActivity();
 		if (count == 0) {
 			initCameraView();
+			// mHandler.sendEmptyMessageDelayed(4, SPLASH_DELAY_MILLIS_);
 			count = 1;
 		}
 
@@ -254,13 +261,22 @@ public class ScanFragment extends Fragment {
 	}
 
 	private void initCameraView() {
-		if (mCamera == null) {
-			mCamera = Camera.open();
+		try {
+			if (mCamera==null) {
+				mCamera = Camera.open();
+			}
+			cView = new cameraView(context, mCamera);
+			mFrameLayout.addView(new cameraView(context, mCamera));
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+		
 
+	}
+
+	private void addCameraView() {
 		cView = new cameraView(context, mCamera);
 		mFrameLayout.addView(new cameraView(context, mCamera));
-
 	}
 
 	class cameraView extends SurfaceView implements Callback {
@@ -506,19 +522,25 @@ public class ScanFragment extends Fragment {
 			Matrix matrix = new Matrix();
 			matrix.setRotate(angle);
 			BingLog.d(TAG, "是否可读:" + SdUtils.ExistSDCard());
-			if (SdUtils.ExistSDCard()) {
-				SavePic.saveToSDCard(data);
-			} else {
-				PhotoUtils.saveChatCode(data, context);
-			}
+			final byte[] data0=data;
+			new Thread(){
+				public void run() {
+					if (SdUtils.ExistSDCard()) {
+						SavePic.saveToSDCard(data0);
+					} else {
+						PhotoUtils.saveChatCode(data0, context);
+					}
+					if (!voiceflage) {
+						compareFood();
+					} else {
+						showVoiceSearch();
 
-			mCamera.startPreview();
-			if (!voiceflage) {
-				compareFood();
-			} else {
-				showVoiceSearch();
-
-			}
+					}
+				};
+			}.start();
+			
+			mHandler.obtainMessage(5);
+			
 
 		}
 	};
@@ -841,6 +863,14 @@ public class ScanFragment extends Fragment {
 						.show();
 				break;
 
+			case 4:
+				addCameraView();
+				break;
+
+			case 5:
+				startPrivew();
+				break;
+				
 			default:
 				break;
 			}
@@ -860,7 +890,7 @@ public class ScanFragment extends Fragment {
 				break;
 
 			case R.id.open_ligth:
-				openlight();
+				attemptopenligth();
 				break;
 
 			case R.id.loop_yuyin:
@@ -899,7 +929,7 @@ public class ScanFragment extends Fragment {
 
 	}
 
-	private void openlight() {
+	private void openlight() throws Exception {
 		if (mCamera.getParameters().getFlashMode()
 				.equals(Parameters.FLASH_MODE_TORCH)) {
 			try {
@@ -917,6 +947,17 @@ public class ScanFragment extends Fragment {
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
+		}
+	}
+
+	private void attemptopenligth() {
+		try {
+			if (CameraUtlity.hasFlash(mCamera)) {
+				openlight();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -993,4 +1034,16 @@ public class ScanFragment extends Fragment {
 		getActivity().sendBroadcast(intent);
 	}
 
+	
+	private void startPrivew(){
+		if (null!=mCamera) {
+			try {
+				mCamera.startPreview();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		}
+	}
+	
 }

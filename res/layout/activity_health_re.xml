@@ -11,20 +11,32 @@
         android:layout_height="match_parent"
         android:background="@color/dark_gray" >
 
-        <FrameLayout
-            android:id="@+id/container"
+        <ScrollView
+            android:id="@+id/health_recored_scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottom_include" >
-        </FrameLayout>
+            android:layout_above="@+id/bottom_include2" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <FrameLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="330dp" >
+                </FrameLayout>
+
+                <include
+                    android:id="@+id/bottom_include"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/recored_bottom_include" />
+            </LinearLayout>
+        </ScrollView>
 
         <include
-            android:id="@+id/bottom_include"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/bottom_include2"
-            layout="@layout/recored_bottom_include" />
-         <include
             android:id="@+id/bottom_include2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

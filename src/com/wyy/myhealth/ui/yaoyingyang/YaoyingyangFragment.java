@@ -162,7 +162,9 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 			// TODO Auto-generated method stub
 			super.onFinish();
 			isLoaing = false;
-			mRefreshLayout.setRefreshing(false);
+			if (mRefreshLayout!=null) {
+				mRefreshLayout.setRefreshing(false);
+			}
 		}
 
 		@Override
@@ -170,7 +172,9 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 			// TODO Auto-generated method stub
 			super.onStart();
 			isLoaing = true;
-			mRefreshLayout.setRefreshing(true);
+			if (mRefreshLayout!=null) {
+				mRefreshLayout.setRefreshing(true);
+			}
 		}
 
 		@Override
@@ -198,7 +202,9 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 			// TODO Auto-generated method stub
 			super.onFinish();
 			isLoaing = false;
-			mRefreshLayout.setRefreshing(false);
+			if (mRefreshLayout!=null) {
+				mRefreshLayout.setRefreshing(false);
+			}
 		}
 
 		@Override

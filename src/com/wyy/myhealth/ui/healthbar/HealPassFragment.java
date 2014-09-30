@@ -375,6 +375,12 @@ public class HealPassFragment extends HealthPassBase implements
 	 */
 	private void saveCurrent_ResultBitmap(Bitmap bitmap) {
 		BingLog.i(TAG, "¿ªÊ¼±£´æ");
+		if (bitmap==null) {
+			return;
+		}
+		if (null==WyyApplication.getInfo()) {
+			return;
+		}
 		File file = new File(FileUtils.HEALTH_IMAG, WyyApplication.getInfo()
 				.getUsername() + "hps" + ".jpg");
 		BufferedOutputStream bos;

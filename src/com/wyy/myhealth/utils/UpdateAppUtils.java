@@ -73,7 +73,7 @@ public class UpdateAppUtils {
 	};
 
 	private static void parseUrl(String content) {
-
+		BingLog.i("UpdateAppUtils", "Éý¼¶·µ»Ø:"+content);
 		try {
 			JSONObject jsonObject = new JSONObject(content);
 			String url = HealthHttpClient.APP_URL

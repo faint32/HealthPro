@@ -9,7 +9,7 @@
         android:layout_height="@dimen/navigation_drawer_height"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/home_bel_th"
-        android:background="@color/white"
+        android:background="@drawable/recored_sec"
         android:clickable="true" >
 
         <ImageView
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/navigation_drawer_height"
         android:layout_marginTop="1dp"
-        android:background="@color/white"
+        android:background="@drawable/recored_sec"
         android:clickable="true" >
 
         <ImageView
@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/navigation_drawer_height"
         android:layout_marginTop="1dp"
-        android:background="@color/white"
+        android:background="@drawable/recored_sec"
         android:clickable="true" >
 
         <ImageView
@@ -87,7 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/navigation_drawer_height"
         android:layout_marginTop="1dp"
-        android:background="@color/white"
+        android:background="@drawable/recored_sec"
         android:clickable="true" >
 
         <ImageView
@@ -114,7 +114,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/navigation_drawer_height"
         android:layout_marginTop="1dp"
-        android:background="@color/white"
+        android:background="@drawable/recored_sec"
         android:clickable="true" >
 
         <ImageView
@@ -138,9 +138,9 @@
     <LinearLayout
         android:id="@+id/home5_vshengsu_layout"
         android:layout_width="match_parent"
-      android:layout_height="@dimen/navigation_drawer_height"
+        android:layout_height="@dimen/navigation_drawer_height"
         android:layout_marginTop="1dp"
-        android:background="@color/white"
+        android:background="@drawable/recored_sec"
         android:clickable="true" >
 
         <ImageView
@@ -164,9 +164,9 @@
     <LinearLayout
         android:id="@+id/home6_kuangwuzhi_layout"
         android:layout_width="match_parent"
-       android:layout_height="@dimen/navigation_drawer_height"
+        android:layout_height="@dimen/navigation_drawer_height"
         android:layout_marginTop="1dp"
-        android:background="@color/white"
+        android:background="@drawable/recored_sec"
         android:clickable="true" >
 
         <ImageView

@@ -218,6 +218,8 @@ public class MainActivity extends ActionBarActivity implements
 			switch (position) {
 			case 0:
 
+//				return SuperAwesomeCardFragment.newInstance(position);
+				
 				return ScanFragment.newInstance(position);
 
 			case 1:

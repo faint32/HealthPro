@@ -200,39 +200,38 @@ public class MicroCodeLoginActivity extends BaseActivity implements
 		};
 
 	};
-	
-	
-	private void parseJson(String content){
+
+	private void parseJson(String content) {
+		if (TextUtils.isEmpty(content)) {
+			Toast.makeText(context, R.string.loginfailure, Toast.LENGTH_LONG)
+					.show();
+		}
 		try {
-			JSONObject jsonObject=new JSONObject(content);
+			JSONObject jsonObject = new JSONObject(content);
 			if (JsonUtils.isSuccess(jsonObject)) {
-				JSONObject object = jsonObject
-						.getJSONObject("user");
-				PersonalInfo info = JsonUtils
-						.getInfo(object);
-				if (null!=info) {
+				JSONObject object = jsonObject.getJSONObject("user");
+				PersonalInfo info = JsonUtils.getInfo(object);
+				if (null != info) {
 					WyyApplication.setInfo(info);
 					SavePersonInfoUtlis.setPersonInfo(info, context);
 					startMainActivity();
 				}
-				
-			}else {
-				Toast.makeText(context, R.string.loginfailure, Toast.LENGTH_LONG)
-				.show();
+
+			} else {
+				Toast.makeText(context, R.string.loginfailure,
+						Toast.LENGTH_LONG).show();
 			}
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			Toast.makeText(context, R.string.loginfailure, Toast.LENGTH_LONG)
-			.show();
+					.show();
 		}
 	}
 
-	
-	private void startMainActivity(){
+	private void startMainActivity() {
 		startActivity(new Intent(context, MainActivity.class));
 		finish();
 	}
-	
-	
+
 }
