@@ -66,7 +66,7 @@ public class ShareFoodActivity extends SubmitActivity implements
 
 	private CheckBox shaiCheck;
 
-	private boolean ishai = true;
+	private boolean ishai = false;
 
 	private NearFoodBean samefood;
 

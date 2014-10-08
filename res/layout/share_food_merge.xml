@@ -130,7 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="30dp"
-        android:checked="true"
+        android:checked="false"
         android:text="@string/share_shaiyishai" />
 
 </merge>

@@ -22,6 +22,7 @@ import com.wyy.myhealth.ui.setting.SettingActivity;
 import com.wyy.myhealth.ui.yaoyingyang.YaoyingyangFragment;
 import com.wyy.myhealth.utils.AlarmUtils;
 import com.wyy.myhealth.utils.BingLog;
+import com.wyy.myhealth.utils.UpdateAppUtils;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -117,6 +118,7 @@ public class MainActivity extends ActionBarActivity implements
 		setCusmenutome();
 
 		initPostFoot();
+		UpdateAppUtils.upDateApp(context);
 	}
 
 	private void initActionBar() {
@@ -218,8 +220,8 @@ public class MainActivity extends ActionBarActivity implements
 			switch (position) {
 			case 0:
 
-//				return SuperAwesomeCardFragment.newInstance(position);
-				
+				// return SuperAwesomeCardFragment.newInstance(position);
+
 				return ScanFragment.newInstance(position);
 
 			case 1:

@@ -97,8 +97,6 @@ public class MainService extends Service {
 		BingLog.i(TAG, "Service===onCreate===");
 		context = this;
 		initFilter();
-		UpdateAppUtils.upDateApp(context);
-		// initRunable();
 	}
 
 	@Override
