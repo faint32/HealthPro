@@ -29,7 +29,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.widget.Toast;
 
 /**

@@ -110,6 +110,7 @@ public class IceDadabaseUtils implements IceDataInterface {
 			cursor = WyyDatebase.wyyDatabase.query(IceBoxData.TABLE_NAME, null,
 					null, null, null, null, "_ID desc");
 			// 获取name列的索引
+			@SuppressWarnings("unused")
 			int idIndex = cursor.getColumnIndex(IceBoxData._ID);
 			// 获取json列的索引
 			int nameIndex = cursor.getColumnIndex(IceBoxData.NAME);

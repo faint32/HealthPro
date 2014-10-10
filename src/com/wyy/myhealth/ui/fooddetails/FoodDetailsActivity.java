@@ -62,7 +62,9 @@ public class FoodDetailsActivity extends BaseActivity {
 
 	private PersonalInfo info;
 
+	@SuppressWarnings("unused")
 	private int starsindex = 0;
+	@SuppressWarnings("unused")
 	private int goodsindex = 0;
 
 	private ImageView foodpic;
@@ -71,6 +73,7 @@ public class FoodDetailsActivity extends BaseActivity {
 
 	private ImageView tasteLevel;
 
+	@SuppressWarnings("unused")
 	private ImageView ishanghu;
 
 	private TextView distance;

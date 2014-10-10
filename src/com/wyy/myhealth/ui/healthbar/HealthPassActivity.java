@@ -25,6 +25,7 @@ public class HealthPassActivity extends AbstractlistActivity {
 		// isCustomActionBar = true;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onInitFragment() {
 		// TODO Auto-generated method stub

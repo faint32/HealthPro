@@ -16,7 +16,6 @@ import com.wyy.myhealth.service.MainService;
 import com.wyy.myhealth.ui.baseactivity.BaseNutritionActivity;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 import com.wyy.myhealth.ui.navigation.NutritionNavActivity;
-import com.wyy.myhealth.ui.navigation.PersonalNavActivity;
 import com.wyy.myhealth.utils.BingLog;
 
 public class FoodNutritionActivity extends BaseNutritionActivity implements

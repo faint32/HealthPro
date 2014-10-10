@@ -43,7 +43,7 @@ public class HealthHttpClient {
 	/**
 	 * 应用下载地址
 	 */
-	public static final String APP_URL = BASE_URL + "version/";
+	public static final String APP_URL = URL + "version/";
 
 	private static final String ICE_BOX = BASE_URL + "userIcebox";
 
@@ -53,6 +53,7 @@ public class HealthHttpClient {
 
 	private static final String DEL_COLLECT_FOOD = BASE_URL + "delCollect";
 
+	@SuppressWarnings("unused")
 	private static final String REPLY_COMMENT = BASE_URL + "postMoodComment";
 
 	private static final String TOP_TEN_FOOD = BASE_URL + "top10dayBefore";

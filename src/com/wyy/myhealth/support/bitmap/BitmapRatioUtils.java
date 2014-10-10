@@ -20,6 +20,7 @@ public class BitmapRatioUtils {
 		int index = 0;
 		int count = 0;
 		for (int row = 0; row < heigth; row++) {
+			@SuppressWarnings("unused")
 			int ta = 0, tr = 0, tg = 0, tb = 0;
 			for (int col = 0; col < width; col++) {
 				index = row * width + col;

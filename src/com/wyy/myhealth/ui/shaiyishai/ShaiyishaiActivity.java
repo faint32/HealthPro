@@ -34,6 +34,7 @@ public class ShaiyishaiActivity extends AbstractlistActivity implements
 	private SearchView searchView;
 	private static final String LIMIT = "10";
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onInitFragment() {
 		// TODO Auto-generated method stub

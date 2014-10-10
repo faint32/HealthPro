@@ -100,6 +100,7 @@ public class MessageAdapter extends BaseAdapter {
 	
 	private class ViewHolder {
 		public ImageView headima;
+		@SuppressWarnings("unused")
 		public TextView typemsg;//消息类型
 		public TextView userName;// 用户名称
 		public ImageView foodima;// 食物图片

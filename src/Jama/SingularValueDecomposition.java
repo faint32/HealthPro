@@ -17,6 +17,11 @@ import Jama.util.*;
 
 public class SingularValueDecomposition implements java.io.Serializable {
 
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6181015217774350802L;
+
 /* ------------------------
    Class variables
  * ------------------------ */

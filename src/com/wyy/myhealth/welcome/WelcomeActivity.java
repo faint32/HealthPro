@@ -13,7 +13,6 @@ import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.baidu.utlis.Utils;
 import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.contants.ConstantS;
-import com.wyy.myhealth.ui.login.LoginActivity;
 import com.wyy.myhealth.ui.login.utils.LoginUtils;
 
 import android.app.Activity;

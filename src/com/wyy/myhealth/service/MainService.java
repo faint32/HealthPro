@@ -21,7 +21,6 @@ import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.http.utils.JsonUtils;
 import com.wyy.myhealth.ui.shaiyishai.utils.ShaiUtility;
 import com.wyy.myhealth.utils.BingLog;
-import com.wyy.myhealth.utils.UpdateAppUtils;
 import com.wyy.myhealth.welcome.WelcomeActivity;
 
 import android.annotation.SuppressLint;

@@ -20,7 +20,12 @@ public class QRDecomposition implements java.io.Serializable {
    Class variables
  * ------------------------ */
 
-   /** Array for internal storage of decomposition.
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 9190822242049253575L;
+
+/** Array for internal storage of decomposition.
    @serial internal array storage.
    */
    private double[][] QR;
