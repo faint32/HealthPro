@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.IceBoxFoodBean;
 import com.wyy.myhealth.contants.ConstantS;
@@ -182,6 +183,20 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 		iceBoxMainAdapter.setDelpicClickListener(this);
 		iceBoxMainAdapter.setGridCilckListener(this);
 
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
 	}
 
 	private void startOpenAnimation() {

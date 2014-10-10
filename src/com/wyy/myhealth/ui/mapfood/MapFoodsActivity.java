@@ -38,6 +38,7 @@ import com.baidu.mapapi.search.MKWalkingRouteResult;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.PreferencesFoodsInfo;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.Foods;
@@ -249,6 +250,7 @@ public class MapFoodsActivity extends ActionBarActivity {
 
 	}
 
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
@@ -510,7 +512,7 @@ public class MapFoodsActivity extends ActionBarActivity {
 		 */
 		mMapView.onPause();
 		super.onPause();
-
+		UmenAnalyticsUtility.onPause(this);
 	}
 
 	@Override
@@ -520,6 +522,7 @@ public class MapFoodsActivity extends ActionBarActivity {
 		 */
 		mMapView.onResume();
 		super.onResume();
+		UmenAnalyticsUtility.onResume(this);
 	}
 
 	@Override

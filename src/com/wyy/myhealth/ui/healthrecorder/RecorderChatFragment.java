@@ -14,6 +14,7 @@ import org.achartengine.renderer.XYSeriesRenderer;
 import com.wyy.myhealth.HealthReActivity;
 import com.wyy.myhealth.HealthReActivity.HealthReListener;
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.file.utils.FileUtils;
 import com.wyy.myhealth.imag.utils.SavePic;
@@ -65,6 +66,21 @@ public class RecorderChatFragment extends Fragment implements HealthReListener {
 
 	}
 
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onPageStart(TAG);
+	}
+	
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPageEnd(TAG);
+	}
+	
 	@Override
 	public void onAttach(Activity activity) {
 		// TODO Auto-generated method stub

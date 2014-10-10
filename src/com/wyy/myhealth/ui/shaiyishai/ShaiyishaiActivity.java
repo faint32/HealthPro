@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.bean.MoodaFoodBean;
 import com.wyy.myhealth.http.JsonHttpResponseHandler;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
@@ -86,6 +87,21 @@ public class ShaiyishaiActivity extends AbstractlistActivity implements
 
 	}
 
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub

@@ -7,6 +7,8 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.umeng.analytics.MobclickAgent;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.pager.utils.SuperAwesomeCardFragment;
 import com.wyy.myhealth.service.MainService;
@@ -121,6 +123,22 @@ public class MainActivity extends ActionBarActivity implements
 		UpdateAppUtils.upDateApp(context);
 	}
 
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+	
+	
 	private void initActionBar() {
 		View actionView = getLayoutInflater().inflate(R.layout.main_menu_v,
 				null);
@@ -164,6 +182,7 @@ public class MainActivity extends ActionBarActivity implements
 					mainPager.setCurrentItem(curpostion);
 				} catch (Exception e) {
 					// TODO: handle exception
+					BingLog.e(TAG, "´íÎó:"+e.getMessage());
 				}
 
 			}
@@ -173,7 +192,6 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;

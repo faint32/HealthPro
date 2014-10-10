@@ -22,6 +22,7 @@ import android.widget.Toast;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.http.AsyncHttpResponseHandler;
@@ -68,6 +69,21 @@ public class PublishMoodActivity extends SubmitActivity implements
 		initView();
 	}
 
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+	
 	@Override
 	protected void onInitActionBar() {
 		// TODO Auto-generated method stub

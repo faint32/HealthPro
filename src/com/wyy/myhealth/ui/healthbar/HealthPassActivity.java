@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.baidu.utlis.Utils;
 import com.wyy.myhealth.ui.baseactivity.AbstractlistActivity;
 import com.wyy.myhealth.ui.collect.CollectActivity;
@@ -51,6 +52,21 @@ public class HealthPassActivity extends AbstractlistActivity {
 		outState.putBoolean("istran", isCustomActionBar);
 	}
 
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+	
 	@Override
 	protected void onInitActionBar() {
 		// TODO Auto-generated method stub

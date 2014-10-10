@@ -1,5 +1,6 @@
 package com.wyy.myhealth;
 
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.service.MainService;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
@@ -67,8 +68,16 @@ public class HealthReActivity extends ActionBarActivity implements
 		// TODO Auto-generated method stub
 		super.onResume();
 		initData();
+		UmenAnalyticsUtility.onResume(this);
 	}
 
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(this);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (!mNavigationDrawerFragment.isDrawerOpen()) {

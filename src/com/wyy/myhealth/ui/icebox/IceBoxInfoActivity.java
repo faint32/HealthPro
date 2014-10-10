@@ -1,6 +1,7 @@
 package com.wyy.myhealth.ui.icebox;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.bean.HealthRecoderBean;
 import com.wyy.myhealth.bean.IceBoxFoodBean;
 import com.wyy.myhealth.contants.ConstantS;
@@ -141,6 +142,21 @@ public class IceBoxInfoActivity extends BaseNutritionActivity implements
 		}
 	}
 
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+	
 	private Handler mHandler = new Handler(new Handler.Callback() {
 
 		@Override

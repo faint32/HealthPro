@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.wyy.myhealth.MainActivity;
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.PreferencesFoodsInfo;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.NearFoodBean;
@@ -120,6 +121,20 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 
 	}
 
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onPageStart(TAG);
+	}
+	
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPageEnd(TAG);
+	}
+	
 	private void getNerabyFoods() {
 		lastJson = getLast_Result();
 		BingLog.i(TAG, "上次数据:" + lastJson);

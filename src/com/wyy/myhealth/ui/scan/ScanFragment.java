@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.HealthRecoderBean;
 import com.wyy.myhealth.bean.NearFoodBean;
@@ -189,6 +190,7 @@ public class ScanFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onPause();
 		BingLog.i(TAG, "======onPause======");
+		UmenAnalyticsUtility.onPause(getActivity());
 	}
 
 	@Override
@@ -196,6 +198,7 @@ public class ScanFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 		BingLog.i(TAG, "======onResume======");
+		UmenAnalyticsUtility.onResume(getActivity());
 		takepic.setEnabled(true);
 	}
 

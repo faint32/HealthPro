@@ -91,7 +91,7 @@ public class BaseScanResultActivity extends BaseActivity {
 
 	protected void getnextfatimgs(int score) {
 
-		if (fatsocre > score && score != 0) {
+		if (fatsocre > score ||(score == 0&&fatsocre>3)) {
 			fatitxt.setBackgroundResource(stateImgs[1]);
 		}else {
 			fatitxt.setBackgroundResource(stateImgs[0]);

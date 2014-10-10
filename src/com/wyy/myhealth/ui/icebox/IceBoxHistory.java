@@ -14,6 +14,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Toast;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.bean.IceBoxFoodBean;
 import com.wyy.myhealth.db.utils.IceDadabaseUtils;
 import com.wyy.myhealth.ui.baseactivity.BaseActivity;
@@ -41,6 +42,21 @@ public class IceBoxHistory extends BaseActivity implements ActivityInterface {
 		iceDadabaseUtils.close();
 	}
 
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+	
 	@Override
 	protected void onInitActionBar() {
 		// TODO Auto-generated method stub

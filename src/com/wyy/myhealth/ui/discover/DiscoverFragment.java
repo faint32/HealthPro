@@ -2,6 +2,7 @@ package com.wyy.myhealth.ui.discover;
 
 import com.wyy.myhealth.HealthReActivity;
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.bean.DisCoverStateBean;
 import com.wyy.myhealth.bean.MoodaFoodBean;
 import com.wyy.myhealth.contants.ConstantS;
@@ -27,7 +28,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 public class DiscoverFragment extends Fragment {
-
+	
+	private static final String TAG=DiscoverFragment.class.getSimpleName();
 	private ImageView shaiNoticeView;
 
 	private ImageView healthNoticeView;
@@ -54,6 +56,21 @@ public class DiscoverFragment extends Fragment {
 		initFilter();
 	}
 
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onPageStart(TAG);
+	}
+	
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPageEnd(TAG);
+	}
+	
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
