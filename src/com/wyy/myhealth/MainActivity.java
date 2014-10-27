@@ -7,7 +7,6 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.umeng.analytics.MobclickAgent;
 import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.pager.utils.SuperAwesomeCardFragment;
@@ -63,12 +62,10 @@ public class MainActivity extends ActionBarActivity implements
 	private PagerSlidingTabStrip tabs;
 	private ViewPager mainPager;
 	private MyPagerAdapter adapter;
-
 	/**
 	 * 定位
 	 */
 	private LocationClient mLocationClient;
-
 	/**
 	 * 经度
 	 */
@@ -123,22 +120,20 @@ public class MainActivity extends ActionBarActivity implements
 		UpdateAppUtils.upDateApp(context);
 	}
 
-	
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		UmenAnalyticsUtility.onResume(context);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		UmenAnalyticsUtility.onPause(context);
 	}
-	
-	
+
 	private void initActionBar() {
 		View actionView = getLayoutInflater().inflate(R.layout.main_menu_v,
 				null);
@@ -182,7 +177,7 @@ public class MainActivity extends ActionBarActivity implements
 					mainPager.setCurrentItem(curpostion);
 				} catch (Exception e) {
 					// TODO: handle exception
-					BingLog.e(TAG, "错误:"+e.getMessage());
+					BingLog.e(TAG, "错误:" + e.getMessage());
 				}
 
 			}
@@ -381,6 +376,7 @@ public class MainActivity extends ActionBarActivity implements
 		intent.putExtra("key", key);
 		sendBroadcast(intent);
 		mainPager.setCurrentItem(1);
+		UmenAnalyticsUtility.onEvent(context, ConstantS.UMNEG_SEARCH_FOOD);
 	}
 
 	private void initService() {

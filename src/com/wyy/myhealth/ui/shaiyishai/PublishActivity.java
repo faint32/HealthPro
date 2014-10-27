@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.http.AsyncHttpResponseHandler;
@@ -65,6 +66,21 @@ public class PublishActivity extends BaseActivity implements PicClickListener {
 
 	}
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
@@ -160,6 +176,9 @@ public class PublishActivity extends BaseActivity implements PicClickListener {
 			moodEditText.setError(getString(R.string.nullcontentnotice));
 			moodEditText.requestFocus();
 		}
+		
+		UmenAnalyticsUtility.onEvent(context, ConstantS.UMNEG_PUBLISH_MOOD);
+		
 	}
 
 	/**

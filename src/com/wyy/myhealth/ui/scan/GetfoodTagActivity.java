@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.ui.baseactivity.SaveActivity;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 
@@ -20,8 +21,7 @@ public class GetfoodTagActivity extends SaveActivity implements
 	protected void onInitActionBar() {
 		// TODO Auto-generated method stub
 		super.onInitActionBar();
-		getSupportActionBar()
-				.setTitle(R.string.tags);
+		getSupportActionBar().setTitle(R.string.tags);
 	}
 
 	@Override
@@ -62,6 +62,20 @@ public class GetfoodTagActivity extends SaveActivity implements
 			return;
 		}
 		tagedit.setText("" + tag);
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
 	}
 
 }

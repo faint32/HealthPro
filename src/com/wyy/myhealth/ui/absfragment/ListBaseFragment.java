@@ -9,7 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.bean.ListDataBead;
 import com.wyy.myhealth.bean.MoodaFoodBean;
@@ -20,7 +19,6 @@ import com.wyy.myhealth.http.AsyncHttpResponseHandler;
 import com.wyy.myhealth.http.JsonHttpResponseHandler;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.http.utils.JsonUtils;
-import com.wyy.myhealth.ui.absfragment.adapter.HealthAdapter2;
 import com.wyy.myhealth.ui.absfragment.adapter.ShaiYiSaiAdapter;
 import com.wyy.myhealth.ui.absfragment.adapter.ShaiYiSaiAdapter2;
 import com.wyy.myhealth.ui.absfragment.utils.ListAddUtils;
@@ -34,7 +32,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,7 +124,7 @@ public class ListBaseFragment extends Fragment {
 		public void onSuccess(String content) {
 			// TODO Auto-generated method stub
 			super.onSuccess(content);
-			Log.i(TAG, content);
+			BingLog.i(TAG, content);
 			if (first == 0) {
 				json = content;
 			}
@@ -165,7 +162,7 @@ public class ListBaseFragment extends Fragment {
 		public void onSuccess(String content) {
 			// TODO Auto-generated method stub
 			super.onSuccess(content);
-			Log.i(TAG, "" + content);
+			BingLog.i(TAG, "" + content);
 
 			if (content.equals(json) && !TextUtils.isEmpty(json)) {
 				if (null != getActivity()) {
@@ -478,18 +475,18 @@ public class ListBaseFragment extends Fragment {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Log.i(TAG, "foods长度:" + userfoodsList.size());
-		Log.i(TAG, "moods长度:" + usermoodsList.size());
-		Log.i(TAG, "长度:" + thList.size());
+		BingLog.i(TAG, "foods长度:" + userfoodsList.size());
+		BingLog.i(TAG, "moods长度:" + usermoodsList.size());
+		BingLog.i(TAG, "长度:" + thList.size());
 
 		arrangeData();
-		Log.i(TAG, "长度:" + thList.size());
+		BingLog.i(TAG, "长度:" + thList.size());
 		SortUtils.bingSort(thList);
 
 		TimeUtils.getCnTime(thList);
 
 		addGg();
-		Log.i(TAG, "适配:" + mAdapter);
+		BingLog.i(TAG, "适配:" + mAdapter);
 		mAdapter.notifyDataSetChanged();
 		first = thList.size();
 
@@ -650,11 +647,11 @@ public class ListBaseFragment extends Fragment {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Log.i(TAG, "foods长度:" + userfoodsList.size());
-		Log.i(TAG, "moods长度:" + usermoodsList.size());
-		Log.i(TAG, "长度:" + tempshaiList.size());
+		BingLog.i(TAG, "foods长度:" + userfoodsList.size());
+		BingLog.i(TAG, "moods长度:" + usermoodsList.size());
+		BingLog.i(TAG, "长度:" + tempshaiList.size());
 		arrangenewData();
-		Log.i(TAG, "长度:" + tempshaiList.size());
+		BingLog.i(TAG, "长度:" + tempshaiList.size());
 		SortUtils.bingSort(tempshaiList);
 		TimeUtils.getCnTime(tempshaiList);
 		if (0 != thList.size()) {

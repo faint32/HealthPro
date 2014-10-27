@@ -31,6 +31,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wyy.myhealth.MainActivity;
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.PreferencesFoodsInfo;
 import com.wyy.myhealth.bean.Comment;
 import com.wyy.myhealth.bean.NearFoodBean;
@@ -72,7 +73,6 @@ public class FoodDetailsActivity extends BaseActivity {
 	private TextView foodtag;
 
 	private ImageView tasteLevel;
-
 	@SuppressWarnings("unused")
 	private ImageView ishanghu;
 
@@ -113,29 +113,37 @@ public class FoodDetailsActivity extends BaseActivity {
 		foodsDetail(foodid);
 	}
 
-	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onPageStart(TAG);
+		UmenAnalyticsUtility.onResume(context);
+	}
+
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+		UmenAnalyticsUtility.onPageEnd(TAG);
+		UmenAnalyticsUtility.onPause(context);
 		BingLog.i(TAG, "===========onPause============");
 	}
-	
-	
+
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
 		BingLog.i(TAG, "===========onStop============");
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		BingLog.i(TAG, "===========onDestroy============");
 	}
-	
+
 	private void initView() {
 		mydiatance = getIntent().getStringExtra("distance");
 		scrollView = (ScrollView) findViewById(R.id.details_scroll);
@@ -193,6 +201,7 @@ public class FoodDetailsActivity extends BaseActivity {
 
 		case R.id.collect:
 			CollectUtils.collectFood(foodid, context);
+			UmenAnalyticsUtility.onEvent(context, ConstantS.UMNEG_COLLECT_FOOD);
 			break;
 
 		case R.id.resh:
@@ -478,6 +487,7 @@ public class FoodDetailsActivity extends BaseActivity {
 					.shareFood(context, getString(R.string.share_content_),
 							Uri.fromFile(new File(FileUtils.HEALTH_IMAG, "chc"
 									+ ".png")));
+			UmenAnalyticsUtility.onEvent(context, ConstantS.UMNEG_SHARE_FOOD);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

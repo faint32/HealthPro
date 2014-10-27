@@ -189,6 +189,7 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		UmenAnalyticsUtility.onPageStart(TAG);
 		UmenAnalyticsUtility.onResume(context);
 	}
 	
@@ -196,6 +197,7 @@ public class IceBoxActivity extends BaseActivity implements ActivityInterface,
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+		UmenAnalyticsUtility.onPageEnd(TAG);
 		UmenAnalyticsUtility.onPause(context);
 	}
 

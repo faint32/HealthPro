@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.ui.baseactivity.SaveActivity;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 
@@ -52,7 +53,7 @@ public class GetCommercial extends SaveActivity implements ActivityInterface {
 		super.onInitActionBar();
 		getSupportActionBar().setTitle(R.string.commercialname);
 	}
-	
+
 	@Override
 	public void initView() {
 		// TODO Auto-generated method stub
@@ -68,13 +69,27 @@ public class GetCommercial extends SaveActivity implements ActivityInterface {
 		telString = getIntent().getStringExtra("tel");
 
 		if (!TextUtils.isEmpty(nameString)) {
-			nameEdit.setText(""+nameString);
+			nameEdit.setText("" + nameString);
 		}
 
 		if (!TextUtils.isEmpty(telString)) {
-			telEdit.setText(""+telString);
+			telEdit.setText("" + telString);
 		}
 
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
 	}
 
 }

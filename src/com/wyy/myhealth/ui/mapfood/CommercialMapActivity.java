@@ -128,7 +128,7 @@ public class CommercialMapActivity extends BaseActivity {
 			/**
 			 * 如果BMapManager没有初始化则初始化BMapManager
 			 */
-			app.mBMapManager.init(WyyApplication.strKey,
+			app.mBMapManager.init(WyyApplication.BAIDU_KEY,
 					new MKGeneralListener() {
 						
 						@Override

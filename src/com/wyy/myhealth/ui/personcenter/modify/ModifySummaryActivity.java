@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
@@ -22,7 +23,7 @@ public class ModifySummaryActivity extends SubmitActivity {
 		super.onInitActionBar();
 		getSupportActionBar().setTitle(R.string.remarks);
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -31,9 +32,23 @@ public class ModifySummaryActivity extends SubmitActivity {
 		initView();
 	}
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+
 	private void initView() {
 		context = this;
-		summary_edit=(EditText)findViewById(R.id.summary_editText);
+		summary_edit = (EditText) findViewById(R.id.summary_editText);
 		initData();
 	}
 
@@ -55,9 +70,8 @@ public class ModifySummaryActivity extends SubmitActivity {
 			return;
 		}
 
-	HealthHttpClient
-				.doHttpFinishPersonInfoForSummary(info, summary, new ModifyHandler(
-						context));
+		HealthHttpClient.doHttpFinishPersonInfoForSummary(info, summary,
+				new ModifyHandler(context));
 
 	}
 

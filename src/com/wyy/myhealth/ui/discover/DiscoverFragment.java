@@ -28,12 +28,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 public class DiscoverFragment extends Fragment {
-	
-	private static final String TAG=DiscoverFragment.class.getSimpleName();
+
+	private static final String TAG = DiscoverFragment.class.getSimpleName();
 	private ImageView shaiNoticeView;
 
 	private ImageView healthNoticeView;
-	
+
 	private ImageView recoredNoticeView;
 
 	private DisCoverStateBean disCoverStateBean = new DisCoverStateBean();
@@ -56,21 +56,20 @@ public class DiscoverFragment extends Fragment {
 		initFilter();
 	}
 
-	
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		UmenAnalyticsUtility.onPageStart(TAG);
 	}
-	
+
 	@Override
 	public void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		UmenAnalyticsUtility.onPageEnd(TAG);
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
@@ -197,7 +196,7 @@ public class DiscoverFragment extends Fragment {
 		if (disCoverStateBean.isHasNewRecored()) {
 			recoredNoticeView.setVisibility(View.VISIBLE);
 		}
-		
+
 		if (disCoverStateBean.isHasNewShai()) {
 			shaiNoticeView.setVisibility(View.VISIBLE);
 			LoadImageUtils.loadImage4ImageV(shaiNoticeView,
@@ -236,11 +235,12 @@ public class DiscoverFragment extends Fragment {
 	}
 
 	private void handlerHps() {
+		if (healthNoticeView == null) {
+			return;
+		}
 		healthNoticeView.setVisibility(View.VISIBLE);
 		disCoverStateBean.setHasNewHps(true);
 	}
-	
-	
 
 	private void handlerRecored() {
 		recoredNoticeView.setVisibility(View.VISIBLE);

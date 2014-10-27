@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 import com.wyy.myhealth.ui.login.LoginActivity;
 
@@ -142,6 +143,21 @@ public class BootPagerActivity extends Activity implements ActivityInterface {
 		});
 	}
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(this);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(this);
+	}
+	
+	
 	/**
 	 * 初始化小点
 	 */

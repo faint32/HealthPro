@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.wyy.myhealth.MainActivity;
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.NearFoodBean;
 import com.wyy.myhealth.contants.ConstantS;
@@ -145,6 +146,22 @@ public class ShareFoodActivity extends SubmitActivity implements
 		// tags.setText(""+samefood.getTags());
 
 	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+	
+	
 
 	private OnClickListener listener = new OnClickListener() {
 
@@ -270,6 +287,7 @@ public class ShareFoodActivity extends SubmitActivity implements
 				commercainamestr, commercaitelstr, placeString, ""
 						+ MainActivity.Wlatitude, "" + MainActivity.Wlongitude,
 				shareHandler);
+		UmenAnalyticsUtility.onEvent(context, ConstantS.UMNEG_PUBLISH_FOOD);
 	}
 
 	private AsyncHttpResponseHandler shareHandler = new AsyncHttpResponseHandler() {

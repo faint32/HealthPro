@@ -344,7 +344,7 @@ public class LoginActivity extends ActionBarActivity implements
 
 		HealthHttpClient.loginByphone(accountString, MD5.MD5jm(password),
 				handler);
-
+		UmenAnalyticsUtility.onEvent(context, ConstantS.UMNEG_LOGIN_NORMAL);
 	}
 
 	public class RegistHander extends JsonHttpResponseHandler {
@@ -449,7 +449,7 @@ public class LoginActivity extends ActionBarActivity implements
 					SavePersonInfoUtlis.setPersonInfo(info, LoginActivity.this);
 					startMainActivity();
 				}
-
+				
 			} else {
 				Toast.makeText(LoginActivity.this, R.string.loginfailure,
 						Toast.LENGTH_LONG).show();
@@ -492,6 +492,7 @@ public class LoginActivity extends ActionBarActivity implements
 	}
 
 	private void startMainActivity() {
+		saveLoginInfo();
 		startActivity(new Intent(LoginActivity.this, MainActivity.class));
 		finish();
 	}
@@ -688,4 +689,16 @@ public class LoginActivity extends ActionBarActivity implements
 
 	}
 
+	
+	private void saveLoginInfo(){
+		UserAccountBean userAccountBean = new UserAccountBean();
+		userAccountBean.setPassword(passwordEditText.getText().toString());
+		userAccountBean.setUsername(accounEditText.getText().toString());
+		long update=new AccountUtils(context).update(userAccountBean);
+		BingLog.i(TAG, "¸üÐÂ:"+update);
+		if (update<1) {
+			new AccountUtils(context).insert(userAccountBean);
+		}
+	}
+	
 }

@@ -16,6 +16,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.contants.ConstantS;
@@ -61,6 +62,20 @@ public class ModifyBaseInfoActivity extends SubmitActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_modify_base_info);
 		initView();
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
 	}
 
 	private void initView() {

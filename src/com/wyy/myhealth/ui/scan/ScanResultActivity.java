@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.bean.HealthRecoderBean;
 import com.wyy.myhealth.bean.NearFoodBean;
 import com.wyy.myhealth.bean.ScanMoodBean;
@@ -195,6 +196,21 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 		}
 	}
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+	
+	
 	private void sendChangeUI() {
 		sendBroadcast(new Intent(ConstantS.ACTION_HIDE_UI_CHANGE));
 	}

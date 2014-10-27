@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.bean.PublicMsgBean;
 import com.wyy.myhealth.db.utils.PublicChatDatabaseUtils;
 import com.wyy.myhealth.ui.baseactivity.BaseActivity;
@@ -61,6 +62,21 @@ public class MessageTListActivity extends BaseActivity implements ActivityInterf
 		msgListView.setAdapter(mPublicMsgAdapter);
 	}
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+	
+	
 	@Override
 	public void onLoadMore() {
 		// TODO Auto-generated method stub

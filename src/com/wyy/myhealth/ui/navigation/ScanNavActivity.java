@@ -1,6 +1,7 @@
 package com.wyy.myhealth.ui.navigation;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 
 import android.app.Activity;
@@ -11,10 +12,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
+
 /**
  * 扫描功能提示信息
+ * 
  * @author lyl
- *
+ * 
  */
 public class ScanNavActivity extends Activity implements ActivityInterface {
 
@@ -31,12 +34,26 @@ public class ScanNavActivity extends Activity implements ActivityInterface {
 	}
 
 	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(this);
+	}
+
+	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		setIsFristUse(ScanNavActivity.this, false);
 	}
-	
+
 	@Override
 	public void initView() {
 		// TODO Auto-generated method stub

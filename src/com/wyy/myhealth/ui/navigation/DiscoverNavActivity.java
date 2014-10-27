@@ -1,6 +1,7 @@
 package com.wyy.myhealth.ui.navigation;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 
 import android.app.Activity;
@@ -26,6 +27,21 @@ public class DiscoverNavActivity extends Activity implements ActivityInterface{
 		initView();
 	}
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(this);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(this);
+	}
+	
+	
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub

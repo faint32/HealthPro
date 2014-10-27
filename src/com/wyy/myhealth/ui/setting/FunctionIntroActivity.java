@@ -8,6 +8,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.ui.baseactivity.BaseActivity;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 
@@ -76,6 +77,20 @@ public class FunctionIntroActivity extends BaseActivity implements
 			}
 
 		});
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
 	}
 
 }

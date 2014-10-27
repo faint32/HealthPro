@@ -174,4 +174,41 @@ public interface ConstantS {
 
 	/******************* QQ ********************/
 	public static final String TENCENT_APP_ID = "1102856689";
+	/******************** 友盟统计 *******************/
+	/**
+	 * 正常登陆
+	 */
+	public static final String UMNEG_LOGIN_NORMAL = "login_normal";
+	/**
+	 * 注销
+	 */
+	public static final String UMNEG_LOGIN_OUT = "login_out";
+	/**
+	 * 扫营养
+	 */
+	public static final String UMNEG_SCAN_HEALTH = "scan_health";
+	/**
+	 * 分享美食
+	 */
+	public static final String UMNEG_SHARE_FOOD = "share_food";
+	/**
+	 * 收藏美食
+	 */
+	public static final String UMNEG_COLLECT_FOOD = "collect_food";
+	/**
+	 * 搜索食物
+	 */
+	public static final String UMNEG_SEARCH_FOOD = "search_food";
+	/**
+	 * 开启闪光灯
+	 */
+	public static final String UMNEG_OPEN_LIGHT = "open_light";
+	/**
+	 * 发布美食
+	 */
+	public static final String UMNEG_PUBLISH_FOOD = "publish_food";
+	/**
+	 * 发布心情
+	 */
+	public static final String UMNEG_PUBLISH_MOOD = "publish_mood";
 }

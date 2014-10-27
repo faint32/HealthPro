@@ -190,7 +190,7 @@ public class ScanFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onPause();
 		BingLog.i(TAG, "======onPause======");
-		UmenAnalyticsUtility.onPause(getActivity());
+		UmenAnalyticsUtility.onPageEnd(TAG);
 	}
 
 	@Override
@@ -198,7 +198,7 @@ public class ScanFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 		BingLog.i(TAG, "======onResume======");
-		UmenAnalyticsUtility.onResume(getActivity());
+		UmenAnalyticsUtility.onPageEnd(TAG);
 		takepic.setEnabled(true);
 	}
 
@@ -890,6 +890,7 @@ public class ScanFragment extends Fragment {
 			switch (v.getId()) {
 			case R.id.take_pic:
 				takepic2web();
+				UmenAnalyticsUtility.onEvent(getActivity(), ConstantS.UMNEG_SCAN_HEALTH);
 				break;
 
 			case R.id.open_ligth:
@@ -962,6 +963,7 @@ public class ScanFragment extends Fragment {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		UmenAnalyticsUtility.onEvent(context, ConstantS.UMNEG_OPEN_LIGHT);
 	}
 
 	private void showVoiceSearch() {

@@ -9,6 +9,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.ui.baseactivity.BaseActivity;
 import com.wyy.myhealth.ui.photoview.PhotoView;
@@ -74,17 +75,31 @@ public class PhotoPagerActivity extends BaseActivity implements
 				.getColor(R.color.deepskyblue)));
 	}
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+
 	private void initUI() {
 		imgurList = getIntent().getStringArrayListExtra("imgurls");
 		pager = (ViewPager) findViewById(R.id.picpager);
 		sumTextView = (TextView) findViewById(R.id.sum_textV);
 		postionTextView = (TextView) findViewById(R.id.index_textV);
 		loadingBar = (ProgressBar) findViewById(R.id.pic_progressBar);
-		
-		if (imgurList==null) {
+
+		if (imgurList == null) {
 			return;
 		}
-		
+
 		sumTextView.setText("" + imgurList.size());
 		int postion = getIntent().getIntExtra("postion", 0) + 1;
 		postionTextView.setText("" + postion);

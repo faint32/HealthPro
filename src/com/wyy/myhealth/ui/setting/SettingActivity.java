@@ -7,6 +7,9 @@ import android.view.View.OnClickListener;
 
 import com.tencent.tauth.Tencent;
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
+import com.wyy.myhealth.app.WyyApplication;
+import com.wyy.myhealth.baidu.utlis.TagUtils;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.db.utils.CollectDatabaseUtils;
 import com.wyy.myhealth.db.utils.IceDadabaseUtils;
@@ -51,6 +54,20 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 	public void initData() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
 	}
 
 	private OnClickListener listener = new OnClickListener() {
@@ -98,6 +115,10 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 	}
 
 	private void showLoginOut() {
+		UmenAnalyticsUtility.onEvent(context, ConstantS.UMNEG_LOGIN_OUT);
+		if (null!=WyyApplication.getInfo()) {
+			TagUtils.delTag(WyyApplication.getInfo().getId(), context);
+		}
 		delDataBase();
 		clearPreferences();
 		startActivity(new Intent(context, LoginActivity.class));

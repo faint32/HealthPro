@@ -342,8 +342,10 @@ public class HealthPassBase extends Fragment {
 				JSONArray array = response.getJSONArray("foods");
 				int length = array.length();
 				if (length == 0) {
-					Toast.makeText(getActivity(), R.string.nomore,
-							Toast.LENGTH_SHORT).show();
+					if (getActivity()!=null) {
+						Toast.makeText(getActivity(), R.string.nomore,
+								Toast.LENGTH_SHORT).show();
+					}
 				}else {
 					for (int i = 0; i < length; i++) {
 						MoodaFoodBean moodaFoodBean = JsonUtils

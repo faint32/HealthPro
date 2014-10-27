@@ -17,6 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.wyy.myhealth.BuildConfig;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.bean.Foods;
 import com.wyy.myhealth.bean.PersonalInfo;
@@ -29,7 +30,16 @@ public class WyyApplication extends FrontiaApplication {
 	private static WyyApplication wInstance;
 	public boolean m_bKeyRight = true;
 	public BMapManager mBMapManager = null;
-	public static final String strKey = "mcGXuNClGvdQamQ7fHdaIouX";
+	private static final String BAIDU_DUBUG_KEY = "mcGXuNClGvdQamQ7fHdaIouX";
+	private static final String BAIDU_REALSE_KEY = "3ZvcwhjsKy1696GLSwp0uFac";
+	public static String BAIDU_KEY = "3ZvcwhjsKy1696GLSwp0uFac";// realse key
+	static {
+		if (BuildConfig.DEBUG) {
+			BAIDU_KEY = BAIDU_DUBUG_KEY;
+		} else {
+			BAIDU_KEY = BAIDU_REALSE_KEY;
+		}
+	}
 	private static PersonalInfo info;
 	private static Foods foods;
 	private static List<ImageInfo> headerImaList = new ArrayList<ImageInfo>();
@@ -76,9 +86,11 @@ public class WyyApplication extends FrontiaApplication {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-
-		initImageLoader(this);
-
+		try {
+			initImageLoader(this);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		if (SdUtils.ExistSDCard()) {
 			try {
 				LoadDate();
@@ -131,9 +143,8 @@ public class WyyApplication extends FrontiaApplication {
 			mBMapManager = new BMapManager(context);
 		}
 
-		if (!mBMapManager.init(strKey, new MyGeneralListener())) {
-			Toast.makeText(
-					WyyApplication.getInstance(),
+		if (!mBMapManager.init(BAIDU_KEY, new MyGeneralListener())) {
+			Toast.makeText(WyyApplication.getInstance(),
 					getString(R.string.neterro), Toast.LENGTH_LONG).show();
 		}
 	}

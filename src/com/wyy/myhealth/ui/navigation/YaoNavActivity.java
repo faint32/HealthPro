@@ -1,6 +1,7 @@
 package com.wyy.myhealth.ui.navigation;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,6 +28,20 @@ public class YaoNavActivity extends Activity {
 				finish();
 			}
 		});
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(this);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(this);
 	}
 	
 	@Override

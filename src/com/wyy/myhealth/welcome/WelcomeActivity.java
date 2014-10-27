@@ -9,6 +9,7 @@ import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.wyy.myhealth.MainActivity;
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.baidu.utlis.Utils;
 import com.wyy.myhealth.bean.PersonalInfo;
@@ -69,7 +70,24 @@ public class WelcomeActivity extends Activity {
 
 		initReceiveraPush();
 		initUI();
+		UmenAnalyticsUtility.setDebugMode(false);
+		UmenAnalyticsUtility.updateOnlineConfig(this);
 	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(this);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(this);
+	}
+	
 
 	private void initReceiveraPush() {
 		IntentFilter filter = new IntentFilter();

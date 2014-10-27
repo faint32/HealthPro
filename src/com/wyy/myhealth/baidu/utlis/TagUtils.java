@@ -31,5 +31,17 @@ public class TagUtils {
 		PushManager.setTags(context, tags);
 
 	}
+	
+	
+	/**
+	 * É¾³ý±êÇ©
+	 * @param tag
+	 * @param context
+	 */
+	public static void delTag(String tag, Context context) {
+		List<String> tags = Utils.getTagsList(tag);
+		PushManager.delTags(context, tags);
+	}
+	
 
 }

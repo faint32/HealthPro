@@ -36,6 +36,7 @@ import com.iflytek.speech.SpeechConstant;
 import com.iflytek.speech.SpeechRecognizer;
 import com.iflytek.speech.SpeechUtility;
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.HealthRecoderBean;
 import com.wyy.myhealth.bean.NearFoodBean;
@@ -90,6 +91,21 @@ public class VoiceSearceActivity extends BaseActivity implements
 		super.onInitActionBar();
 		getSupportActionBar().setTitle(R.string.voice_search);
 	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

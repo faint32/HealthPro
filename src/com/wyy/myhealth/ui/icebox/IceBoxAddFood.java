@@ -35,6 +35,8 @@ import com.wyy.myhealth.ui.icebox.utils.FoodTypeUtils;
 
 public class IceBoxAddFood extends SubmitActivity implements ActivityInterface {
 
+	private static final String TAG=IceBoxActivity.class.getSimpleName();
+	
 	private ImageView foodpic;
 
 	private EditText content;
@@ -117,6 +119,7 @@ public class IceBoxAddFood extends SubmitActivity implements ActivityInterface {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		UmenAnalyticsUtility.onPageStart(TAG);
 		UmenAnalyticsUtility.onResume(context);
 	}
 	
@@ -124,6 +127,7 @@ public class IceBoxAddFood extends SubmitActivity implements ActivityInterface {
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+		UmenAnalyticsUtility.onPageEnd(TAG);
 		UmenAnalyticsUtility.onPause(context);
 	}
 	

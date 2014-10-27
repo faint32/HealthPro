@@ -28,6 +28,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.CommentBean;
 import com.wyy.myhealth.bean.MoodaFoodBean;
@@ -127,6 +128,21 @@ public class MoodDetailsActivity extends BaseActivity implements
 
 	}
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+	
+	
 	private JsonHttpResponseHandler handler = new JsonHttpResponseHandler() {
 
 		@Override

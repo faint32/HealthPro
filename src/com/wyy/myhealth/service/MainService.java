@@ -96,6 +96,7 @@ public class MainService extends Service {
 		BingLog.i(TAG, "Service===onCreate===");
 		context = this;
 		initFilter();
+		parseJson(getUserRecored(context));
 	}
 
 	@Override

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.Comment;
 import com.wyy.myhealth.http.AsyncHttpResponseHandler;
@@ -84,6 +85,21 @@ public class FoodCommentInfoActivity extends BaseListActivity implements
 		}
 	}
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
+	
+	
 	private void initSendView(View v) {
 		sendButton = (Button) v.findViewById(R.id.send_msg_btn);
 		sendEditText = (EditText) v.findViewById(R.id.send_msg_editText);

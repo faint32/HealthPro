@@ -3,6 +3,7 @@ package com.wyy.myhealth.ui.yaoyingyang;
 import android.os.Bundle;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.ui.baseactivity.AbstractlistActivity;
 
 public class TodayFoodRecActivity extends AbstractlistActivity {
@@ -43,6 +44,20 @@ public class TodayFoodRecActivity extends AbstractlistActivity {
 		getSupportActionBar().setTitle(R.string.today_food);
 	}
 
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		UmenAnalyticsUtility.onResume(context);
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		UmenAnalyticsUtility.onPause(context);
+	}
 	
 	@Override
 	protected void onDestroy() {
