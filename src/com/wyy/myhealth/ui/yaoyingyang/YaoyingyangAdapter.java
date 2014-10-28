@@ -8,7 +8,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wyy.myhealth.MainActivity;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.bean.NearFoodBean;
-import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.service.MainService;
 
 import android.content.Context;
@@ -73,7 +72,7 @@ public class YaoyingyangAdapter extends BaseAdapter {
 		ViewHolder holder = null;
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.yao_item, parent, false);
+			convertView = inflater.inflate(R.layout.yao_v3_item, parent, false);
 
 			holder.foodimg = (ImageView) convertView
 					.findViewById(R.id.bottom_pic);
@@ -82,10 +81,10 @@ public class YaoyingyangAdapter extends BaseAdapter {
 
 			holder.foodtags = (TextView) convertView
 					.findViewById(R.id.food_tags);
-			holder.taste = (ImageView) convertView
-					.findViewById(R.id.yao_taste_level);
-			holder.energyimg = (ImageView) convertView
-					.findViewById(R.id.yao_enger_level);
+			// holder.taste = (ImageView) convertView
+			// .findViewById(R.id.yao_taste_level);
+			// holder.energyimg = (ImageView) convertView
+			// .findViewById(R.id.yao_enger_level);
 			holder.renqiTextView = (TextView) convertView
 					.findViewById(R.id.renqi_num);
 			holder.commentNumView = (TextView) convertView
@@ -149,27 +148,27 @@ public class YaoyingyangAdapter extends BaseAdapter {
 
 		}
 
-		String enegrgystr = list.get(position).getEnergy();
-
-		int engere = 0;
-		try {
-			engere = Integer.valueOf(enegrgystr);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-		holder.energyimg.setImageResource(ConstantS.LEVEL_POINT[engere]);
-
-		String tasteStr = list.get(position).getTastelevel();
-		int taste = 0;
-
-		try {
-			taste = Integer.valueOf(tasteStr);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-		holder.taste.setImageResource(ConstantS.LEVEL_POINT[taste]);
+		// String enegrgystr = list.get(position).getEnergy();
+		//
+		// int engere = 0;
+		// try {
+		// engere = Integer.valueOf(enegrgystr);
+		// } catch (Exception e) {
+		// // TODO: handle exception
+		// }
+		//
+		// holder.energyimg.setImageResource(ConstantS.LEVEL_POINT[engere]);
+		//
+		// String tasteStr = list.get(position).getTastelevel();
+		// int taste = 0;
+		//
+		// try {
+		// taste = Integer.valueOf(tasteStr);
+		// } catch (Exception e) {
+		// // TODO: handle exception
+		// }
+		//
+		// holder.taste.setImageResource(ConstantS.LEVEL_POINT[taste]);
 
 		final boolean isCollect = list.get(position).isIscollect();
 
@@ -216,8 +215,8 @@ public class YaoyingyangAdapter extends BaseAdapter {
 	/* ´æ·Å¿Ø¼þ */
 	public final class ViewHolder {
 
-		public ImageView energyimg;
-		public ImageView taste;
+		// public ImageView energyimg;
+		// public ImageView taste;
 		public ImageView foodimg;
 		public TextView foodtags;
 		public TextView distanceTextView;

@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -16,18 +16,19 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-    
+
+
     <style name="BingNotitleTheme" parent="AppBaseTheme">
         <item name="android:windowIsTranslucent">true</item>
     </style>
-    
 
-     <style name="BingTranslucentNotitleTheme" parent="AppBaseTheme">
+    <style name="BingTranslucentNotitleTheme" parent="AppBaseTheme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-         <item name="android:windowNoTitle">true</item>  
+        <item name="android:windowNoTitle">true</item>
     </style>
-    
+
+
     <style name="bing_edit_style" parent="@android:style/Widget.EditText">
         <item name="android:background">@drawable/bing_edit_sec</item>
     </style>
@@ -37,25 +38,23 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    
     <style name="White_normal_txt_theme" parent="@android:style/Widget.TextView">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
-    
-      <style name="White_Big_txt_theme" parent="@android:style/Widget.TextView">
+
+    <style name="White_Big_txt_theme" parent="@android:style/Widget.TextView">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
-    
+
     <style name="content_txt_theme" parent="@android:style/Widget.TextView">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/gray</item>
     </style>
-    
+
     <style name="search_theme" parent="Theme.AppCompat.Light">
         <item name="searchViewSearchIcon">@drawable/ic_search</item>
     </style>
-    
 
 </resources>

@@ -8,6 +8,8 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -30,6 +32,7 @@ import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.imag.utils.PhoneUtlis;
 import com.wyy.myhealth.imag.utils.PhotoUtils;
 import com.wyy.myhealth.ui.baseactivity.SubmitActivity;
+import com.wyy.myhealth.ui.shaiyishai.PublishActivity;
 import com.wyy.myhealth.ui.shaiyishai.PublishAdapter;
 import com.wyy.myhealth.ui.shaiyishai.PublishAdapter.PicClickListener;
 import com.wyy.myhealth.utils.NoticeUtils;
@@ -69,21 +72,20 @@ public class PublishMoodActivity extends SubmitActivity implements
 		initView();
 	}
 
-	
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		UmenAnalyticsUtility.onResume(context);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		UmenAnalyticsUtility.onPause(context);
 	}
-	
+
 	@Override
 	protected void onInitActionBar() {
 		// TODO Auto-generated method stub
@@ -105,7 +107,7 @@ public class PublishMoodActivity extends SubmitActivity implements
 					public void onRatingChanged(RatingBar ratingBar,
 							float rating, boolean fromUser) {
 						// TODO Auto-generated method stub
-						moodIndex = "" + (int)rating;
+						moodIndex = "" + (int) rating;
 
 						Log.i(TAG, "Ö¸Êý:" + rating);
 					}
@@ -324,6 +326,48 @@ public class PublishMoodActivity extends SubmitActivity implements
 		publishAdapter.notifyDataSetChanged();
 
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void onPicLongClick(int position) {
+		// TODO Auto-generated method stub
+		if (position == list.size() - 1) {
+			PhotoUtils.secPic(PublishMoodActivity.this);
+		} else {
+			editPic(position);
+		}
+	}
+
+	private void editPic(final int position) {
+		new AlertDialog.Builder(context)
+				.setTitle(R.string.pic_delete_title)
+				.setMessage(R.string.pic_delete_notice)
+				.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+								try {
+									list.remove(position);
+									publishAdapter.notifyDataSetChanged();
+								} catch (Exception e) {
+									// TODO: handle exception
+								}
+
+							}
+						})
+				.setNegativeButton(android.R.string.cancel,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+
+							}
+						}).show();
 	}
 
 }

@@ -44,6 +44,8 @@
     <string name="share_success">分享成功</string>
     <string name="share_fail">分享失败</string>
     <string name="gl_choose_title">请选择图片</string>
+    <string name="pic_delete_title">图片删除</string>
+    <string name="pic_delete_notice">是否删除图片?</string>
     <string name="prompt">    尊敬的用户您好，初次体验该服务可能会遇到速度较慢，请您保持多次使用后会有更好的体验效果，健康饮食生活从此刻开始！</string>
     <string name="yinshihelijilu">饮食合理记录</string>
     <string name="yundongreliangjilu">运动热量记录</string>

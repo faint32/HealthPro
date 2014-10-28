@@ -8,8 +8,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
@@ -18,6 +21,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -27,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.manuelpeinado.fadingactionbar.FadingActionBarHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wyy.myhealth.MainActivity;
@@ -102,12 +107,27 @@ public class FoodDetailsActivity extends BaseActivity {
 
 	public static String imgurl = "";
 
+	@SuppressLint("InlinedApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+			getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+		}
 		super.onCreate(savedInstanceState);
 		context = this;
-		setContentView(R.layout.activity_food_details);
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			FadingActionBarHelper fadingActionBarHelper = new FadingActionBarHelper()
+					.actionBarBackground(
+							new ColorDrawable(getResources().getColor(
+									R.color.themecolor)))
+					.headerLayout(R.layout.foodhead)
+					.contentLayout(R.layout.activity_food_details);
+			setContentView(fadingActionBarHelper.createView(context));
+			fadingActionBarHelper.initActionBar(context);
+		} else {
+			setContentView(R.layout.activity_food_details);
+		}
 		initView();
 		foodid = PreferencesFoodsInfo.getfoodId(this);
 		foodsDetail(foodid);
@@ -345,17 +365,6 @@ public class FoodDetailsActivity extends BaseActivity {
 					BingLog.e(TAG, "解析错误");
 				}
 
-				// mComment.setContent(commentsArray.getJSONObject(i).getString(
-				// "content"));
-				// mComment.setReasonable(commentsArray.getJSONObject(i)
-				// .getString("reasonable"));
-				// mComment.setUsername(commentsArray.getJSONObject(i).getString(
-				// "username"));
-				// mComment.setUserheadimage(HealthHttpClient.IMAGE_URL
-				// + commentsArray.getJSONObject(i).getString("headimage"));
-				// Log.i("详情", "用户名:"+mComment.getUsername());
-				// Log.i("详情", "图片URL:"+mComment.getUserheadimage());
-
 			}
 
 			info = new PersonalInfo();
@@ -419,6 +428,7 @@ public class FoodDetailsActivity extends BaseActivity {
 		userSummary.setText("" + foods.getSummary());
 		userTag.setText("" + info.getBodyindex());
 		scrollView.setVisibility(View.VISIBLE);
+		findViewById(R.id.foodhead).setVisibility(View.VISIBLE);
 
 	}
 

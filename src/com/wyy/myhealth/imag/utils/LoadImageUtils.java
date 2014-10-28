@@ -19,6 +19,11 @@ public class LoadImageUtils {
 				WyyApplication.optionscir);
 	}
 
+	public static void loadSdImage4ImageV(ImageView imageView, String url) {
+		WyyApplication.imageLoader.displayImage("file://" + url, imageView,
+				WyyApplication.options);
+	}
+
 	public static void clear_Coach(Context context) {
 
 		try {

@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
     android:orientation="vertical" >
 
     <EditText
@@ -14,9 +13,7 @@
         android:background="@color/transparent"
         android:ems="10"
         android:gravity="left|top"
-        android:hint="@string/share_content_hint"
-        android:textColorHint="@color/gainsboro"
-        android:textColor="@color/white" >
+        android:hint="@string/share_content_hint" >
 
         <requestFocus />
     </EditText>

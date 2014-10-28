@@ -4,6 +4,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="transblack">#7f000000</color>
+    <color name="trans20black">#20000000</color>
     <color name="blue">#0000FF</color>
     <color name="transparent">#00000000</color>
     <color name="green">#9cdd00</color>

@@ -18,10 +18,13 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
+import com.bing.flating_btn_library.FloatingActionButton;
+import com.bing.flating_btn_library.ShowHideOnScroll;
 import com.google.gson.Gson;
 import com.wyy.myhealth.MainActivity;
 import com.wyy.myhealth.R;
@@ -59,9 +62,13 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 
 	private YaoyingyangAdapter yaoyingyangAdapter;
 
+	private YaoGridAdapter yaoGridAdapter;
+
 	private boolean searchFlag = false;
 
 	private String key = "";
+
+	private FloatingActionButton fActionButton;
 
 	public YaoyingyangFragment() {
 
@@ -91,17 +98,36 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 	}
 
 	@Override
+	protected void initView(View v) {
+		// TODO Auto-generated method stub
+		super.initView(v);
+		fActionButton = (FloatingActionButton) v
+				.findViewById(R.id.menu_changge_ui);
+		bingListView.setOnTouchListener(new ShowHideOnScroll(fActionButton));
+		bingReshGridView
+				.setOnTouchListener(new ShowHideOnScroll(fActionButton));
+		fActionButton.setOnClickListener(listener);
+	}
+
+	@Override
 	protected void onInitAdapter() {
 		// TODO Auto-generated method stub
 		super.onInitAdapter();
 
 		yaoyingyangAdapter = new YaoyingyangAdapter(list, getActivity());
+		yaoGridAdapter = new YaoGridAdapter(list, getActivity());
 		bingListView.setAdapter(yaoyingyangAdapter);
+		bingReshGridView.setAdapter(yaoGridAdapter);
 		mRefreshLayout.setOnRefreshListener(this);
 		bingListView.setXListViewListener(this);
 		yaoyingyangAdapter.setClickListener(this);
 		getNerabyFoods();
 		bingListView.setOnItemClickListener(this);
+
+		nRefreshLayout.setOnRefreshListener(reshListener);
+		bingReshGridView.setXListViewListener(loadListener);
+		bingReshGridView.setOnItemClickListener(gridListener);
+
 	}
 
 	@Override
@@ -127,14 +153,14 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 		super.onResume();
 		UmenAnalyticsUtility.onPageStart(TAG);
 	}
-	
+
 	@Override
 	public void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		UmenAnalyticsUtility.onPageEnd(TAG);
 	}
-	
+
 	private void getNerabyFoods() {
 		lastJson = getLast_Result();
 		BingLog.i(TAG, "上次数据:" + lastJson);
@@ -147,27 +173,27 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 	}
 
 	private void LoadModreNerabyFoods() {
-		if (null==WyyApplication.getInfo()) {
+		if (null == WyyApplication.getInfo()) {
 			WelcomeActivity.getPersonInfo(getActivity());
 		}
-		if (null!=WyyApplication.getInfo()) {
+		if (null != WyyApplication.getInfo()) {
 			HealthHttpClient.doHttpGetFoodsList("" + MainActivity.Wlatitude, ""
 					+ MainActivity.Wlongitude, "" + currtuindex, limit,
 					responseHandler, WyyApplication.getInfo().getId());
 		}
-		
+
 	}
 
 	private void ReshNerabyFoods() {
-		if (null==WyyApplication.getInfo()) {
+		if (null == WyyApplication.getInfo()) {
 			WelcomeActivity.getPersonInfo(getActivity());
 		}
-		if (null!=WyyApplication.getInfo()) {
+		if (null != WyyApplication.getInfo()) {
 			HealthHttpClient.doHttpGetFoodsList("" + MainActivity.Wlatitude, ""
 					+ MainActivity.Wlongitude, "0", limit, reShResponseHandler,
 					WyyApplication.getInfo().getId());
 		}
-		
+
 	}
 
 	private AsyncHttpResponseHandler responseHandler = new AsyncHttpResponseHandler() {
@@ -177,8 +203,11 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 			// TODO Auto-generated method stub
 			super.onFinish();
 			isLoaing = false;
-			if (mRefreshLayout!=null) {
+			if (mRefreshLayout != null) {
 				mRefreshLayout.setRefreshing(false);
+			}
+			if (nRefreshLayout != null) {
+				nRefreshLayout.setRefreshing(false);
 			}
 		}
 
@@ -187,8 +216,11 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 			// TODO Auto-generated method stub
 			super.onStart();
 			isLoaing = true;
-			if (mRefreshLayout!=null) {
+			if (mRefreshLayout != null) {
 				mRefreshLayout.setRefreshing(true);
+			}
+			if (nRefreshLayout != null) {
+				nRefreshLayout.setRefreshing(true);
 			}
 		}
 
@@ -217,8 +249,11 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 			// TODO Auto-generated method stub
 			super.onFinish();
 			isLoaing = false;
-			if (mRefreshLayout!=null) {
+			if (mRefreshLayout != null) {
 				mRefreshLayout.setRefreshing(false);
+			}
+			if (nRefreshLayout != null) {
+				nRefreshLayout.setRefreshing(false);
 			}
 		}
 
@@ -227,8 +262,11 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 			// TODO Auto-generated method stub
 			super.onStart();
 			isLoaing = true;
-			if (mRefreshLayout!=null) {
+			if (mRefreshLayout != null) {
 				mRefreshLayout.setRefreshing(true);
+			}
+			if (nRefreshLayout != null) {
+				nRefreshLayout.setRefreshing(true);
 			}
 		}
 
@@ -247,11 +285,11 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 			super.onSuccess(content);
 			BingLog.i(TAG, "附近数据:" + content);
 			if (lastJson.equals(content)) {
-				if (getActivity()!=null) {
+				if (getActivity() != null) {
 					Toast.makeText(getActivity(), R.string.nomore,
 							Toast.LENGTH_LONG).show();
 				}
-				
+
 			} else {
 				parseFoodsReshList(content);
 			}
@@ -319,6 +357,7 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 						list.add(nearFoodBean);
 						currtuindex = list.size();
 						yaoyingyangAdapter.notifyDataSetChanged();
+						yaoGridAdapter.notifyDataSetChanged();
 					} catch (Exception e) {
 						// TODO: handle exception
 						BingLog.w(TAG, "解析异常");
@@ -413,6 +452,7 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 
 				currtuindex = list.size();
 				yaoyingyangAdapter.notifyDataSetChanged();
+				yaoGridAdapter.notifyDataSetChanged();
 				lastJson = content;
 				saveLie_Current_Result(content);
 
@@ -512,11 +552,9 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 		}
 		BingLog.i(TAG, "保存此次数据:" + result);
 		try {
-			
-			SharedPreferences preferences = getActivity()
-					.getSharedPreferences(
-							TAG,
-							Context.MODE_PRIVATE);
+
+			SharedPreferences preferences = getActivity().getSharedPreferences(
+					TAG, Context.MODE_PRIVATE);
 			Editor editor = preferences.edit();
 
 			editor.putString(ConstantS.RESULT, result);
@@ -524,7 +562,6 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
 
 	}
 
@@ -545,17 +582,7 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
-		String foodsid = list.get(position).getId();
-		PreferencesFoodsInfo.setfoodId(getActivity(), foodsid);
-		Intent intent = new Intent();
-		try {
-			intent.putExtra("distance", list.get(position).getDistance());
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-		intent.setClass(getActivity(), FoodDetailsActivity.class);
-		startActivity(intent);
+		showFoodDetails(position);
 	}
 
 	private void searchReshFoodbyKey(String key, String first) {
@@ -593,6 +620,7 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 					searchFlag = true;
 					list.clear();
 					yaoyingyangAdapter.notifyDataSetChanged();
+					yaoGridAdapter.notifyDataSetChanged();
 					searchReshFoodbyKey(key, "" + currtuindex);
 				}
 			} else if (action.equals(ConstantS.ACTION_RECOOMEND_TODAY_FOOD)) {
@@ -619,7 +647,7 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 			}
 
 			yaoyingyangAdapter.notifyDataSetChanged();
-
+			yaoGridAdapter.notifyDataSetChanged();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -630,6 +658,87 @@ public class YaoyingyangFragment extends ListBaseFragYP implements
 	public void on3Click() {
 		// TODO Auto-generated method stub
 		startActivity(new Intent(getActivity(), TodayFoodRecActivity.class));
+	}
+
+	private OnClickListener listener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			if (v == fActionButton) {
+				if (nRefreshLayout.isShown()) {
+					nRefreshLayout.setVisibility(View.GONE);
+					mRefreshLayout.setVisibility(View.VISIBLE);
+					fActionButton.setImageResource(R.drawable.ic_yao_grid);
+				} else {
+					nRefreshLayout.setVisibility(View.VISIBLE);
+					mRefreshLayout.setVisibility(View.GONE);
+					fActionButton.setImageResource(R.drawable.ic_yao_list);
+				}
+
+			}
+		}
+	};
+
+	private OnRefreshListener reshListener = new OnRefreshListener() {
+
+		@Override
+		public void onRefresh() {
+			// TODO Auto-generated method stub
+			if (fActionButton != null) {
+				if (!fActionButton.isShown()) {
+					fActionButton.setVisibility(View.VISIBLE);
+				}
+			}
+			if (!isLoaing) {
+				if (!searchFlag && TextUtils.isEmpty(key)) {
+					ReshNerabyFoods();
+				} else {
+					searchReshFoodbyKey(key, "0");
+				}
+
+			}
+		}
+	};
+
+	private com.wyy.myhealth.ui.customview.BingReshGridView.IXListViewListener loadListener = new com.wyy.myhealth.ui.customview.BingReshGridView.IXListViewListener() {
+
+		@Override
+		public void onLoadMore() {
+			// TODO Auto-generated method stub
+			if (!isLoaing) {
+				if (!searchFlag && !TextUtils.isEmpty(key)) {
+					LoadModreNerabyFoods();
+				} else {
+					searchLoadMordFoodbyKey(key, "" + currtuindex);
+				}
+
+			}
+		}
+	};
+
+	private OnItemClickListener gridListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			// TODO Auto-generated method stub
+			showFoodDetails(position);
+		}
+	};
+
+	private void showFoodDetails(int position) {
+		String foodsid = list.get(position).getId();
+		PreferencesFoodsInfo.setfoodId(getActivity(), foodsid);
+		Intent intent = new Intent();
+		try {
+			intent.putExtra("distance", list.get(position).getDistance());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		intent.setClass(getActivity(), FoodDetailsActivity.class);
+		startActivity(intent);
 	}
 
 }

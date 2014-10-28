@@ -22,6 +22,8 @@ import com.wyy.myhealth.utils.BingLog;
 import com.wyy.myhealth.utils.NoticeUtils;
 import com.wyy.myhealth.welcome.WelcomeActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -72,15 +74,14 @@ public class PublishActivity extends BaseActivity implements PicClickListener {
 		super.onResume();
 		UmenAnalyticsUtility.onResume(context);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		UmenAnalyticsUtility.onPause(context);
 	}
-	
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
@@ -133,10 +134,9 @@ public class PublishActivity extends BaseActivity implements PicClickListener {
 		publishGridView.setAdapter(publishAdapter);
 		publishAdapter.setPicClickListerter(this);
 
-		
 		Intent intent = getIntent();
 		handelIntent(intent);
-		
+
 	}
 
 	@Override
@@ -149,15 +149,15 @@ public class PublishActivity extends BaseActivity implements PicClickListener {
 
 	private void sendMoodaPic2Shai() {
 
-		if (WyyApplication.getInfo()==null) {
+		if (WyyApplication.getInfo() == null) {
 			WelcomeActivity.getPersonInfo(context);
 		}
-		
-		if (WyyApplication.getInfo()==null) {
+
+		if (WyyApplication.getInfo() == null) {
 			startActivity(new Intent(context, WelcomeActivity.class));
 			return;
 		}
-		
+
 		moodEditText.setError(null);
 		if (!TextUtils.isEmpty(moodEditText.getText().toString())) {
 
@@ -176,9 +176,9 @@ public class PublishActivity extends BaseActivity implements PicClickListener {
 			moodEditText.setError(getString(R.string.nullcontentnotice));
 			moodEditText.requestFocus();
 		}
-		
+
 		UmenAnalyticsUtility.onEvent(context, ConstantS.UMNEG_PUBLISH_MOOD);
-		
+
 	}
 
 	/**
@@ -227,7 +227,7 @@ public class PublishActivity extends BaseActivity implements PicClickListener {
 	private void parseJson(String content) {
 		JSONObject moodJsonObject;
 		try {
-			BingLog.i(TAG, "发送返回:"+content);
+			BingLog.i(TAG, "发送返回:" + content);
 			moodJsonObject = new JSONObject(content);
 			if ("1".equals(moodJsonObject.getString("result"))) {
 				moodid = moodJsonObject.getJSONObject("mood").getString("id");
@@ -446,6 +446,48 @@ public class PublishActivity extends BaseActivity implements PicClickListener {
 		if (!TextUtils.isEmpty(sharedText)) {
 			moodEditText.setText(sharedText);
 		}
+	}
+
+	@Override
+	public void onPicLongClick(int position) {
+		// TODO Auto-generated method stub
+		if (position==list.size()-1) {
+			PhotoUtils.secPic(PublishActivity.this);
+		}else {
+			editPic(position);
+		}
+	}
+
+	private void editPic(final int position) {
+		new AlertDialog.Builder(context)
+				.setTitle(R.string.pic_delete_title)
+				.setMessage(R.string.pic_delete_notice)
+				.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+								try {
+									list.remove(position);
+									publishAdapter.notifyDataSetChanged();
+								} catch (Exception e) {
+									// TODO: handle exception
+								}
+
+							}
+						})
+				.setNegativeButton(android.R.string.cancel,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+
+							}
+						}).show();
 	}
 
 }

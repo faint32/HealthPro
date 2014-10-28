@@ -6,7 +6,8 @@
     <include
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        layout="@layout/foodhead" />
+        layout="@layout/foodhead"
+        android:visibility="gone" />
 
     <include
         android:layout_width="match_parent"

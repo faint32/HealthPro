@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-     
+
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -15,8 +15,39 @@
             android:id="@+id/m_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:descendantFocusability="blocksDescendants" >
+            android:descendantFocusability="blocksDescendants"
+            android:dividerHeight="2dp" >
         </com.wyy.myhealth.ui.customview.BingListView>
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/grid_swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:visibility="gone" >
+
+        <com.wyy.myhealth.ui.customview.BingReshGridView
+            android:id="@+id/yao_grid_v"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="2dp"
+            android:numColumns="3"
+            android:verticalSpacing="2dp" >
+
+        </com.wyy.myhealth.ui.customview.BingReshGridView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <com.bing.flating_btn_library.FloatingActionButton
+        android:id="@+id/menu_changge_ui"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_yao_grid" />
 
 </FrameLayout>
