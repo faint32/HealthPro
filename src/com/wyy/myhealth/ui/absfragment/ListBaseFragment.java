@@ -38,6 +38,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+@SuppressWarnings("deprecation")
 public class ListBaseFragment extends Fragment {
 
 	protected static final String TAG = ListBaseFragment.class.getSimpleName();
@@ -237,6 +238,7 @@ public class ListBaseFragment extends Fragment {
 			// TODO Auto-generated method stub
 			super.onSuccess(response);
 			if (response.toString().equals(json) && !TextUtils.isEmpty(json)) {
+				BingLog.i("最近数据:"+response);
 				if (null != getActivity()) {
 					Toast.makeText(getActivity(), R.string.nonewmsg,
 							Toast.LENGTH_SHORT).show();

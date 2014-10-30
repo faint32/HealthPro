@@ -24,14 +24,14 @@ import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.imag.utils.LoadImageUtils;
 import com.wyy.myhealth.imag.utils.SavePic;
 import com.wyy.myhealth.service.MainService;
-import com.wyy.myhealth.ui.baseactivity.BaseScanResultActivity;
+import com.wyy.myhealth.ui.baseactivity.BaseScanResultActivity_;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 import com.wyy.myhealth.ui.navigation.ShareFoodNavActivity;
 import com.wyy.myhealth.ui.scan.utils.DialogShow;
 import com.wyy.myhealth.utils.BingLog;
 import com.wyy.myhealth.utils.ShareUtils;
 
-public class ScanResultActivity extends BaseScanResultActivity implements
+public class ScanResultActivity extends BaseScanResultActivity_ implements
 		ActivityInterface {
 
 	private static final String TAG = ScanResultActivity.class.getSimpleName();
@@ -43,9 +43,9 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 	private NearFoodBean samefood;
 
 	private ScanMoodBean scanMoodBean;
-	
+
 	private TextView failre_up;
-	
+
 	private TextView failre_bo;
 
 	@Override
@@ -116,9 +116,9 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 		setIshasScale(true);
 		successlay = (FrameLayout) findViewById(R.id.scan_success_lay);
 		failurelay = (FrameLayout) findViewById(R.id.scan_failure_lay);
-		failre_up=(TextView)findViewById(R.id.failre_up);
-		failre_bo=(TextView)findViewById(R.id.failre_bottom);
-		
+		failre_up = (TextView) findViewById(R.id.failre_up);
+		failre_bo = (TextView) findViewById(R.id.failre_bottom);
+
 		findViewById(R.id.open_ligth).setOnClickListener(listener);
 		findViewById(R.id.take_pic).setOnClickListener(listener);
 		findViewById(R.id.take_bottom_lay).setOnClickListener(listener);
@@ -184,6 +184,12 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 						.getEnergy()));
 			} catch (Exception e) {
 				// TODO: handle exception
+				getnextvitaminsimgs(0);
+				getnextproteinsimgs(0);
+				getnextmineralsimgs(0);
+				getnextfatimgs(0);
+				getnextsugarimgs(0);
+				getnextenergysimgs(0);
 			}
 
 		} else {
@@ -202,15 +208,14 @@ public class ScanResultActivity extends BaseScanResultActivity implements
 		super.onResume();
 		UmenAnalyticsUtility.onResume(context);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		UmenAnalyticsUtility.onPause(context);
 	}
-	
-	
+
 	private void sendChangeUI() {
 		sendBroadcast(new Intent(ConstantS.ACTION_HIDE_UI_CHANGE));
 	}

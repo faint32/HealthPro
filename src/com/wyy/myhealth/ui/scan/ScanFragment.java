@@ -72,7 +72,6 @@ public class ScanFragment extends Fragment {
 
 	private static final String TAG = ScanFragment.class.getSimpleName();
 	private static final int SPLASH_DELAY_MILLIS = 1000;
-	private static final int SPLASH_DELAY_MILLIS_ = 10000;
 	private Camera mCamera;
 	private Camera.Parameters parameters;// 照相机参数集
 	private FrameLayout mFrameLayout;
@@ -265,7 +264,7 @@ public class ScanFragment extends Fragment {
 
 	private void initCameraView() {
 		try {
-			if (mCamera==null) {
+			if (mCamera == null) {
 				mCamera = Camera.open();
 			}
 			cView = new cameraView(context, mCamera);
@@ -273,7 +272,6 @@ public class ScanFragment extends Fragment {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
 
 	}
 
@@ -525,8 +523,8 @@ public class ScanFragment extends Fragment {
 			Matrix matrix = new Matrix();
 			matrix.setRotate(angle);
 			BingLog.d(TAG, "是否可读:" + SdUtils.ExistSDCard());
-			final byte[] data0=data;
-			new Thread(){
+			final byte[] data0 = data;
+			new Thread() {
 				public void run() {
 					if (SdUtils.ExistSDCard()) {
 						SavePic.saveToSDCard(data0);
@@ -541,9 +539,8 @@ public class ScanFragment extends Fragment {
 					}
 				};
 			}.start();
-			
+
 			mHandler.obtainMessage(5);
-			
 
 		}
 	};
@@ -667,12 +664,12 @@ public class ScanFragment extends Fragment {
 			try {
 				mJsonObject = new JSONObject(content);
 
-				try {
-					getFoodTag(mJsonObject.getJSONObject("samefood"));
-				} catch (Exception e) {
-					// TODO: handle exception
-					e.printStackTrace();
-				}
+				// try {
+				// getFoodTag(mJsonObject.getJSONObject("samefood"));
+				// } catch (Exception e) {
+				// // TODO: handle exception
+				// e.printStackTrace();
+				// }
 
 				try {
 					getFaceBean(mJsonObject.getJSONObject("face"));
@@ -873,7 +870,7 @@ public class ScanFragment extends Fragment {
 			case 5:
 				startPrivew();
 				break;
-				
+
 			default:
 				break;
 			}
@@ -890,7 +887,8 @@ public class ScanFragment extends Fragment {
 			switch (v.getId()) {
 			case R.id.take_pic:
 				takepic2web();
-				UmenAnalyticsUtility.onEvent(getActivity(), ConstantS.UMNEG_SCAN_HEALTH);
+				UmenAnalyticsUtility.onEvent(getActivity(),
+						ConstantS.UMNEG_SCAN_HEALTH);
 				break;
 
 			case R.id.open_ligth:
@@ -1018,6 +1016,7 @@ public class ScanFragment extends Fragment {
 		}
 	};
 
+	@SuppressWarnings("unused")
 	private void getFoodTag(JSONObject jsonObject) {
 		sameNearFoodBean = JsonUtils.getNearFoodBean(jsonObject);
 	}
@@ -1039,16 +1038,15 @@ public class ScanFragment extends Fragment {
 		getActivity().sendBroadcast(intent);
 	}
 
-	
-	private void startPrivew(){
-		if (null!=mCamera) {
+	private void startPrivew() {
+		if (null != mCamera) {
 			try {
 				mCamera.startPreview();
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			
+
 		}
 	}
-	
+
 }

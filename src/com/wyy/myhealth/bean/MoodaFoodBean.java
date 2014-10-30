@@ -44,6 +44,26 @@ public class MoodaFoodBean implements Serializable {
 	private String month;
 	
 	private boolean isAdv;
+	
+	private String landcount;
+	
+	private String commentcount;
+	
+	public void setCommentcount(String commentcount) {
+		this.commentcount = commentcount;
+	}
+	
+	public String getCommentcount() {
+		return ""+commentcount;
+	}
+	
+	public void setLandcount(String landcount) {
+		this.landcount = landcount;
+	}
+	
+	public String getLandcount() {
+		return ""+landcount;
+	}
 
 	public boolean isAdv() {
 		return isAdv;

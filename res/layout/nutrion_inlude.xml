@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/vatamin_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_va_nor"
+          android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/fat_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_fa_nor"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/enger_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_en_nor"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/protein_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_pr_nor"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/surgar_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+          android:visibility="invisible"
+        android:src="@drawable/ic_su_nor" />
+
+    <ImageView
+        android:id="@+id/mine_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_mi_nor"
+        android:visibility="invisible" />
+
+</FrameLayout>

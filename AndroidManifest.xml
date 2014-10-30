@@ -286,7 +286,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent1102856689" />
+                <data android:scheme="tencent1101327092" />
                 <!-- 100380359 100381104 222222 -->
             </intent-filter>
         </activity>

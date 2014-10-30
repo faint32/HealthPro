@@ -173,7 +173,7 @@ public interface ConstantS {
 			+ "follow_app_official_microblog," + "invitation_write";
 
 	/******************* QQ ********************/
-	public static final String TENCENT_APP_ID = "1102856689";
+	public static final String TENCENT_APP_ID = "1101327092";
 	/******************** 友盟统计 *******************/
 	/**
 	 * 正常登陆

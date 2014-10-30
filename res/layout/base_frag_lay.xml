@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -16,11 +15,13 @@
             android:id="@+id/m_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:headerDividersEnabled="false"
-            android:descendantFocusability="blocksDescendants" >
+            android:background="@color/white"
+            android:descendantFocusability="blocksDescendants"
+            android:dividerHeight="5dp"
+            android:headerDividersEnabled="false" >
         </com.wyy.myhealth.ui.customview.BingListView>
     </android.support.v4.widget.SwipeRefreshLayout>
-    
+
     <include
         android:id="@+id/send_v"
         android:layout_width="match_parent"

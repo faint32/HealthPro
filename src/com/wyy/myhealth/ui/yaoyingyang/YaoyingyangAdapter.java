@@ -123,7 +123,7 @@ public class YaoyingyangAdapter extends BaseAdapter {
 
 		holder.foodtags.setText(list.get(position).getTags());
 
-		holder.renqiTextView.setText("" + list.get(position).getVisitcount());
+		holder.renqiTextView.setText("" + list.get(position).getLaudcount());
 		holder.commentNumView.setText(list.get(position).getCommentcount());
 		if (MainActivity.Wlatitude == 0) {
 

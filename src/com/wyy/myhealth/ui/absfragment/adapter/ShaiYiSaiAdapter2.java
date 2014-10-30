@@ -2,7 +2,6 @@ package com.wyy.myhealth.ui.absfragment.adapter;
 
 import java.util.List;
 
-
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.bean.MoodaFoodBean;
 import com.wyy.myhealth.contants.ConstantS;
@@ -66,8 +65,8 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 		popupWindow.setFocusable(false);
 		commentImageView.setFocusable(false);
 		collectImageView.setFocusable(false);
-		float screen_Width=context.getResources().getDisplayMetrics().widthPixels;
-		pop_Width=(int) (254*(screen_Width/720));
+		float screen_Width = context.getResources().getDisplayMetrics().widthPixels;
+		pop_Width = (int) (254 * (screen_Width / 720));
 	}
 
 	@Override
@@ -100,7 +99,8 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 		ViewHolder holder = null;
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.shai_item, parent, false);
+			convertView = inflater.inflate(R.layout.shai_ver4_item, parent,
+					false);// shai_item
 			holder.userheadImageView = (ImageView) convertView
 					.findViewById(R.id.shai_head_img);
 			holder.usernameTextView = (TextView) convertView
@@ -108,11 +108,11 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 			holder.timeTextView = (TextView) convertView
 					.findViewById(R.id.shai_time_txt);
 			holder.shaitagTextView = (TextView) convertView
-					.findViewById(R.id.shai_top_txt);
+					.findViewById(R.id.shai_tag_txt);// shai_top_txt
 			holder.foodtagTextView = (TextView) convertView
 					.findViewById(R.id.shai_center_txt);
 			holder.levelTextView = (TextView) convertView
-					.findViewById(R.id.shai_bottom_txt);
+					.findViewById(R.id.shai_tag_start_txt);// shai_bottom_txt
 			holder.shai_level_imgImageView = (ImageView) convertView
 					.findViewById(R.id.shai_start_img);
 			holder.commenImageView = (ImageButton) convertView
@@ -123,6 +123,10 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 					.findViewById(R.id.comment_list);
 			holder.picGridView = (GridView) convertView
 					.findViewById(R.id.shai_gridView1);
+			holder.likenumTextView = (TextView) convertView
+					.findViewById(R.id.like_num);
+			holder.commentnumTextView = (TextView) convertView
+					.findViewById(R.id.com_num);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -182,29 +186,41 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 		public GridView picGridView;
 		public GridAdapter2 gridAdapter;
 		public CommentAdapter commentAdapter;
+		/**
+		 * 赞数量
+		 */
+		public TextView likenumTextView;
+		/**
+		 * 评论数量
+		 */
+		public TextView commentnumTextView;
 
 	}
 
 	private void setFoodView(ViewHolder holder, int position) {
 		holder.shaitagTextView.setText(R.string.share_food);
-		if (!list.get(position).isAdv()&&!TextUtils.isEmpty(list.get(position).getTags())) {
-			holder.foodtagTextView.setVisibility(View.VISIBLE);
-			holder.foodtagTextView.setText(context.getString(R.string.tags_)
-					+ list.get(position).getTags());
-		} else {
-			holder.foodtagTextView.setVisibility(View.GONE);
-		}
+		// if
+		// (!list.get(position).isAdv()&&!TextUtils.isEmpty(list.get(position).getTags()))
+		// {
+		// holder.foodtagTextView.setVisibility(View.VISIBLE);
+		// holder.foodtagTextView.setText(context.getString(R.string.tags_)
+		// + list.get(position).getTags());
+		// } else {
+		// holder.foodtagTextView.setVisibility(View.GONE);
+		// }
+
+		holder.foodtagTextView.setVisibility(View.GONE);
+
 		holder.levelTextView.setText(R.string.hps_share_list_2);
 		holder.shai_level_imgImageView.setImageResource(ConstantS.levels[list
 				.get(position).getTastelevel()]);
-		String reason=list.get(position).getSummary();
+		String reason = list.get(position).getSummary();
 		if (TextUtils.isEmpty(reason)) {
 			holder.reasonTextView.setVisibility(View.GONE);
-		}else {
+		} else {
 			holder.reasonTextView.setText(reason);
 			holder.reasonTextView.setVisibility(View.VISIBLE);
 		}
-		
 
 	}
 
@@ -224,10 +240,10 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 			holder.levelTextView.setVisibility(View.GONE);
 			holder.shai_level_imgImageView.setVisibility(View.GONE);
 		}
-		String reason=list.get(position).getContext();
+		String reason = list.get(position).getContext();
 		if (TextUtils.isEmpty(reason)) {
 			holder.reasonTextView.setVisibility(View.GONE);
-		}else {
+		} else {
 			holder.reasonTextView.setText(reason);
 			holder.reasonTextView.setVisibility(View.VISIBLE);
 		}
@@ -236,23 +252,26 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 
 	private void setView(ViewHolder holder, int position) {
 		final int adaposition = position;
+		MoodaFoodBean moodaFoodBean = list.get(position);
 		LoadImageUtils.loadImage4ImageV(holder.userheadImageView,
 				HealthHttpClient.IMAGE_URL
-						+ list.get(position).getUser().getHeadimage());
-		holder.timeTextView.setText(list.get(position).getCn_time());
-		holder.usernameTextView.setText(list.get(position).getUser()
-				.getUsername());
-
+						+ moodaFoodBean.getUser().getHeadimage());
+		holder.timeTextView.setText(moodaFoodBean.getCn_time());
+		holder.usernameTextView.setText(moodaFoodBean.getUser().getUsername());
+		holder.likenumTextView.setText(moodaFoodBean.getLandcount());
+		holder.commentnumTextView.setText(moodaFoodBean.getCommentcount());
 		if (list.get(position).getImg() != null) {
-			setGridView(holder.picGridView, list.get(position).getImg().size());
-			holder.gridAdapter = new GridAdapter2(context, list.get(position)
-					.getImg());
+			setGridView(holder.picGridView, moodaFoodBean.getImg().size());
+			holder.gridAdapter = new GridAdapter2(context,
+					moodaFoodBean.getImg());
 			holder.picGridView.setAdapter(holder.gridAdapter);
-			if (list.get(position).isAdv()&&!TextUtils.isEmpty(list.get(position).getTags())) {
-				holder.gridAdapter.setFoodtag(list.get(position).getTags());
-			}else {
+			String tag = moodaFoodBean.getTags();
+			if (/* list.get(position).isAdv()&& */!TextUtils.isEmpty(tag)
+					&& (!tag.equals("null"))) {
+				holder.gridAdapter.setFoodtag(tag);
+			} else {
 				holder.gridAdapter.setFoodtag("");
-			} 
+			}
 			holder.picGridView.setVisibility(View.VISIBLE);
 			holder.picGridView.setFocusable(false);
 			holder.picGridView.setFocusableInTouchMode(false);
@@ -274,8 +293,11 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 		if (null != list.get(position).getComment()) {
 			holder.commentAdapter = new CommentAdapter(context, list.get(
 					position).getComment());
+			holder.commenlist.setFocusable(false);
+			holder.commenlist.setFocusableInTouchMode(false);
+			holder.commenlist.setFocusable(false);
+			holder.commenlist.setFocusableInTouchMode(false);
 			holder.commenlist.setAdapter(holder.commentAdapter);
-			// ListUtils.setListViewHeightBasedOnChildren(holder.commenlist);
 		}
 
 		holder.commenImageView.setFocusable(false);

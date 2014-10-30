@@ -41,7 +41,7 @@ public class Foods implements Serializable{
 	}
 
 	public String getLaudcount() {
-		return laudcount;
+		return ""+laudcount;
 	}
 
 	public void setLaudcount(String laudcount) {

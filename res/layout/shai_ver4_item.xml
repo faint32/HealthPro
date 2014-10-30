@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/shai_ver4_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/text_horizontal_margin" >
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/shai_item_title_inlude" />
+
+    <com.wyy.myhealth.ui.customview.BingGridView
+        android:id="@+id/shai_gridView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="auto_fit"
+        android:scrollbars="none" >
+    </com.wyy.myhealth.ui.customview.BingGridView>
+
+    <TextView
+        android:id="@+id/shai_reason_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/text_horizontal_margin"
+        android:autoLink="all"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/shai_center_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/text_horizontal_margin"
+        android:text="" />
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/shai_colk_inlude" />
+
+    <com.wyy.myhealth.ui.customview.FullListView
+        android:id="@+id/comment_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/text_horizontal_margin"
+        android:layout_marginRight="@dimen/text_horizontal_margin"
+        android:divider="@color/transparent"
+        android:dividerHeight="1dp"
+        android:visibility="gone" >
+    </com.wyy.myhealth.ui.customview.FullListView>
+
+</LinearLayout>

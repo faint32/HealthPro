@@ -6,24 +6,18 @@
     <ImageView
         android:id="@+id/shai_pic_muilt"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:layout_gravity="top"
         android:scaleType="centerCrop" />
 
-    <FrameLayout
+    <TextView
+        android:id="@+id/tag"
+        style="@style/White_normal_txt_theme"
         android:layout_width="match_parent"
-        android:layout_height="200dp" >
-
-        <TextView
-            android:id="@+id/tag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/translightgray"
-            android:layout_gravity="bottom"
-            style="@style/White_normal_txt_theme"
-            android:visibility="gone"
-            android:text="" />
-
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/translightgray"
+        android:text=""
+        android:visibility="gone" />
 
 </FrameLayout>

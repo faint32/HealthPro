@@ -49,7 +49,7 @@
         android:background="@drawable/login_sec"
         android:text="@string/qq_login"
         android:textColor="@color/white" 
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <FrameLayout
         android:layout_width="match_parent"
