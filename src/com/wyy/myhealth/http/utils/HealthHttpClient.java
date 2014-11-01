@@ -1167,6 +1167,22 @@ public class HealthHttpClient {
 	}
 
 	/**
+	 * 获取食物详情
+	 * 
+	 * @param foodid
+	 * @param userid
+	 * @param handler
+	 */
+	public static void getFoodDetails(String foodid, String userid,
+			AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("foodid", foodid);
+		params.put("userid", userid);
+		client.post(GET_FOOD_DETAILS, params, handler);
+		BingLog.i("食物详情:" + GET_FOOD_DETAILS + "?" + params);
+	}
+
+	/**
 	 * 获得推荐食物
 	 * 
 	 * @param handler

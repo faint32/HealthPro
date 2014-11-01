@@ -38,6 +38,7 @@ import com.wyy.myhealth.MainActivity;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.PreferencesFoodsInfo;
+import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.Comment;
 import com.wyy.myhealth.bean.NearFoodBean;
 import com.wyy.myhealth.bean.PersonalInfo;
@@ -299,7 +300,13 @@ public class FoodDetailsActivity extends BaseActivity {
 			}
 
 		};
-		HealthHttpClient.getFoodDetails(foodid, res);
+		if (WyyApplication.getInfo() != null) {
+			HealthHttpClient.getFoodDetails(foodid, WyyApplication.getInfo()
+					.getId(), res);
+		} else {
+			HealthHttpClient.getFoodDetails(foodid, res);
+		}
+
 		// FoodsUtil.doHttpDetails(foodid, res);
 	}
 
@@ -329,7 +336,6 @@ public class FoodDetailsActivity extends BaseActivity {
 			JSONArray commentsArray = result.getJSONArray("comments");
 
 			int length = json.length();
-			System.out.println("length==" + length);
 			for (int i = 0; i < length; i++) {
 				Comment mcomment = new Comment();
 				obj = json.getJSONObject(i);

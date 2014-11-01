@@ -11,7 +11,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/icon_xiangqing_isshangghu" />
+        android:src="@drawable/ic_food_details_normal" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
