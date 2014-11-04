@@ -375,9 +375,6 @@ public class FoodDetailsActivity extends BaseActivity {
 
 			info = new PersonalInfo();
 			JSONObject obj1 = result.getJSONObject("user");
-			info.setHeadimage(obj1.getString("headimage"));
-			info.setUsername(obj1.getString("username"));
-			info.setBodyindex(obj1.getString("bodyindex"));
 			try {
 				Gson gson = new Gson();
 				info = gson.fromJson(obj1.toString(), PersonalInfo.class);

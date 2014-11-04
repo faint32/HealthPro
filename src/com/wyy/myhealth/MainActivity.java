@@ -16,6 +16,7 @@ import com.wyy.myhealth.ui.discover.DiscoverFragment;
 import com.wyy.myhealth.ui.navigation.DiscoverNavActivity;
 import com.wyy.myhealth.ui.navigation.PersonalNavActivity;
 import com.wyy.myhealth.ui.navigation.YaoNavActivity;
+import com.wyy.myhealth.ui.personcenter.MineFragment;
 import com.wyy.myhealth.ui.personcenter.PersonCenterFragment;
 import com.wyy.myhealth.ui.scan.ScanFragment;
 import com.wyy.myhealth.ui.scan.utils.DialogShow;
@@ -246,7 +247,7 @@ public class MainActivity extends ActionBarActivity implements
 
 			case 3:
 
-				return PersonCenterFragment.newInstance(position);
+				return MineFragment.newInstance(position);
 
 			default:
 				break;

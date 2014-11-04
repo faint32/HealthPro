@@ -9,6 +9,9 @@ public class InputUtlity {
 	public static void showInputWindow(Context context, View view) {
 		InputMethodManager imm = (InputMethodManager) context
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		if (imm == null) {
+			return;
+		}
 		imm.showSoftInput(view, 0);
 	}
 

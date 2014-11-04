@@ -100,7 +100,7 @@ public class PhoneUtlis {
 		Bitmap bm = getNoCutSmallBitmap(filePath);
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		bm.compress(Bitmap.CompressFormat.PNG, 40, baos);
+		bm.compress(Bitmap.CompressFormat.JPEG, 40, baos);
 		byte[] b = baos.toByteArray();
 
 		return Base64.encodeToString(b, Base64.DEFAULT);

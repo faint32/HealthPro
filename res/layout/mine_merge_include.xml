@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <FrameLayout
-        android:id="@+id/feed_back_"
+        android:id="@+id/user_info_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_sec"
+        android:clickable="true"
+        android:paddingBottom="@dimen/text_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/text_horizontal_margin" >
+
+        <ImageView
+            android:id="@+id/userhead"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo" />
+
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="85dp"
+            layout="@layout/user_info_bri_inlude" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/health_bar_lay"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/item_sec"
@@ -17,10 +44,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:drawableLeft="@drawable/icon_feedback"
-            android:drawablePadding="16dp"
+            android:drawableLeft="@drawable/ic_hba"
+            android:drawablePadding="5dp"
             android:gravity="center"
-            android:text="@string/feedback" />
+            android:text="@string/healthpass" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -30,7 +57,7 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/app_version_"
+        android:id="@+id/hornor_lay"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/item_sec"
@@ -42,10 +69,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:drawableLeft="@drawable/icon_version"
-            android:drawablePadding="16dp"
+            android:drawableLeft="@drawable/ic_hornor"
+            android:drawablePadding="5dp"
             android:gravity="center"
-            android:text="@string/versioninfo" />
+            android:text="@string/myhonor" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -55,7 +82,7 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/function_intro"
+        android:id="@+id/collect_lay"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/item_sec"
@@ -67,10 +94,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:drawableLeft="@drawable/ic_func_intro"
-            android:drawablePadding="16dp"
+            android:drawableLeft="@drawable/ic_collect"
+            android:drawablePadding="5dp"
             android:gravity="center"
-            android:text="@string/function_intro" />
+            android:text="@string/mycollect" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/setting_lay"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/item_sec"
+        android:clickable="true"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_setting"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="@string/action_settings" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -80,7 +128,7 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/clear_coach_"
+        android:id="@+id/colse_lay"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/item_sec"
@@ -92,16 +140,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:drawableLeft="@drawable/icon_clear"
-            android:drawablePadding="16dp"
+            android:drawableLeft="@drawable/ic_colse"
+            android:drawablePadding="5dp"
             android:gravity="center"
-            android:text="@string/clearcoach" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="bottom"
-            android:background="@color/home_txt" />
+            android:text="@string/exit" />
     </FrameLayout>
 
-</LinearLayout>
+</merge>

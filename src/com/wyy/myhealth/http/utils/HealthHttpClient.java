@@ -80,10 +80,20 @@ public class HealthHttpClient {
 
 	private static final String GET_PERSON_NUTION_INFO = BASE_URL
 			+ "statUserFoods20";
-
+	/**
+	 * 第三方注册
+	 */
 	private static final String REGIST_BY_ONTHER_TO_WYY = BASE_URL
 			+ "loginByappkey";
-
+	/**
+	 * 微圈
+	 */
+	private static final String MICRO_CIRCLE_URL = BASE_URL + "circle/";
+	/**
+	 * 搜索用户
+	 */
+	private static final String SEAR_USER = MICRO_CIRCLE_URL + "searchUser";
+	
 	private volatile static HealthHttpClient instance = null;
 
 	protected static AsyncHttpClient client = new AsyncHttpClient();
@@ -156,6 +166,46 @@ public class HealthHttpClient {
 		params.put("sportindex", info.getSportindex());
 		params.put("tags", info.getTags());
 		params.put("headimage", headimage);
+		client.post(PERSONAL_URL + "fullUserInfo", params, handler);
+	}
+
+	/**
+	 * 修改信息
+	 * 
+	 * @param info
+	 * @param headimage
+	 * @param handler
+	 */
+	public static void doHttpFinishPersonInfoForHead(PersonalInfo info,
+			String headimage, AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("userid", info.getId());
+		params.put("height", info.getHeight());
+		params.put("weight", info.getWeight());
+		params.put("job", info.getJob());
+		params.put("gender", info.getGender());
+		params.put("age", info.getAge());
+		params.put("bodyindex", info.getBodyindex());
+		params.put("username", info.getUsername());
+		params.put("sportindex", info.getSportindex());
+		params.put("tags", info.getTags());
+		params.put("headimage", headimage);
+		client.post(PERSONAL_URL + "fullUserInfo", params, handler);
+	}
+
+	public static void doHttpFinishPersonInfo(PersonalInfo info,
+			AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("userid", info.getId());
+		params.put("height", info.getHeight());
+		params.put("weight", info.getWeight());
+		params.put("job", info.getJob());
+		params.put("gender", info.getGender());
+		params.put("age", info.getAge());
+		params.put("bodyindex", info.getBodyindex());
+		params.put("username", info.getUsername());
+		params.put("sportindex", info.getSportindex());
+		params.put("tags", info.getTags());
 		client.post(PERSONAL_URL + "fullUserInfo", params, handler);
 	}
 

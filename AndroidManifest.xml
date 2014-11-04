@@ -363,6 +363,12 @@
             android:value="baidu" >
         </meta-data>
         <!-- 友盟应用统计配置结束 -->
+        <activity android:name=".ui.personcenter.PersonInfoActivity"></activity>
+        <activity android:name=".ui.personcenter.modify.ModifyUserHeadActivity"></activity>
+        <activity android:name=".ui.personcenter.modify.ModifyUsernameActivity"></activity>
+        <activity android:name=".ui.personcenter.modify.ModifyHeightActivity"></activity>
+        <activity android:name=".ui.personcenter.modify.ModifyWeightActivity"></activity>
+        <activity android:name=".ui.personcenter.modify.ModifyAgeActivity"></activity>
         
     </application>
 

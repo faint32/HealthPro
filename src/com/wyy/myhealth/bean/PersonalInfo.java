@@ -2,6 +2,10 @@ package com.wyy.myhealth.bean;
 
 import java.io.Serializable;
 
+import org.json.JSONArray;
+
+import android.text.TextUtils;
+
 public class PersonalInfo implements Serializable {
 	// "tags": "",
 	// "summary": "",
@@ -96,6 +100,9 @@ public class PersonalInfo implements Serializable {
 	}
 
 	public String getUsername() {
+		if (TextUtils.isEmpty(username)) {
+			username = "";
+		}
 		return username;
 	}
 
@@ -160,6 +167,9 @@ public class PersonalInfo implements Serializable {
 	}
 
 	public String getSummary() {
+		if (TextUtils.isEmpty(summary)) {
+			summary = "";
+		}
 		return summary;
 	}
 
@@ -216,6 +226,9 @@ public class PersonalInfo implements Serializable {
 	}
 
 	public String getJob() {
+		if (TextUtils.isEmpty(job)) {
+			job = "";
+		}
 		return job;
 	}
 
@@ -224,6 +237,9 @@ public class PersonalInfo implements Serializable {
 	}
 
 	public String getBodyindex() {
+		if (TextUtils.isEmpty(bodyindex)) {
+			bodyindex = "";
+		}
 		return bodyindex;
 	}
 

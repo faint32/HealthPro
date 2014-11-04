@@ -14,6 +14,7 @@
     <string name="password_notice_t">请输入正确密码</string>
     <string name="phone_notice_">请输入正确的手机号码</string>
     <string name="login">登陆</string>
+    <string name="click_login">点击登陆</string>
     <string name="saoyy">扫营养</string>
     <string name="yaoyy">YAO营养</string>
     <string name="find">发现</string>
@@ -120,6 +121,7 @@
     <string name="add_niceng_example">如小雨</string>
     <string name="add_old_example">如20</string>
     <string name="sec_sex">选择性别</string>
+    <string name="sex">性别</string>
     <string name="boy">男</string>
     <string name="gilr">女</string>
     <string name="baseifo">基本信息</string>
@@ -277,9 +279,11 @@
     <string name="edit_file">编辑资料</string>
     <string name="usserhead">头像</string>
     <string name="niname">昵称</string>
+    <string name="modify_niname">修改昵称</string>
     <string name="carrer_hint">如教师</string>
     <string name="age">年龄</string>
-    <string name="age_hint">如20</string>
+    <string name="age_hint">填写年龄</string>
+    <string name="age_example">如20</string>
     <string name="height">身高</string>
     <string name="height_hint">如170,</string>
     <string name="weight">体重</string>
@@ -318,6 +322,7 @@
     <string name="pleasew">请稍后</string>
     <string name="share_content" formatted="false">98%的人第一次接触过微营养该智能服务，90%的人因此更加关爱自己和家人。扫描食物实时知道营养成分和热量，适合减肥和养生，最近都在用，感觉还不错 。下载地址：http://m.weidata.com.cn</string>
     <string name="weimalogin">微码登陆</string>
+    <string name="micro_code">微码:</string>
     <string name="qq_login">QQ登陆</string>
     <string name="loginfailure">登录失败</string>
     <string name="loginsuccess">登陆成功</string>
@@ -396,5 +401,9 @@
     <string name="person_nav">微营养将会基于您的\n基本信息进行个性化营养健康服务\n基本信息一定要填哦!</string>
     <string name="nutrion_nav">""建议值"必须在用户\n又一次纪录值之后才会有哦!</string>
     <string name="share_nav">记录一下，微营养将会判断你\n下一顿的美食营养与热量哦，并\n提供预警与跟踪服务!</string>
+    <string name="base_info">基本资料</string>
+    <string name="head">头像</string>
+    <string name="health_appeal">健康诉求</string>
+    <string name="modify_head">更改头像</string>
 
 </resources>
