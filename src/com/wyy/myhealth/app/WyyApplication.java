@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap.Config;
 import android.widget.Toast;
 
 import com.baidu.frontia.FrontiaApplication;
@@ -30,9 +31,11 @@ public class WyyApplication extends FrontiaApplication {
 	private static WyyApplication wInstance;
 	public boolean m_bKeyRight = true;
 	public BMapManager mBMapManager = null;
-	private static final String BAIDU_DUBUG_KEY = "mcGXuNClGvdQamQ7fHdaIouX";
-	private static final String BAIDU_REALSE_KEY = "3ZvcwhjsKy1696GLSwp0uFac";
-	public static String BAIDU_KEY = "3ZvcwhjsKy1696GLSwp0uFac";// realse key
+	private static final String BAIDU_DUBUG_KEY = "mcGXuNClGvdQamQ7fHdaIouX";// debug
+																				// key
+	private static final String BAIDU_REALSE_KEY = "3ZvcwhjsKy1696GLSwp0uFac";// realse
+																				// key
+	public static String BAIDU_KEY = "3ZvcwhjsKy1696GLSwp0uFac";
 	static {
 		if (BuildConfig.DEBUG) {
 			BAIDU_KEY = BAIDU_DUBUG_KEY;
@@ -49,6 +52,8 @@ public class WyyApplication extends FrontiaApplication {
 	public static DisplayImageOptions options;
 
 	public static DisplayImageOptions optionscir;
+
+	public static DisplayImageOptions options_small;
 
 	public static List<ImageInfo> getHeaderImaList() {
 		return headerImaList;
@@ -121,15 +126,24 @@ public class WyyApplication extends FrontiaApplication {
 		WyyApplication.options = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.drawable.pic_loading_)
 				.showImageForEmptyUri(R.drawable.pic_empty)
-				.showImageOnFail(R.drawable.pic_failure).cacheInMemory(true)
-				.cacheOnDisc(true).considerExifParams(true).build();
+				.showImageOnFail(R.drawable.pic_failure).cacheInMemory(false)
+				.bitmapConfig(Config.ARGB_8888).cacheOnDisc(true)
+				.considerExifParams(true).build();
+
+		options_small = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.pic_loading)
+				.showImageForEmptyUri(R.drawable.pic_empty)
+				.showImageOnFail(R.drawable.pic_failure_).cacheInMemory(false)
+				.bitmapConfig(Config.ARGB_8888).cacheOnDisc(true)
+				.considerExifParams(true).build();
 
 		optionscir = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.drawable.pic_loading_)
 				.showImageForEmptyUri(R.drawable.pic_empty)
-				.showImageOnFail(R.drawable.pic_failure).cacheInMemory(true)
+				.showImageOnFail(R.drawable.pic_failure_).cacheInMemory(false)
 				.displayer(new RoundedBitmapDisplayer(50)).cacheOnDisc(true)
-				.considerExifParams(true).build();
+				.bitmapConfig(Config.ARGB_8888).considerExifParams(true)
+				.build();
 
 	}
 

@@ -33,6 +33,7 @@ import com.wyy.myhealth.ui.absfragment.adapter.ShaiYiSaiAdapter2.ShaiItemOnclick
 import com.wyy.myhealth.ui.absfragment.utils.TimeUtility;
 import com.wyy.myhealth.ui.customview.BingListView.IXListViewListener;
 import com.wyy.myhealth.ui.fooddetails.FoodDetailsActivity;
+import com.wyy.myhealth.ui.personcenter.UserInfoActivity;
 import com.wyy.myhealth.ui.photoPager.PhotoPagerActivity;
 import com.wyy.myhealth.utils.BingLog;
 import com.wyy.myhealth.utils.InputUtlity;
@@ -58,7 +59,6 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 	private MoodaFoodBean adversie;
 
 	private String key = "";
-	
 
 	public void setKey(String key) {
 		this.key = key;
@@ -118,21 +118,20 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		}
 
 	}
-	
+
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		UmenAnalyticsUtility.onPageStart(TAG);
 	}
-	
+
 	@Override
 	public void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		UmenAnalyticsUtility.onPageEnd(TAG);
 	}
-	
 
 	@Override
 	protected void saveJsontoDb(String json, int postion) {
@@ -165,18 +164,18 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		// TODO Auto-generated method stub
 		super.reshShayiSai(first, limit);
 		// HealthHttpClient.doHttpGetShayiSai(first, limit, reshHandler);
-		if (adversie!=null&&thList2.size()>1&&thList2.get(1).isAdv()) {
+		if (adversie != null && thList2.size() > 1 && thList2.get(1).isAdv()) {
 			thList2.remove(2);
-			this.first=thList2.size();
+			this.first = thList2.size();
 		}
-		if (null==WyyApplication.getInfo()) {
+		if (null == WyyApplication.getInfo()) {
 			WelcomeActivity.getPersonInfo(getActivity());
 		}
-		if (null!=WyyApplication.getInfo()) {
+		if (null != WyyApplication.getInfo()) {
 			HealthHttpClient.aired20(WyyApplication.getInfo().getId(), first,
 					limit, key, reshHandler2);
 		}
-		
+
 	}
 
 	@Override
@@ -184,10 +183,10 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		// TODO Auto-generated method stub
 		super.getLoadMore(first, limit);
 		// HealthHttpClient.doHttpGetShayiSai(first, limit, parseHandler);
-		if (null==WyyApplication.getInfo()) {
+		if (null == WyyApplication.getInfo()) {
 			WelcomeActivity.getPersonInfo(getActivity());
 		}
-		if (null!=WyyApplication.getInfo()) {
+		if (null != WyyApplication.getInfo()) {
 			HealthHttpClient.aired20(WyyApplication.getInfo().getId(), first,
 					limit, key, loadMoreHandler);
 		}
@@ -196,7 +195,13 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 	@Override
 	public void onUserPicClick(int position) {
 		// TODO Auto-generated method stub
-		
+		try {
+			MoodaFoodBean moodaFoodBean = thList2.get(position);
+			loopUserInfo(moodaFoodBean.getUser().getId());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 	}
 
 	@Override
@@ -240,7 +245,8 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 			if (thList2.get(listPostino).getImg() != null) {
 				List<String> list = thList2.get(listPostino).getImg();
 				Intent intent = new Intent();
-				intent.putStringArrayListExtra("imgurls", (ArrayList<String>) list);
+				intent.putStringArrayListExtra("imgurls",
+						(ArrayList<String>) list);
 				intent.putExtra("postion", picPostion);
 				intent.setClass(getActivity(), PhotoPagerActivity.class);
 				startActivity(intent);
@@ -248,7 +254,7 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 	}
 
 	private void initSendView(View v) {
@@ -318,7 +324,7 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		public void onStart() {
 			// TODO Auto-generated method stub
 			super.onStart();
-			if (WyyApplication.getInfo()!=null) {
+			if (WyyApplication.getInfo() != null) {
 				CommentBean commentBean = new CommentBean();
 				commentBean.setContent(sendEditText.getText().toString());
 				commentBean.setUser(WyyApplication.getInfo());
@@ -344,7 +350,7 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 			// TODO Auto-generated method stub
 			super.onSuccess(content);
 			BingLog.i(TAG, "·µ»Ø:" + content);
-			if (null==getActivity()) {
+			if (null == getActivity()) {
 				return;
 			}
 			Toast.makeText(getActivity(), R.string.comment_success_,
@@ -398,16 +404,15 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 	}
 
 	public void addAdversie(MoodaFoodBean mBean) {
-		BingLog.i(TAG, "Ìí¼Ó:"+mBean);
+		BingLog.i(TAG, "Ìí¼Ó:" + mBean);
 		adversie = mBean;
 		try {
 			thList2.add(2, mBean);
 			mAdapter2.notifyDataSetChanged();
 		} catch (Exception e) {
 			// TODO: handle exception
-			BingLog.e(TAG, "´íÎó:"+e.getMessage());
+			BingLog.e(TAG, "´íÎó:" + e.getMessage());
 		}
-		
 
 	}
 
@@ -415,7 +420,7 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 	protected void addGg() {
 		// TODO Auto-generated method stub
 		super.addGg();
-		if (adversie != null&&thList2.size()>1) {
+		if (adversie != null && thList2.size() > 1) {
 			thList2.add(2, adversie);
 		}
 
@@ -431,4 +436,12 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 					TimeUtility.getListTime(thList2.get(i).getCreatetime()));
 		}
 	}
+
+	private void loopUserInfo(String userid) {
+		Intent intent = new Intent();
+		intent.putExtra("id", userid);
+		intent.setClass(getActivity(), UserInfoActivity.class);
+		startActivity(intent);
+	}
+
 }

@@ -2,33 +2,9 @@ package com.wyy.myhealth.bean;
 
 import java.io.Serializable;
 
-import org.json.JSONArray;
-
 import android.text.TextUtils;
 
 public class PersonalInfo implements Serializable {
-	// "tags": "",
-	// "summary": "",
-	// "birthday": "",
-	// "weight": "",
-	// "status": 0,
-	// "roleid": 4,
-	// "nickname": "",
-	// "mobilenum": "",
-	// "job": "",
-	// "bodyindex": "0",
-	// "piccode": "",
-	// "id": 1,
-	// "headimage": "/default/userHeader.png",
-	// "authkey": "",
-	// "username": "admin",
-	// "height": "",
-	// "idcode": "",
-	// "email": "",
-	// "gender": 1,
-	// "sportindex": 0,
-	// "pinyin": "admin",
-	// "salt": "123"
 
 	/**
 		 * 
@@ -58,6 +34,51 @@ public class PersonalInfo implements Serializable {
 	String sportindex;
 	String age;
 	String money;
+	private int airedcount;
+	private int blackcount;
+	private int followcount;
+	private int followmecount;
+	private boolean isfollow;
+
+	public boolean isIsfollow() {
+		return isfollow;
+	}
+
+	public void setIsfollow(boolean isfollow) {
+		this.isfollow = isfollow;
+	}
+
+	public int getAiredcount() {
+		return airedcount;
+	}
+
+	public void setAiredcount(int airedcount) {
+		this.airedcount = airedcount;
+	}
+
+	public int getBlackcount() {
+		return blackcount;
+	}
+
+	public void setBlackcount(int blackcount) {
+		this.blackcount = blackcount;
+	}
+
+	public int getFollowcount() {
+		return followcount;
+	}
+
+	public void setFollowcount(int followcount) {
+		this.followcount = followcount;
+	}
+
+	public int getFollowmecount() {
+		return followmecount;
+	}
+
+	public void setFollowmecount(int followmecount) {
+		this.followmecount = followmecount;
+	}
 
 	public String getMoney() {
 		return money;

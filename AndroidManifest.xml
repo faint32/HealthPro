@@ -369,6 +369,9 @@
         <activity android:name=".ui.personcenter.modify.ModifyHeightActivity"></activity>
         <activity android:name=".ui.personcenter.modify.ModifyWeightActivity"></activity>
         <activity android:name=".ui.personcenter.modify.ModifyAgeActivity"></activity>
+        <activity android:name=".ui.personcenter.UserInfoActivity"></activity>
+        <activity android:name=".ui.personcenter.FansListActivity"></activity>
+        <activity android:name=".ui.personcenter.FollowUserActivity"></activity>
         
     </application>
 

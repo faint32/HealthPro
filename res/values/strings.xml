@@ -405,5 +405,9 @@
     <string name="head">头像</string>
     <string name="health_appeal">健康诉求</string>
     <string name="modify_head">更改头像</string>
+    <string name="dynamic">动态</string>
+    <string name="fans">粉丝</string>
+    <string name="follow">关注</string>
+    <string name="followed">已关注</string>
 
 </resources>

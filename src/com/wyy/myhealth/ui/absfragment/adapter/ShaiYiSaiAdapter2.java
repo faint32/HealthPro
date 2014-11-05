@@ -369,6 +369,17 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 			}
 		});
 
+		holder.userheadImageView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if (listener != null) {
+					listener.onUserPicClick(adaposition);
+				}
+			}
+		});
+
 	}
 
 	private void setGridView(GridView gridView, int m) {

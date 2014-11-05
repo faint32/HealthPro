@@ -93,7 +93,31 @@ public class HealthHttpClient {
 	 * 搜索用户
 	 */
 	private static final String SEAR_USER = MICRO_CIRCLE_URL + "searchUser";
-	
+	/**
+	 * 查看用户详情
+	 */
+	private static final String GET_USER_INFO_URL = MICRO_CIRCLE_URL
+			+ "userAired";
+	/**
+	 * 关注用户
+	 */
+	private static final String FOLLOW_USER_URL = MICRO_CIRCLE_URL
+			+ "followUser";
+	/**
+	 * 取消关注地址
+	 */
+	private static final String FOLLOW_CANEL_USER_URL = MICRO_CIRCLE_URL
+			+ "unfollowUser";
+	/**
+	 * 查询粉丝列表
+	 */
+	private static final String FOLLOW_ME_LIST = MICRO_CIRCLE_URL
+			+ "followMeUserList";
+	/**
+	 * 查询关注列表
+	 */
+	private static final String FOLLOW_USER_LIST = MICRO_CIRCLE_URL
+			+ "followUserList";
 	private volatile static HealthHttpClient instance = null;
 
 	protected static AsyncHttpClient client = new AsyncHttpClient();
@@ -1254,6 +1278,101 @@ public class HealthHttpClient {
 		params.put("appkey", appkey);
 		params.put("type", "0");
 		client.post(REGIST_BY_ONTHER_TO_WYY, params, handler);
+	}
+
+	/**
+	 * 查看用户详情
+	 * 
+	 * @param userid
+	 *            用户ID
+	 * @param meuid
+	 *            本人ID
+	 * @param first
+	 *            开始
+	 * @param limit
+	 *            结束
+	 * @param handler
+	 *            处理
+	 */
+	public static void checkUserInfo(String userid, String meuid, String first,
+			String limit, AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("uid", userid);
+		params.put("userid", meuid);
+		params.put("first", first);
+		params.put("limit", limit);
+		client.post(GET_USER_INFO_URL, params, handler);
+		BingLog.i("用户详情:" + GET_USER_INFO_URL + "?" + params);
+	}
+
+	/**
+	 * 添加关注
+	 * 
+	 * @param userid
+	 *            用户ID
+	 * @param friendid
+	 *            关注的人 ID
+	 * @param handler
+	 *            处理返回
+	 */
+	public static void followUser(String userid, String friendid,
+			AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("userid", userid);
+		params.put("friendid", friendid);
+		client.post(FOLLOW_USER_URL, params, handler);
+	}
+
+	/**
+	 * 取消关注
+	 * 
+	 * @param userid
+	 * @param friendid
+	 * @param handler
+	 */
+	public static void followCanelUser(String userid, String friendid,
+			AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("userid", userid);
+		params.put("friendid", friendid);
+		client.post(FOLLOW_CANEL_USER_URL, params, handler);
+	}
+
+	/**
+	 * 查询粉丝列表
+	 * 
+	 * @param userid
+	 * @param first
+	 * @param limit
+	 * @param handler
+	 */
+	public static void followMeList(String userid, String uid, String first,
+			String limit, AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("uid", uid);
+		params.put("userid", userid);
+		params.put("first", first);
+		params.put("limit", limit);
+		client.post(FOLLOW_ME_LIST, params, handler);
+		BingLog.i("粉丝:" + FOLLOW_ME_LIST + "?" + params);
+	}
+
+	/**
+	 * 查询关注列表
+	 * 
+	 * @param userid
+	 * @param first
+	 * @param limit
+	 * @param handler
+	 */
+	public static void followUserList(String userid, String uid, String first,
+			String limit, AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("uid", uid);
+		params.put("userid", userid);
+		params.put("first", first);
+		params.put("limit", limit);
+		client.post(FOLLOW_USER_LIST, params, handler);
 	}
 
 }

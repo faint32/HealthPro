@@ -14,6 +14,11 @@ public class LoadImageUtils {
 				WyyApplication.options);
 	}
 
+	public static void loadImage4ImageV_Small(ImageView imageView, String url) {
+		WyyApplication.imageLoader.displayImage(url, imageView,
+				WyyApplication.options_small);
+	}
+
 	public static void loadImageCirImageV(ImageView imageView, String url) {
 		WyyApplication.imageLoader.displayImage(url, imageView,
 				WyyApplication.optionscir);
