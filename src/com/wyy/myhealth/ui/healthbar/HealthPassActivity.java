@@ -12,7 +12,6 @@ import android.view.MenuItem;
 
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
-import com.wyy.myhealth.baidu.utlis.Utils;
 import com.wyy.myhealth.ui.baseactivity.AbstractlistActivity;
 import com.wyy.myhealth.ui.collect.CollectActivity;
 
@@ -41,6 +40,8 @@ public class HealthPassActivity extends AbstractlistActivity {
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.wrapper, new HealPassFragment()).commit();
+			findViewById(R.id.wrapper).setBackgroundColor(
+					getResources().getColor(R.color.hpb_bg));
 		}
 
 	}
@@ -52,21 +53,20 @@ public class HealthPassActivity extends AbstractlistActivity {
 		outState.putBoolean("istran", isCustomActionBar);
 	}
 
-	
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		UmenAnalyticsUtility.onResume(context);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		UmenAnalyticsUtility.onPause(context);
 	}
-	
+
 	@Override
 	protected void onInitActionBar() {
 		// TODO Auto-generated method stub
@@ -75,29 +75,29 @@ public class HealthPassActivity extends AbstractlistActivity {
 		actionBar.setTitle(R.string.healthpass);
 		// actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
 		// .getColor(R.color.transparent)));
-		if (Utils.mstlList != null && Utils.mstlList.size() > 0) {
-			actionBar.setBackgroundDrawable(getResources().getDrawable(
-					R.drawable.action_bar_notice));
-		}
+		// if (Utils.mstlList != null && Utils.mstlList.size() > 0) {
+		// actionBar.setBackgroundDrawable(getResources().getDrawable(
+		// R.drawable.action_bar_notice));
+		// }
 
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
-		getMenuInflater().inflate(R.menu.healthpass, menu);
+		getMenuInflater().inflate(R.menu.health_bar, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
-		if (Utils.mstlList.size() > 0) {
-			menu.findItem(R.id.msglist).setTitle(
-					Utils.mstlList.size() + getString(R.string.msg_unit));
-		} else {
-			menu.findItem(R.id.msglist).setTitle(R.string.msglist);
-		}
+		// if (Utils.mstlList.size() > 0) {
+		// menu.findItem(R.id.msglist).setTitle(
+		// Utils.mstlList.size() + getString(R.string.msg_unit));
+		// } else {
+		// menu.findItem(R.id.msglist).setTitle(R.string.msglist);
+		// }
 		return super.onPrepareOptionsMenu(menu);
 	}
 
@@ -112,6 +112,10 @@ public class HealthPassActivity extends AbstractlistActivity {
 
 		case R.id.mycollect:
 			showCollect();
+			break;
+
+		case R.id.publish:
+			startActivity(new Intent(context, PublishMoodActivity.class));
 			break;
 
 		default:

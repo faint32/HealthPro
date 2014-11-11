@@ -16,6 +16,7 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.wyy.myhealth.BuildConfig;
@@ -54,6 +55,8 @@ public class WyyApplication extends FrontiaApplication {
 	public static DisplayImageOptions optionscir;
 
 	public static DisplayImageOptions options_small;
+
+	public static DisplayImageOptions options_min;
 
 	public static List<ImageInfo> getHeaderImaList() {
 		return headerImaList;
@@ -142,6 +145,15 @@ public class WyyApplication extends FrontiaApplication {
 				.showImageForEmptyUri(R.drawable.pic_empty)
 				.showImageOnFail(R.drawable.pic_failure_).cacheInMemory(false)
 				.displayer(new RoundedBitmapDisplayer(50)).cacheOnDisc(true)
+				.bitmapConfig(Config.ARGB_8888).considerExifParams(true)
+				.build();
+
+		options_min = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.pic_loading_)
+				.showImageForEmptyUri(R.drawable.pic_empty)
+				.showImageOnFail(R.drawable.pic_failure_).cacheInMemory(false)
+				.cacheOnDisc(true)
+				.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
 				.bitmapConfig(Config.ARGB_8888).considerExifParams(true)
 				.build();
 

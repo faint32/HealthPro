@@ -6,10 +6,12 @@
     android:paddingRight="@dimen/text_horizontal_margin" >
 
     <FrameLayout
+        android:id="@+id/like_lay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/bg_shai_cl"
+        android:background="@drawable/like_sec"
+        android:clickable="true"
         android:paddingLeft="@dimen/grid_horizontal_margin"
         android:paddingRight="@dimen/grid_horizontal_margin" >
 
@@ -49,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|right"
         android:background="@color/transparent"
-        android:src="@drawable/shai_op_sec" />
+        android:src="@drawable/shai_op_sec"
+        android:visibility="gone" />
 
 </FrameLayout>

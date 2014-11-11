@@ -6,6 +6,7 @@ import java.util.List;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.TextUtils;
 import android.view.View;
@@ -59,6 +60,14 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 	private MoodaFoodBean adversie;
 
 	private String key = "";
+
+	public static ShaiyishaiFragment newInstance(int position) {
+		ShaiyishaiFragment shaiyishaiFragment = new ShaiyishaiFragment();
+		Bundle bundle = new Bundle();
+		bundle.putInt("position", position);
+		shaiyishaiFragment.setArguments(bundle);
+		return shaiyishaiFragment;
+	}
 
 	public void setKey(String key) {
 		this.key = key;

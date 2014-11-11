@@ -3,6 +3,7 @@ package com.wyy.myhealth.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import android.text.TextUtils;
 
 public class Comment implements Serializable{
 	/**
@@ -25,6 +26,8 @@ public class Comment implements Serializable{
 	String sugar;
 	String energy;
 	String createtime;
+	String cn_time="";
+	String headimage;
 	
 	int commentid;
 	
@@ -174,6 +177,23 @@ public class Comment implements Serializable{
 		this.energy = energy;
 	}
 
+	
+	public void setCn_time(String cn_time) {
+		this.cn_time = cn_time;
+	}
+	
+	public String getCn_time() {
+		return cn_time;
+	}
+	
+	public void setHeadimage(String headimage) {
+		this.headimage = headimage;
+	}
+	
+	public String getHeadimage() {
+		return headimage;
+	}
+	
 	@Override
 	public String toString() {
 		return "Comment [content=" + content + ", id=" + id + ", foodsuserid="

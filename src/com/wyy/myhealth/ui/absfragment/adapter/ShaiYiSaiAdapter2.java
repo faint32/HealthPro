@@ -253,7 +253,7 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 	private void setView(ViewHolder holder, int position) {
 		final int adaposition = position;
 		MoodaFoodBean moodaFoodBean = list.get(position);
-		LoadImageUtils.loadImage4ImageV(holder.userheadImageView,
+		LoadImageUtils.loadWebImageV_Min(holder.userheadImageView,
 				HealthHttpClient.IMAGE_URL
 						+ moodaFoodBean.getUser().getHeadimage());
 		holder.timeTextView.setText(moodaFoodBean.getCn_time());

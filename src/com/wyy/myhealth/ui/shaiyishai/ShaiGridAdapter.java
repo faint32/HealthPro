@@ -67,7 +67,7 @@ public class ShaiGridAdapter extends BaseAdapter {
 			holder.like.setText(moodaFoodBean.getLandcount());
 			List<String> imgsList = moodaFoodBean.getImg();
 			if (imgsList != null && imgsList.size() > 0) {
-				LoadImageUtils.loadImage4ImageV(holder.foodimg,
+				LoadImageUtils.loadWebImageV_Min(holder.foodimg,
 						HealthHttpClient.IMAGE_URL + imgsList.get(0));
 			}
 

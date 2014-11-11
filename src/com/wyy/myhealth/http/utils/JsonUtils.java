@@ -8,6 +8,7 @@ import com.google.gson.JsonSyntaxException;
 import com.wyy.myhealth.bean.Foods;
 import com.wyy.myhealth.bean.HealthRecoderBean;
 import com.wyy.myhealth.bean.IceBoxFoodBean;
+import com.wyy.myhealth.bean.MoodInfoBean;
 import com.wyy.myhealth.bean.MoodaFoodBean;
 import com.wyy.myhealth.bean.NearFoodBean;
 import com.wyy.myhealth.bean.PersonalInfo;
@@ -280,6 +281,19 @@ public class JsonUtils {
 			BingLog.w(TAG, "½âÎö³ö´í:" + e.getMessage());
 		}
 		return tencentUserInfoBean;
+	}
+
+	public static MoodInfoBean getMoodInfoBean(Object object) {
+		MoodInfoBean moodInfoBean = new MoodInfoBean();
+		try {
+			moodInfoBean = new Gson().fromJson(object.toString(),
+					MoodInfoBean.class);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return moodInfoBean;
+
 	}
 
 }

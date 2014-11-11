@@ -12,6 +12,7 @@ import com.wyy.myhealth.ui.baseactivity.SubmitActivity;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 import com.wyy.myhealth.ui.personcenter.modify.utils.AgeUtils;
 import com.wyy.myhealth.utils.BingLog;
+import com.wyy.myhealth.utils.InputUtlity;
 
 public class ModifyAgeActivity extends SubmitActivity implements
 		ActivityInterface {
@@ -74,9 +75,17 @@ public class ModifyAgeActivity extends SubmitActivity implements
 		if (info == null) {
 			return;
 		}
-
 		userageEditText.setText(info.getAge());
+		userageEditText.setSelection(userageEditText.getText().toString()
+				.length());
+		mHandler.sendEmptyMessageDelayed(0, DELAY_TIME);
+	}
 
+	@Override
+	protected void showInput() {
+		// TODO Auto-generated method stub
+		super.showInput();
+		InputUtlity.showInputWindow(context, userageEditText);
 	}
 
 }

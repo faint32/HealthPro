@@ -25,10 +25,10 @@ import com.wyy.myhealth.ui.absfragment.utils.ListAddUtils;
 import com.wyy.myhealth.ui.absfragment.utils.SortUtils;
 import com.wyy.myhealth.ui.absfragment.utils.TimeUtils;
 import com.wyy.myhealth.ui.customview.BingListView;
+import com.wyy.myhealth.ui.healthbar.HealthBarAdapter;
 import com.wyy.myhealth.ui.healthbar.HealthPassActivity;
 import com.wyy.myhealth.utils.BingLog;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -53,7 +53,9 @@ public class HealthPassBase extends Fragment {
 	protected SwipeRefreshLayout mRefreshLayout;
 	protected HealthAdapter mAdapter;
 
-	protected HealthAdapter2 mAdapter2;
+	// protected HealthAdapter2 mAdapter2;
+
+	protected HealthBarAdapter mAdapter2;
 
 	protected RelativeLayout titleLayout;
 	// 个人信息
@@ -94,7 +96,7 @@ public class HealthPassBase extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View rootView = inflater.inflate(R.layout.base_frag_lay, container,
+		View rootView = inflater.inflate(R.layout.fragment_health_bar, container,
 				false);
 		headView = inflater.inflate(R.layout.healthbar_head_view, null);
 		initView(rootView);
@@ -111,19 +113,21 @@ public class HealthPassBase extends Fragment {
 		userhead = (ImageView) headView.findViewById(R.id.user_head);
 		username = (TextView) headView.findViewById(R.id.username);
 		publishV = (ImageButton) headView.findViewById(R.id.take_pic);
-		hps_no_content=(LinearLayout)headView.findViewById(R.id.hps_no_content_include);
-		mListView.addHeaderView(headView);
+		hps_no_content = (LinearLayout) headView
+				.findViewById(R.id.hps_no_content_include);
+//		mListView.addHeaderView(headView);
 
 		mRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
 				android.R.color.holo_blue_dark,
 				android.R.color.holo_green_light,
 				android.R.color.holo_green_dark);
-		// mAdapter = new HealthAdapter(getActivity(), thList);
 
-		mAdapter2 = new HealthAdapter2(thList2, getActivity());
+		// mAdapter2 = new HealthAdapter2(thList2, getActivity());
+
+		mAdapter2 = new HealthBarAdapter(thList2, getActivity());
 
 		mListView.setAdapter(mAdapter2);
-//		mListView.setCacheColorHint(Color.TRANSPARENT);
+		// mListView.setCacheColorHint(Color.TRANSPARENT);
 	}
 
 	protected void onGetLastData() {
@@ -274,8 +278,9 @@ public class HealthPassBase extends Fragment {
 				reshParseJson(response);
 				json = response.toString();
 			}
-			
-			if (HealthPassActivity.getIsFirstUse(getActivity())&&(null==thList2||thList2.size()==0)) {
+
+			if (HealthPassActivity.getIsFirstUse(getActivity())
+					&& (null == thList2 || thList2.size() == 0)) {
 				hps_no_content.setVisibility(View.VISIBLE);
 			}
 
@@ -342,11 +347,11 @@ public class HealthPassBase extends Fragment {
 				JSONArray array = response.getJSONArray("foods");
 				int length = array.length();
 				if (length == 0) {
-					if (getActivity()!=null) {
+					if (getActivity() != null) {
 						Toast.makeText(getActivity(), R.string.nomore,
 								Toast.LENGTH_SHORT).show();
 					}
-				}else {
+				} else {
 					for (int i = 0; i < length; i++) {
 						MoodaFoodBean moodaFoodBean = JsonUtils
 								.getMoodaFoodBean(array.getJSONObject(i));

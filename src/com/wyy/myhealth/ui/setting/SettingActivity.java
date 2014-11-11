@@ -21,6 +21,7 @@ import com.wyy.myhealth.ui.baseactivity.BaseActivity;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 import com.wyy.myhealth.ui.login.LoginActivity;
 import com.wyy.myhealth.ui.yaoyingyang.YaoyingyangFragment;
+import com.wyy.myhealth.utils.ShareUtils;
 
 public class SettingActivity extends BaseActivity implements ActivityInterface {
 
@@ -48,6 +49,7 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 		findViewById(R.id.clear_coach_).setOnClickListener(listener);
 		findViewById(R.id.login_out).setOnClickListener(listener);
 		findViewById(R.id.function_intro).setOnClickListener(listener);
+		findViewById(R.id.tell_lay).setOnClickListener(listener);
 	}
 
 	@Override
@@ -96,6 +98,10 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 				showFuncIntro();
 				break;
 
+			case R.id.tell_lay:
+				ShareUtils.share2Fre(context);
+				break;
+				
 			default:
 				break;
 			}

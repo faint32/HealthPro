@@ -172,8 +172,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.fooddetails.FoodDetailsActivity"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:name=".ui.fooddetails.FoodDetailsActivity" android:windowSoftInputMode="stateHidden|adjustUnspecified">
         </activity>
         <activity android:name=".ui.fooddetails.FoodCommentInfoActivity" >
         </activity>
@@ -372,6 +371,7 @@
         <activity android:name=".ui.personcenter.UserInfoActivity"></activity>
         <activity android:name=".ui.personcenter.FansListActivity"></activity>
         <activity android:name=".ui.personcenter.FollowUserActivity"></activity>
+        <activity android:name=".ui.mood.MoodDetailsActivity2" android:windowSoftInputMode="stateHidden|adjustUnspecified"></activity>
         
     </application>
 

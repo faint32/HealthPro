@@ -12,6 +12,7 @@ import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.ui.baseactivity.SubmitActivity;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 import com.wyy.myhealth.ui.personcenter.modify.utils.HwUtlis;
+import com.wyy.myhealth.utils.InputUtlity;
 
 public class ModifyHeightActivity extends SubmitActivity implements
 		ActivityInterface {
@@ -80,8 +81,21 @@ public class ModifyHeightActivity extends SubmitActivity implements
 	@Override
 	public void initData() {
 		// TODO Auto-generated method stub
+		if (WyyApplication.getInfo() == null) {
+			return;
+		}
 		info = WyyApplication.getInfo();
 		mHeight.setText(info.getHeight());
+		mHeight.setSelection(mHeight.getText().toString().length());
+		mHandler.sendEmptyMessageDelayed(0, DELAY_TIME);
 	}
+	
+	@Override
+	protected void showInput() {
+		// TODO Auto-generated method stub
+		super.showInput();
+		InputUtlity.showInputWindow(context, mHeight);
+	}
+	
 
 }

@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import u.aly.ca;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,6 +30,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.MoodaFoodBean;
@@ -38,6 +41,7 @@ import com.wyy.myhealth.http.BingHttpHandler;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.http.utils.JsonUtils;
 import com.wyy.myhealth.imag.utils.LoadImageUtils;
+import com.wyy.myhealth.support.bitmap.BitmapUtility;
 import com.wyy.myhealth.ui.absfragment.adapter.ShaiYiSaiAdapter2;
 import com.wyy.myhealth.ui.absfragment.utils.TimeUtility;
 import com.wyy.myhealth.ui.baseactivity.BaseActivity;
@@ -259,8 +263,9 @@ public class UserInfoActivity extends BaseActivity implements
 		}
 
 		getSupportActionBar().setTitle(personalInfo.getUsername());
-		LoadImageUtils.loadImage4ImageV(userHeadView,
-				HealthHttpClient.IMAGE_URL + personalInfo.getHeadimage());
+		LoadImageUtils.loadWebImageV_Min(userHeadView,
+				HealthHttpClient.IMAGE_URL + personalInfo.getHeadimage(),
+				imageLoadingListener);
 		dynamicTextView.setText("" + personalInfo.getAiredcount());
 		fanscountView.setText("" + personalInfo.getFollowmecount());
 		followcountView.setText("" + personalInfo.getFollowcount());
@@ -361,4 +366,75 @@ public class UserInfoActivity extends BaseActivity implements
 		startActivity(intent);
 	}
 
+	private ImageLoadingListener imageLoadingListener = new ImageLoadingListener() {
+
+		@Override
+		public void onLoadingStarted(String imageUri, View view) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onLoadingFailed(String imageUri, View view,
+				FailReason failReason) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onLoadingComplete(String imageUri, View view,
+				Bitmap loadedImage) {
+			// TODO Auto-generated method stub
+			new Thread(new BlurRunnble(loadedImage)).start();
+		}
+
+		@Override
+		public void onLoadingCancelled(String imageUri, View view) {
+			// TODO Auto-generated method stub
+
+		}
+	};
+
+	private class BlurRunnble implements Runnable {
+
+		private Bitmap bitmap;
+
+		public BlurRunnble(Bitmap bitmap) {
+			super();
+			this.bitmap = bitmap;
+		}
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			bitmap=BitmapUtility.fastblur(bitmap, 30);
+			Message msg = new Message();
+			msg.obj = bitmap;
+			msg.what = 0;
+			loadBitmapHandler.sendMessage(msg);
+		}
+
+	}
+
+	private Handler loadBitmapHandler = new Handler(new Handler.Callback() {
+
+		@Override
+		public boolean handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			int what = msg.what;
+			switch (what) {
+			case 0:
+				Bitmap bitmap = (Bitmap) msg.obj;
+				if (bitmap != null) {
+					ImageView imageView = (ImageView) findViewById(R.id.user_bg);
+					imageView.setImageBitmap(bitmap);
+				}
+				break;
+
+			default:
+				break;
+			}
+			return false;
+		}
+	});
 }

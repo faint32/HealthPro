@@ -76,15 +76,33 @@ public class ListBaseFragment extends Fragment {
 	// 数据库位置
 	protected int id = 0;
 
+	private boolean isCollect = false;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View rootView = inflater.inflate(R.layout.base_frag_lay,container, false);
+		setCollect();
+		View rootView = null;
+		if (isCollect) {
+			rootView = inflater.inflate(R.layout.fragment_collect, container,
+					false);
+		} else {
+			rootView = inflater.inflate(R.layout.base_frag_lay, container,
+					false);
+		}
 		initView(rootView);
 		registerForContextMenu();
 		onGetLastData();
 		return rootView;
+	}
+
+	protected void setCollect() {
+		
+	}
+	
+	public void setCollect(boolean isCollect) {
+		this.isCollect = isCollect;
 	}
 
 	protected void initView(View v) {
@@ -238,7 +256,7 @@ public class ListBaseFragment extends Fragment {
 			// TODO Auto-generated method stub
 			super.onSuccess(response);
 			if (response.toString().equals(json) && !TextUtils.isEmpty(json)) {
-				BingLog.i("最近数据:"+response);
+				BingLog.i("最近数据:" + response);
 				if (null != getActivity()) {
 					Toast.makeText(getActivity(), R.string.nonewmsg,
 							Toast.LENGTH_SHORT).show();
@@ -300,9 +318,8 @@ public class ListBaseFragment extends Fragment {
 					mAdapter2.notifyDataSetChanged();
 				} catch (Exception e) {
 					// TODO: handle exception
-					BingLog.e(TAG, "错误:"+e.getMessage());
+					BingLog.e(TAG, "错误:" + e.getMessage());
 				}
-				
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -320,7 +337,7 @@ public class ListBaseFragment extends Fragment {
 				if (length == 0) {
 					Toast.makeText(getActivity(), R.string.nomore,
 							Toast.LENGTH_SHORT).show();
-				}else {
+				} else {
 					for (int i = 0; i < length; i++) {
 						MoodaFoodBean moodaFoodBean = JsonUtils
 								.getMoodaFoodBean(array.getJSONObject(i));
@@ -339,7 +356,7 @@ public class ListBaseFragment extends Fragment {
 			}
 		}
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param json
@@ -503,6 +520,7 @@ public class ListBaseFragment extends Fragment {
 
 	/**
 	 * 刷新数据
+	 * 
 	 * @deprecated
 	 * @param json
 	 */
@@ -887,10 +905,9 @@ public class ListBaseFragment extends Fragment {
 	protected void addGg() {
 
 	}
-	
-	
+
 	protected void arrangeDayMonth() {
 
 	}
-	
+
 }

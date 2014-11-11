@@ -1,7 +1,6 @@
 package com.wyy.myhealth.http.utils;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.wyy.myhealth.baidu.utlis.Utils;
 import com.wyy.myhealth.bean.PersonalInfo;
@@ -118,6 +117,17 @@ public class HealthHttpClient {
 	 */
 	private static final String FOLLOW_USER_LIST = MICRO_CIRCLE_URL
 			+ "followUserList";
+	/**
+	 * 删除美食赞
+	 */
+	private static final String DEL_FOOD_LIKE_URL = BASE_URL + "delFoodsLand";
+	/**
+	 * 添加美食评论
+	 */
+	private static final String POST_COMMENT_TO_FOOD_URL = BASE_URL
+			+ "postFoodComment";
+
+	private static final String GET_MOOD_INFO_URL = BASE_URL + "moodInfo";
 	private volatile static HealthHttpClient instance = null;
 
 	protected static AsyncHttpClient client = new AsyncHttpClient();
@@ -150,7 +160,7 @@ public class HealthHttpClient {
 		params.put("requestid", "" + Utils.requestId);
 		params.put("appid", "" + Utils.appid);
 		params.put("appuserid", "" + Utils.userid);
-		Log.i("channelId", "channelId:" + Utils.channelId);
+		BingLog.i("channelId", "channelId:" + Utils.channelId);
 
 		client.post(BASE_URL + "firstLogin", params, handler);
 
@@ -403,7 +413,7 @@ public class HealthHttpClient {
 		params.put("content", content);
 		params.put("reasonable", reasonable);
 		params.put("userid", userid);
-		Log.i("PASSURL", "URL:" + BASE_URL + "postFoodComment");
+		BingLog.i("PASSURL", "URL:" + BASE_URL + "postFoodComment");
 		client.post(BASE_URL + "postFoodComment", params, handler);
 	}
 
@@ -604,6 +614,7 @@ public class HealthHttpClient {
 		RequestParams params = new RequestParams();
 		params.put("id", mood_id);
 		client.post(BASE_URL + "delMood", params, handler);
+		BingLog.i("删除:" + BASE_URL + "delMood" + "?" + params);
 	}
 
 	/**
@@ -619,6 +630,7 @@ public class HealthHttpClient {
 		RequestParams params = new RequestParams();
 		params.put("id", food_id);
 		client.post(BASE_URL + "delFoods", params, handler);
+		BingLog.i("删除:" + BASE_URL + "delFoods" + "?" + params);
 	}
 
 	/**
@@ -635,8 +647,9 @@ public class HealthHttpClient {
 			AsyncHttpResponseHandler handler) {
 		RequestParams params = new RequestParams();
 		params.put("userid", userid);
-		params.put("foodsid", foodsid);
+		params.put("foodid", foodsid);
 		client.post(BASE_URL + "postFoodsLand", params, handler);
+		BingLog.i(BASE_URL + "postFoodsLand" + "?" + params);
 	}
 
 	/**
@@ -1064,6 +1077,7 @@ public class HealthHttpClient {
 	/**
 	 * 心情详情
 	 * 
+	 * @deprecated 已过去 查看 {@link #getMoodInfo2(String, String, AsyncHttpResponseHandler)}
 	 * @param userid
 	 *            用户ID
 	 * @param moodid
@@ -1373,6 +1387,49 @@ public class HealthHttpClient {
 		params.put("first", first);
 		params.put("limit", limit);
 		client.post(FOLLOW_USER_LIST, params, handler);
+	}
+
+	/**
+	 * 删除美食赞
+	 * 
+	 * @param userid
+	 * @param foodid
+	 * @param handler
+	 */
+	public static void delFoodsLand(String userid, String foodid,
+			AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("userid", userid);
+		params.put("foodid", foodid);
+		client.post(DEL_FOOD_LIKE_URL, params, handler);
+		BingLog.i("删除赞:" + DEL_FOOD_LIKE_URL + "?" + params);
+	}
+
+	public static void postFoodComment(String userid, String foodid,
+			String content, AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("userid", userid);
+		params.put("foodid", foodid);
+		params.put("content", content);
+		client.post(POST_COMMENT_TO_FOOD_URL, params, handler);
+		BingLog.i("添加评论:" + POST_COMMENT_TO_FOOD_URL + "?" + params);
+
+	}
+
+	/**
+	 * 获取心情详情
+	 * 
+	 * @param userid
+	 * @param moodid
+	 * @param handler
+	 */
+	public static void getMoodInfo2(String userid, String moodid,
+			AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("moodid", moodid);
+		params.put("userid", userid);
+		client.post(GET_MOOD_INFO_URL, params, handler);
+		BingLog.i("心情详情:" + GET_MOOD_INFO_URL + "?" + params);
 	}
 
 }

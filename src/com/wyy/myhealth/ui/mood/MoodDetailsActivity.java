@@ -49,6 +49,11 @@ import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 import com.wyy.myhealth.ui.photoPager.PhotoPagerActivity;
 import com.wyy.myhealth.utils.BingLog;
 
+/**
+ * @deprecated ÒÑ¹ýÆÚ
+ * @author lyl
+ * 
+ */
 public class MoodDetailsActivity extends BaseActivity implements
 		ActivityInterface {
 
@@ -134,15 +139,14 @@ public class MoodDetailsActivity extends BaseActivity implements
 		super.onResume();
 		UmenAnalyticsUtility.onResume(context);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		UmenAnalyticsUtility.onPause(context);
 	}
-	
-	
+
 	private JsonHttpResponseHandler handler = new JsonHttpResponseHandler() {
 
 		@Override

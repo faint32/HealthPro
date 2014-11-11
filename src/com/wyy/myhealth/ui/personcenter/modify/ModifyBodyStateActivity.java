@@ -9,6 +9,7 @@ import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.ui.baseactivity.SubmitActivity;
+import com.wyy.myhealth.utils.InputUtlity;
 
 public class ModifyBodyStateActivity extends SubmitActivity {
 
@@ -62,12 +63,25 @@ public class ModifyBodyStateActivity extends SubmitActivity {
 	}
 
 	private void initData() {
+		if (WyyApplication.getInfo() == null) {
+			return;
+		}
 		info = WyyApplication.getInfo();
 		mBodyIndex.setText(info.getBodyindex());
+		mBodyIndex.setSelection(mBodyIndex.getText().toString().length());
+		mHandler.sendEmptyMessageDelayed(0, DELAY_TIME);
 	}
 
 	private void initView() {
 		mBodyIndex = (EditText) findViewById(R.id.tab_editText1);
 		initData();
 	}
+
+	@Override
+	protected void showInput() {
+		// TODO Auto-generated method stub
+		super.showInput();
+		InputUtlity.showInputWindow(context, mBodyIndex);
+	}
+
 }

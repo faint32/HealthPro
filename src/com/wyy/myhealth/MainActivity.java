@@ -17,10 +17,10 @@ import com.wyy.myhealth.ui.navigation.DiscoverNavActivity;
 import com.wyy.myhealth.ui.navigation.PersonalNavActivity;
 import com.wyy.myhealth.ui.navigation.YaoNavActivity;
 import com.wyy.myhealth.ui.personcenter.MineFragment;
-import com.wyy.myhealth.ui.personcenter.PersonCenterFragment;
 import com.wyy.myhealth.ui.scan.ScanFragment;
 import com.wyy.myhealth.ui.scan.utils.DialogShow;
 import com.wyy.myhealth.ui.setting.SettingActivity;
+import com.wyy.myhealth.ui.shaiyishai.ShaiyishaiFragment;
 import com.wyy.myhealth.ui.yaoyingyang.YaoyingyangFragment;
 import com.wyy.myhealth.utils.AlarmUtils;
 import com.wyy.myhealth.utils.BingLog;
@@ -117,7 +117,7 @@ public class MainActivity extends ActionBarActivity implements
 
 		setCusmenutome();
 
-		initPostFoot();
+		// initPostFoot();
 		UpdateAppUtils.upDateApp(context);
 	}
 
@@ -243,7 +243,8 @@ public class MainActivity extends ActionBarActivity implements
 
 			case 2:
 
-				return DiscoverFragment.newInstance(position);
+//				return DiscoverFragment.newInstance(position);
+				return ShaiyishaiFragment.newInstance(position);
 
 			case 3:
 
@@ -556,6 +557,11 @@ public class MainActivity extends ActionBarActivity implements
 		}
 	}
 
+	/**
+	 * 初始化计步器
+	 * 暂时关闭此功能
+	 */
+	@SuppressWarnings("unused")
 	private void initPostFoot() {
 		try {
 			AlarmUtils.setAler(MainActivity.this);

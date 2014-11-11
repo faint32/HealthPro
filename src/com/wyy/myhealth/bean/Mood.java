@@ -1,6 +1,8 @@
 package com.wyy.myhealth.bean;
 
-public class Mood {
+import java.io.Serializable;
+
+public class Mood implements Serializable{
 
 	String id;
 	String context;

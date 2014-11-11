@@ -5,6 +5,56 @@
     android:orientation="vertical" >
 
     <FrameLayout
+        android:id="@+id/function_intro"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/item_sec"
+        android:clickable="true"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@drawable/ic_func_intro"
+            android:drawablePadding="16dp"
+            android:gravity="center"
+            android:text="@string/function_intro" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="@color/home_txt" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/quanxian_lay"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/item_sec"
+        android:clickable="true"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@drawable/ic_quanxian_set"
+            android:drawablePadding="16dp"
+            android:gravity="center"
+            android:text="@string/quanxian_set" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="@color/home_txt" />
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/feed_back_"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -55,7 +105,7 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/function_intro"
+        android:id="@+id/tell_lay"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/item_sec"
@@ -67,10 +117,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:drawableLeft="@drawable/ic_func_intro"
+            android:drawableLeft="@drawable/ic_tell_other"
             android:drawablePadding="16dp"
             android:gravity="center"
-            android:text="@string/function_intro" />
+            android:text="@string/tell_other" />
 
         <ImageView
             android:layout_width="match_parent"

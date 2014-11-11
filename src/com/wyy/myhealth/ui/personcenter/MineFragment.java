@@ -1,20 +1,30 @@
 package com.wyy.myhealth.ui.personcenter;
 
+import com.tencent.tauth.Tencent;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
+import com.wyy.myhealth.baidu.utlis.TagUtils;
 import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.contants.ConstantS;
+import com.wyy.myhealth.db.utils.CollectDatabaseUtils;
+import com.wyy.myhealth.db.utils.IceDadabaseUtils;
+import com.wyy.myhealth.db.utils.MsgDatabaseUtils;
+import com.wyy.myhealth.db.utils.PublicChatDatabaseUtils;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.imag.utils.LoadImageUtils;
 import com.wyy.myhealth.ui.absfragment.FragmentInterface;
+import com.wyy.myhealth.ui.absfragment.ListBaseFragment;
 import com.wyy.myhealth.ui.collect.CollectActivity;
 import com.wyy.myhealth.ui.healthbar.HealthPassActivity;
+import com.wyy.myhealth.ui.login.LoginActivity;
 import com.wyy.myhealth.ui.setting.SettingActivity;
-import com.wyy.myhealth.utils.BingLog;
+import com.wyy.myhealth.ui.yaoyingyang.YaoyingyangFragment;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -139,7 +149,7 @@ public class MineFragment extends Fragment implements FragmentInterface {
 				showSetting();
 				break;
 			case R.id.colse_lay:
-				
+				colseDialog();
 				break;
 			default:
 				break;
@@ -152,20 +162,20 @@ public class MineFragment extends Fragment implements FragmentInterface {
 	}
 
 	private void showHealthPass() {
-//		healthNoticeView.setVisibility(View.GONE);
-//		disCoverStateBean.setHasNewHps(false);
-//		sendCanelNotice();
+		// healthNoticeView.setVisibility(View.GONE);
+		// disCoverStateBean.setHasNewHps(false);
+		// sendCanelNotice();
 		startActivity(new Intent(getActivity(), HealthPassActivity.class));
 	}
-	
+
 	private void showCollect() {
 		startActivity(new Intent(getActivity(), CollectActivity.class));
 	}
-	
+
 	private void showSetting() {
 		startActivity(new Intent(getActivity(), SettingActivity.class));
 	}
-	
+
 	private void initFilter() {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ConstantS.ACTION_BASE_INFO_CHANGE);
@@ -184,6 +194,82 @@ public class MineFragment extends Fragment implements FragmentInterface {
 	private void reshInfo() {
 		personalInfo = WyyApplication.getInfo();
 		initData();
+	}
+
+	private void colseDialog() {
+		final CharSequence[] items = { getString(R.string.loginout_),
+				getString(R.string.exit) };
+		AlertDialog dlg = new AlertDialog.Builder(getActivity()).setItems(
+				items, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int item) {
+						if (item == 1) {
+							getActivity().finish();
+						} else {
+							showLoginOut();
+						}
+					}
+				}).create();
+		dlg.show();
+	}
+
+	private void showLoginOut() {
+		UmenAnalyticsUtility.onEvent(WyyApplication.getInstance(),
+				ConstantS.UMNEG_LOGIN_OUT);
+		if (null != WyyApplication.getInfo()) {
+			TagUtils.delTag(WyyApplication.getInfo().getId(),
+					WyyApplication.getInstance());
+		}
+		delDataBase();
+		clearPreferences();
+		startActivity(new Intent(getActivity(), LoginActivity.class));
+		finshAll();
+	}
+
+	private void delDataBase() {
+		new CollectDatabaseUtils(WyyApplication.getInstance()).deleteAll();
+		new MsgDatabaseUtils(WyyApplication.getInstance()).deleteAll();
+		new IceDadabaseUtils(WyyApplication.getInstance()).deleteAll();
+		new PublicChatDatabaseUtils(WyyApplication.getInstance()).deleteAll();
+	}
+
+	private void clearPreferences() {
+
+		WyyApplication
+				.getInstance()
+				.getSharedPreferences(ConstantS.USER_DATA, Context.MODE_PRIVATE)
+				.edit().clear().commit();
+		WyyApplication
+				.getInstance()
+				.getSharedPreferences(ConstantS.USER_PREFERENCES,
+						Context.MODE_PRIVATE).edit().clear().commit();
+		WyyApplication
+				.getInstance()
+				.getSharedPreferences(ListBaseFragment.class.getSimpleName(),
+						Context.MODE_PRIVATE).edit().clear().commit();
+		WyyApplication
+				.getInstance()
+				.getSharedPreferences(
+						YaoyingyangFragment.class.getSimpleName(),
+						Context.MODE_PRIVATE).edit().clear().commit();
+	}
+
+	private void finshAll() {
+		WyyApplication.getInstance().sendBroadcast(
+				new Intent(ConstantS.ACTION_MAIN_FINSH));
+		loginoutQQ();
+	}
+
+	private void loginoutQQ() {
+		Tencent mTencent = Tencent.createInstance(ConstantS.TENCENT_APP_ID,
+				WyyApplication.getInstance());
+		if (mTencent != null && mTencent.isSessionValid()) {
+			try {
+				mTencent.logout(WyyApplication.getInstance());
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+
+		}
 	}
 
 }

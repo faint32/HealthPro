@@ -25,13 +25,47 @@
             android:id="@+id/user_summary_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
             android:drawableLeft="@drawable/icon_user_summary"
             android:drawablePadding="10dp"
-            android:textColor="@color/gray"
             android:text=""
+            android:textColor="@color/gray"
             android:textSize="14sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            layout="@layout/shai_colk_inlude" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minWidth="40dp"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/text_horizontal_margin" >
+
+        <!-- 点赞用户 -->
+
+        <TextView
+            android:id="@+id/likers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/text_horizontal_margin"
+            android:drawableLeft="@drawable/ic_shai_like"
+            android:hint="@string/like_hint"
+            android:drawablePadding="@dimen/grid_horizontal_margin"
+            android:textColor="@color/gray" />
     </FrameLayout>
 
     <FrameLayout
@@ -40,6 +74,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="1dp"
         android:background="@drawable/list_sec"
+        android:visibility="gone"
         android:clickable="true" >
 
         <TextView
@@ -67,7 +102,8 @@
         android:layout_height="50dp"
         android:layout_marginTop="1dp"
         android:background="@drawable/list_sec"
-        android:clickable="true" >
+        android:clickable="true" 
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -87,5 +123,12 @@
             android:layout_marginRight="10dp"
             android:src="@drawable/click_more" />
     </FrameLayout>
+
+    <com.wyy.myhealth.ui.customview.FullListView
+        android:id="@+id/comment_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white" >
+    </com.wyy.myhealth.ui.customview.FullListView>
 
 </merge>

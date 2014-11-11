@@ -10,6 +10,7 @@ import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.ui.baseactivity.SubmitActivity;
+import com.wyy.myhealth.utils.InputUtlity;
 
 public class ModityCareerActivity extends SubmitActivity {
 
@@ -40,7 +41,12 @@ public class ModityCareerActivity extends SubmitActivity {
 	private void initView() {
 		context = this;
 		Job = (EditText) findViewById(R.id.career_editText);
+		if (WyyApplication.getInfo() == null) {
+			return;
+		}
 		Job.setText("" + WyyApplication.getInfo().getJob());
+		Job.setSelection(Job.getText().toString().length());
+		mHandler.sendEmptyMessageDelayed(0, DELAY_TIME);
 	}
 
 	@Override
@@ -63,6 +69,13 @@ public class ModityCareerActivity extends SubmitActivity {
 		HealthHttpClient.doHttpFinishPersonInfoForJob(info, Job.getText()
 				.toString().trim(), new ModifyHandler(context));
 
+	}
+
+	@Override
+	protected void showInput() {
+		// TODO Auto-generated method stub
+		super.showInput();
+		InputUtlity.showInputWindow(context, Job);
 	}
 
 }

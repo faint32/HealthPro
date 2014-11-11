@@ -1,5 +1,6 @@
 package com.wyy.myhealth.imag.utils;
 
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.app.WyyApplication;
 
@@ -27,6 +28,17 @@ public class LoadImageUtils {
 	public static void loadSdImage4ImageV(ImageView imageView, String url) {
 		WyyApplication.imageLoader.displayImage("file://" + url, imageView,
 				WyyApplication.options);
+	}
+
+	public static void loadWebImageV_Min(ImageView imageView, String url) {
+		WyyApplication.imageLoader.displayImage(url, imageView,
+				WyyApplication.options_min);
+	}
+
+	public static void loadWebImageV_Min(ImageView imageView, String url,
+			ImageLoadingListener listener) {
+		WyyApplication.imageLoader.displayImage(url, imageView,
+				WyyApplication.options_min, listener);
 	}
 
 	public static void clear_Coach(Context context) {

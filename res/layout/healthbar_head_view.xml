@@ -7,7 +7,7 @@
         android:id="@+id/user_bg"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:scaleType="centerCrop"
+        android:scaleType="centerInside"
         android:src="@drawable/actionbar_g_bg" />
 
     <include

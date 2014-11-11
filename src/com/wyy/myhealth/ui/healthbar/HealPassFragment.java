@@ -1,7 +1,6 @@
 package com.wyy.myhealth.ui.healthbar;
 
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -12,17 +11,14 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.TextUtils;
@@ -49,12 +45,12 @@ import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.file.utils.FileUtils;
 import com.wyy.myhealth.http.AsyncHttpResponseHandler;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
-import com.wyy.myhealth.imag.utils.PhotoUtils;
 import com.wyy.myhealth.ui.absfragment.HealthPassBase;
 import com.wyy.myhealth.ui.absfragment.adapter.HealthAdapter2.ShaiItemOnclickListener;
 import com.wyy.myhealth.ui.customview.BingListView.IXListViewListener;
 import com.wyy.myhealth.ui.fooddetails.FoodDetailsActivity;
 import com.wyy.myhealth.ui.mood.MoodDetailsActivity;
+import com.wyy.myhealth.ui.mood.MoodDetailsActivity2;
 import com.wyy.myhealth.ui.photoPager.PhotoPagerActivity;
 import com.wyy.myhealth.utils.BingDateUtils;
 import com.wyy.myhealth.utils.BingLog;
@@ -68,10 +64,10 @@ public class HealPassFragment extends HealthPassBase implements
 
 	private DisplayImageOptions options;
 
-	private Bitmap headbg;
+	// private Bitmap headbg;
 
 	private PersonalInfo personalInfo;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -109,21 +105,20 @@ public class HealPassFragment extends HealthPassBase implements
 		}
 	}
 
-	
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		UmenAnalyticsUtility.onPageStart(TAG);
 	}
-	
+
 	@Override
 	public void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		UmenAnalyticsUtility.onPageEnd(TAG);
 	}
-	
+
 	@Override
 	protected void initView(View v) {
 		// TODO Auto-generated method stub
@@ -131,28 +126,29 @@ public class HealPassFragment extends HealthPassBase implements
 		mRefreshLayout.setOnRefreshListener(this);
 		mListView.setXListViewListener(this);
 
-		publishV.setOnClickListener(listener);
-		bgImageView.setOnClickListener(listener);
-		personalInfo=WyyApplication.getInfo();
-		if (null==personalInfo) {
+		// publishV.setOnClickListener(listener);
+		// bgImageView.setOnClickListener(listener);
+		personalInfo = WyyApplication.getInfo();
+		if (null == personalInfo) {
 			WelcomeActivity.getPersonInfo(getActivity());
-			personalInfo=WyyApplication.getInfo();
+			personalInfo = WyyApplication.getInfo();
 		}
-		if (personalInfo!=null) {
-			imageLoader.displayImage(HealthHttpClient.IMAGE_URL
-					+ personalInfo.getHeadimage(), userhead, options);
+		if (personalInfo != null) {
+			imageLoader.displayImage(
+					HealthHttpClient.IMAGE_URL + personalInfo.getHeadimage(),
+					userhead, options);
 
 			username.setText("" + personalInfo.getUsername());
 		}
-		
-		headbg = PhotoUtils.getListHeadBg();
-		if (headbg != null) {
-			bgImageView.setImageBitmap(headbg);
-		}
+
+		// headbg = PhotoUtils.getListHeadBg();
+		// if (headbg != null) {
+		// bgImageView.setImageBitmap(headbg);
+		// }
 
 		mListView.setOnItemClickListener(this);
 		// mAdapter.setOnClickListener(this);
-		mAdapter2.setListener(this);
+		// mAdapter2.setListener(this);
 
 	}
 
@@ -179,28 +175,28 @@ public class HealPassFragment extends HealthPassBase implements
 		switch (item.getItemId()) {
 		case R.id.shaiyisai:
 
-			if (thList2.get(info.position - 1).getType() == ConstantS.TYPE_MOOD) {
-				shaiMoodsshai(thList2.get(info.position - 1).getId());
+			if (thList2.get(info.position).getType() == ConstantS.TYPE_MOOD) {
+				shaiMoodsshai(thList2.get(info.position).getId());
 
 			}
 
-			if (thList2.get(info.position - 1).getType() == ConstantS.TYPE_FOOD) {
-				shaiFoodsshai(thList2.get(info.position - 1).getId());
+			if (thList2.get(info.position).getType() == ConstantS.TYPE_FOOD) {
+				shaiFoodsshai(thList2.get(info.position).getId());
 			}
 
 			break;
 
 		case R.id.delete:
 
-			if (thList2.get(info.position - 1).getType() == ConstantS.TYPE_MOOD) {
-				HealthHttpClient.doHttpdelMood(thList2.get(info.position - 1)
-						.getId(), new DelAsyHander(info.position - 1));
+			if (thList2.get(info.position).getType() == ConstantS.TYPE_MOOD) {
+				HealthHttpClient.doHttpdelMood(thList2.get(info.position)
+						.getId(), new DelAsyHander(info.position));
 
 			}
 
-			if (thList2.get(info.position - 1).getType() == ConstantS.TYPE_FOOD) {
-				HealthHttpClient.doHttpdelFoods(thList2.get(info.position - 1)
-						.getId(), new DelAsyHander(info.position - 1));
+			if (thList2.get(info.position).getType() == ConstantS.TYPE_FOOD) {
+				HealthHttpClient.doHttpdelFoods(thList2.get(info.position)
+						.getId(), new DelAsyHander(info.position));
 			}
 
 			break;
@@ -218,11 +214,11 @@ public class HealPassFragment extends HealthPassBase implements
 		if (null == WyyApplication.getInfo()) {
 			WelcomeActivity.getPersonInfo(getActivity());
 		}
-		
+
 		if (null == WyyApplication.getInfo()) {
 			return;
 		}
-		
+
 		// HealthHttpClient.userFoodsAndMoods2(WyyApplication.getInfo().getId(),
 		// first, limit, reshHandler);
 		HealthHttpClient.userAired20(WyyApplication.getInfo().getId(), first,
@@ -295,7 +291,7 @@ public class HealPassFragment extends HealthPassBase implements
 					hps_no_content.setVisibility(View.GONE);
 					HealthPassActivity.setIsFristUse(getActivity(), false);
 				}
-				
+
 				startActivity(new Intent(getActivity(),
 						PublishMoodActivity.class));
 				break;
@@ -310,53 +306,54 @@ public class HealPassFragment extends HealthPassBase implements
 		}
 	};
 
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode != Activity.RESULT_OK) {
-			return;
-		}
-		if (requestCode == 0) {
-			try {
-
-				final String str;
-				Uri localUri = data.getData();
-				String[] arrayOfString = new String[1];
-				arrayOfString[0] = "_data";
-				Cursor localCursor = getActivity().getContentResolver().query(
-						localUri, arrayOfString, null, null, null);
-				if (localCursor == null)
-					return;
-				localCursor.moveToFirst();
-				str = localCursor.getString(localCursor
-						.getColumnIndex(arrayOfString[0]));
-				localCursor.close();
-				headbg = PhotoUtils.getScaledBitmap(str, 600);
-
-				// //把得到的图片绑定在控件上显示
-				bgImageView.setImageBitmap(headbg);
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		} else if (requestCode == 1) {
-			try {
-
-				Bundle extras = data.getExtras();
-				headbg = (Bitmap) extras.get("data");
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				headbg.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-				bgImageView.setImageBitmap(headbg);// 把拍摄的照片转成圆角显示在预览控件上
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			// 把得到的图片绑定在控件上显示
-
-		}
-
-		saveCurrent_ResultBitmap(headbg);
-
-	};
+	// public void onActivityResult(int requestCode, int resultCode, Intent
+	// data) {
+	// super.onActivityResult(requestCode, resultCode, data);
+	// if (resultCode != Activity.RESULT_OK) {
+	// return;
+	// }
+	// if (requestCode == 0) {
+	// try {
+	//
+	// final String str;
+	// Uri localUri = data.getData();
+	// String[] arrayOfString = new String[1];
+	// arrayOfString[0] = "_data";
+	// Cursor localCursor = getActivity().getContentResolver().query(
+	// localUri, arrayOfString, null, null, null);
+	// if (localCursor == null)
+	// return;
+	// localCursor.moveToFirst();
+	// str = localCursor.getString(localCursor
+	// .getColumnIndex(arrayOfString[0]));
+	// localCursor.close();
+	// headbg = PhotoUtils.getScaledBitmap(str, 600);
+	//
+	// // //把得到的图片绑定在控件上显示
+	// bgImageView.setImageBitmap(headbg);
+	//
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	//
+	// } else if (requestCode == 1) {
+	// try {
+	//
+	// Bundle extras = data.getExtras();
+	// headbg = (Bitmap) extras.get("data");
+	// ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	// headbg.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+	// bgImageView.setImageBitmap(headbg);// 把拍摄的照片转成圆角显示在预览控件上
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// // 把得到的图片绑定在控件上显示
+	//
+	// }
+	//
+	// saveCurrent_ResultBitmap(headbg);
+	//
+	// };
 
 	// 图片上传选择途径
 	private void changeHeadBg() {
@@ -391,10 +388,10 @@ public class HealPassFragment extends HealthPassBase implements
 	 */
 	private void saveCurrent_ResultBitmap(Bitmap bitmap) {
 		BingLog.i(TAG, "开始保存");
-		if (bitmap==null) {
+		if (bitmap == null) {
 			return;
 		}
-		if (null==WyyApplication.getInfo()) {
+		if (null == WyyApplication.getInfo()) {
 			return;
 		}
 		File file = new File(FileUtils.HEALTH_IMAG, WyyApplication.getInfo()
@@ -435,6 +432,7 @@ public class HealPassFragment extends HealthPassBase implements
 		public void onSuccess(String content) {
 			// TODO Auto-generated method stub
 			super.onSuccess(content);
+			BingLog.i(TAG, "删除返回:" + content);
 			thList2.remove(this.postion);
 			mAdapter2.notifyDataSetChanged();
 			Toast.makeText(getActivity(), R.string.delsuccess,
@@ -493,13 +491,13 @@ public class HealPassFragment extends HealthPassBase implements
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
-		if (thList2.get(position - 1).getType() == ConstantS.TYPE_FOOD) {
-			PreferencesFoodsInfo.setfoodId(getActivity(),
-					thList2.get(position - 1).getId());
+		if (thList2.get(position).getType() == ConstantS.TYPE_FOOD) {
+			PreferencesFoodsInfo.setfoodId(getActivity(), thList2.get(position)
+					.getId());
 			startActivity(new Intent(getActivity(), FoodDetailsActivity.class));
-		} else if (thList2.get(position - 1).getType() == ConstantS.TYPE_MOOD) {
+		} else if (thList2.get(position).getType() == ConstantS.TYPE_MOOD) {
 			try {
-				showMoodDetails(thList2.get(position - 1));
+				showMoodDetails(thList2.get(position));
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -528,18 +526,18 @@ public class HealPassFragment extends HealthPassBase implements
 		int length = thList2.size();
 		for (int i = 0; i < length; i++) {
 			String createtime = thList2.get(i).getCreatetime();
-			String day = "" + BingDateUtils.getDay(createtime);
+			String day = BingDateUtils.getDay(createtime) + "日";
 			String month = BingDateUtils.getMonth(createtime) + "月";
 			if (i == 0) {
 				thList2.get(i).setDay(day);
 				thList2.get(i).setMonth(month);
 			} else {
 				String lastcreatetime = thList2.get(i - 1).getCreatetime();
-				String lastday = "" + BingDateUtils.getDay(lastcreatetime);
+				String lastday = BingDateUtils.getDay(lastcreatetime) + "日";
 				String lastmonth = BingDateUtils.getMonth(lastcreatetime) + "月";
 				if (lastday.equals(day) && lastmonth.equals(month)) {
-					thList2.get(i).setDay(" ");
-					thList2.get(i).setMonth("  ");
+					thList2.get(i).setDay("");
+					thList2.get(i).setMonth("");
 				} else {
 					thList2.get(i).setDay(day);
 					thList2.get(i).setMonth(month);
@@ -553,7 +551,7 @@ public class HealPassFragment extends HealthPassBase implements
 			return;
 		}
 		Intent intent = new Intent();
-		intent.setClass(getActivity(), MoodDetailsActivity.class);
+		intent.setClass(getActivity(), MoodDetailsActivity2.class);
 		intent.putExtra("moodid", moodaFoodBean.getId());
 		startActivity(intent);
 	}

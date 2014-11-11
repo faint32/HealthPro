@@ -10,6 +10,7 @@ import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.ui.baseactivity.SubmitActivity;
+import com.wyy.myhealth.utils.InputUtlity;
 
 public class ModifySummaryActivity extends SubmitActivity {
 
@@ -53,8 +54,13 @@ public class ModifySummaryActivity extends SubmitActivity {
 	}
 
 	private void initData() {
+		if (WyyApplication.getInfo() == null) {
+			return;
+		}
 		info = WyyApplication.getInfo();
 		summary_edit.setText("" + info.getSummary());
+		summary_edit.setSelection(summary_edit.getText().toString().length());
+		mHandler.sendEmptyMessageDelayed(0, DELAY_TIME);
 	}
 
 	@Override
@@ -73,6 +79,13 @@ public class ModifySummaryActivity extends SubmitActivity {
 		HealthHttpClient.doHttpFinishPersonInfoForSummary(info, summary,
 				new ModifyHandler(context));
 
+	}
+
+	@Override
+	protected void showInput() {
+		// TODO Auto-generated method stub
+		super.showInput();
+		InputUtlity.showInputWindow(context, summary_edit);
 	}
 
 }

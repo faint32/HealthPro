@@ -59,13 +59,20 @@ public class CollectFragment extends ListBaseFragment implements
 	private String shaiFoodsid = "";
 	// ÐÄÇéID
 	private String shaimoodsid = "";
-	
+
 	private PersonalInfo personalInfo;
 
 	public View getSendView() {
 		return sendView;
 	}
-	
+
+	@Override
+	protected void setCollect() {
+		// TODO Auto-generated method stub
+		super.setCollect();
+		setCollect(true);
+	}
+
 	@Override
 	protected void initView(View v) {
 		// TODO Auto-generated method stub
@@ -76,8 +83,8 @@ public class CollectFragment extends ListBaseFragment implements
 		mListView.setOnItemClickListener(this);
 		mListView.setXListViewListener(this);
 		mRefreshLayout.setOnRefreshListener(this);
-		personalInfo=WyyApplication.getInfo();
-		
+		personalInfo = WyyApplication.getInfo();
+
 	}
 
 	@Override
@@ -102,14 +109,14 @@ public class CollectFragment extends ListBaseFragment implements
 		super.onResume();
 		UmenAnalyticsUtility.onPageStart(TAG);
 	}
-	
+
 	@Override
 	public void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		UmenAnalyticsUtility.onPageEnd(TAG);
 	}
-	
+
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
@@ -191,16 +198,15 @@ public class CollectFragment extends ListBaseFragment implements
 					Toast.LENGTH_LONG).show();
 			return;
 		}
-		if (personalInfo==null) {
+		if (personalInfo == null) {
 			WelcomeActivity.getPersonInfo(getActivity());
-			personalInfo=WyyApplication.getInfo();
+			personalInfo = WyyApplication.getInfo();
 		}
-		if (personalInfo!=null) {
+		if (personalInfo != null) {
 			HealthHttpClient.doHttpPostComment(foodsid, sendEditText.getText()
-					.toString(), "5", personalInfo.getId(),
-					commentHandler);
+					.toString(), "5", personalInfo.getId(), commentHandler);
 		}
-		
+
 	}
 
 	/**
@@ -215,8 +221,8 @@ public class CollectFragment extends ListBaseFragment implements
 					Toast.LENGTH_LONG).show();
 			return;
 		}
-		HealthHttpClient.postMoodComment(personalInfo.getId(),
-				moodsid, sendEditText.getText().toString(), commentHandler);
+		HealthHttpClient.postMoodComment(personalInfo.getId(), moodsid,
+				sendEditText.getText().toString(), commentHandler);
 	}
 
 	private AsyncHttpResponseHandler commentHandler = new AsyncHttpResponseHandler() {
@@ -492,15 +498,15 @@ public class CollectFragment extends ListBaseFragment implements
 		super.getLoadMore(first, limit);
 		// HealthHttpClient.userCollects(WyyApplication.getInfo().getId(),
 		// first, limit, parseHandler);
-		if (personalInfo==null) {
+		if (personalInfo == null) {
 			WelcomeActivity.getPersonInfo(getActivity());
-			personalInfo=WyyApplication.getInfo();
+			personalInfo = WyyApplication.getInfo();
 		}
-		if (personalInfo!=null) {
-			HealthHttpClient.userCollects20(personalInfo.getId(),
-					first, limit, loadMoreHandler);
+		if (personalInfo != null) {
+			HealthHttpClient.userCollects20(personalInfo.getId(), first, limit,
+					loadMoreHandler);
 		}
-		
+
 	}
 
 	@Override
@@ -509,15 +515,15 @@ public class CollectFragment extends ListBaseFragment implements
 		super.reshShayiSai(first, limit);
 		// HealthHttpClient.userCollects(WyyApplication.getInfo().getId(),
 		// first, limit, reshHandler);
-		if (personalInfo==null) {
+		if (personalInfo == null) {
 			WelcomeActivity.getPersonInfo(getActivity());
-			personalInfo=WyyApplication.getInfo();
+			personalInfo = WyyApplication.getInfo();
 		}
-		if (personalInfo!=null) {
+		if (personalInfo != null) {
 			HealthHttpClient.userCollects20(WyyApplication.getInfo().getId(),
 					first, limit, reshHandler2);
 		}
-		
+
 	}
 
 	@Override

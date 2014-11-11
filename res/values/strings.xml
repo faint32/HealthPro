@@ -28,6 +28,7 @@
     <string name="dianshare">点击分享</string>
     <string name="wei_team">微团队</string>
     <string name="feedback">意见反馈</string>
+    <string name="quanxian_set">权限设置</string>
     <string name="submit">提交</string>
     <string name="update">版本更新</string>
     <string name="check_update">检查更新</string>
@@ -83,6 +84,7 @@
     <string name="clearcoach">清空缓存</string>
     <string name="function_intro">功能介绍</string>
     <string name="loginout">注销当前账号</string>
+    <string name="loginout_">注销</string>
     <string name="logining">登录中&#8230;</string>
     <string name="regeit">注册</string>
     <string name="regeit_">手机注册</string>
@@ -409,5 +411,10 @@
     <string name="fans">粉丝</string>
     <string name="follow">关注</string>
     <string name="followed">已关注</string>
+    <string name="like_success">点赞成功</string>
+    <string name="like_failure">点赞失败</string>
+    <string name="no_like_success">删赞成功</string>
+    <string name="no_like_failure">删赞失败</string>
+    <string name="like_hint">还没有人点赞</string>
 
 </resources>

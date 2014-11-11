@@ -11,6 +11,7 @@ import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.ui.baseactivity.SubmitActivity;
 import com.wyy.myhealth.ui.personcenter.modify.utils.HwUtlis;
+import com.wyy.myhealth.utils.InputUtlity;
 
 public class ModifyWeightActivity extends SubmitActivity {
 	private EditText mWeight;
@@ -64,7 +65,6 @@ public class ModifyWeightActivity extends SubmitActivity {
 		info.setWeight(we);
 		HealthHttpClient.doHttpFinishPersonInfo(info,
 				new ModifyHandler(context));
-
 	}
 
 	private void initView() {
@@ -75,5 +75,15 @@ public class ModifyWeightActivity extends SubmitActivity {
 	private void initData() {
 		info = WyyApplication.getInfo();
 		mWeight.setText(info.getWeight());
+		mWeight.setSelection(mWeight.getText().toString().length());
+		mHandler.sendEmptyMessageDelayed(0, DELAY_TIME);
 	}
+	
+	@Override
+	protected void showInput() {
+		// TODO Auto-generated method stub
+		super.showInput();
+		InputUtlity.showInputWindow(context, mWeight);
+	}
+	
 }

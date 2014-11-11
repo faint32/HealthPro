@@ -37,7 +37,7 @@
     </com.wyy.myhealth.ui.customview.BingGridView>
 
     <FrameLayout
-        android:id="@+id/FrameLayout1"
+        android:id="@+id/user_title_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp" >

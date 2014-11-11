@@ -1,8 +1,10 @@
 package com.wyy.myhealth.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Foods implements Serializable{
+public class Foods implements Serializable {
 	/**
 	 * 
 	 */
@@ -28,9 +30,70 @@ public class Foods implements Serializable{
 	String day;
 	String energy;
 	String reasonable;
-	
+
 	String collectcount;
 	String laudcount;
+
+	private String mineral;
+
+	private String protein;
+
+	private String fat;
+
+	private String vitamin;
+
+	private String sugar;
+
+	private boolean isLaud;
+
+	
+	public void setLaud(boolean isLaud) {
+		this.isLaud = isLaud;
+	}
+
+	public boolean isLaud() {
+		return isLaud;
+	}
+
+	public String getMineral() {
+		return mineral;
+	}
+
+	public void setMineral(String mineral) {
+		this.mineral = mineral;
+	}
+
+	public String getProtein() {
+		return protein;
+	}
+
+	public void setProtein(String protein) {
+		this.protein = protein;
+	}
+
+	public String getFat() {
+		return fat;
+	}
+
+	public void setFat(String fat) {
+		this.fat = fat;
+	}
+
+	public String getVitamin() {
+		return vitamin;
+	}
+
+	public void setVitamin(String vitamin) {
+		this.vitamin = vitamin;
+	}
+
+	public String getSugar() {
+		return sugar;
+	}
+
+	public void setSugar(String sugar) {
+		this.sugar = sugar;
+	}
 
 	public String getCollectcount() {
 		return collectcount;
@@ -41,7 +104,7 @@ public class Foods implements Serializable{
 	}
 
 	public String getLaudcount() {
-		return ""+laudcount;
+		return "" + laudcount;
 	}
 
 	public void setLaudcount(String laudcount) {
@@ -64,8 +127,8 @@ public class Foods implements Serializable{
 		this.energy = energy;
 	}
 
-	String samedate="";
-	
+	String samedate = "";
+
 	public String isSamedate() {
 		return samedate;
 	}
@@ -111,7 +174,7 @@ public class Foods implements Serializable{
 	}
 
 	public String getCommentcount() {
-		return ""+commentcount;
+		return "" + commentcount;
 	}
 
 	public void setCommentcount(String commentcount) {

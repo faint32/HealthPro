@@ -85,7 +85,7 @@ public class GridAdapter2 extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		LoadImageUtils.loadImage4ImageV(holder.pic, HealthHttpClient.IMAGE_URL
+		LoadImageUtils.loadWebImageV_Min(holder.pic, HealthHttpClient.IMAGE_URL
 				+ list.get(position));
 		if (null!=holder.tagTextView) {
 			if (!TextUtils.isEmpty(foodtag)) {

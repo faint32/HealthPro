@@ -10,8 +10,8 @@ import android.widget.ImageView;
 
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
-import com.wyy.myhealth.bean.Comment;
 import com.wyy.myhealth.bean.HealthRecoderBean;
+import com.wyy.myhealth.bean.NearFoodBean;
 import com.wyy.myhealth.imag.utils.LoadImageUtils;
 import com.wyy.myhealth.service.MainService;
 import com.wyy.myhealth.ui.baseactivity.BaseNutritionActivity;
@@ -83,22 +83,22 @@ public class FoodNutritionActivity extends BaseNutritionActivity implements
 	public void initData() {
 		// TODO Auto-generated method stub
 
-		Comment comment = (Comment) getIntent().getSerializableExtra("comment");
-		BingLog.i(TAG, "结果:" + comment);
-		if (null != comment && MainService.getNextHealthRecoderBeans() != null) {
+		NearFoodBean nearFoodBean = (NearFoodBean) getIntent().getSerializableExtra("comment");
+		BingLog.i(TAG, "结果:" + nearFoodBean);
+		if (null != nearFoodBean && MainService.getNextHealthRecoderBeans() != null) {
 
 			try {
-				vitasocre = Integer.valueOf(comment.getVitamin());
+				vitasocre = Integer.valueOf(nearFoodBean.getVitamin());
 				getvitaminsimgs(vitasocre);
-				proteinsocre = Integer.valueOf(comment.getProtein());
+				proteinsocre = Integer.valueOf(nearFoodBean.getProtein());
 				getproteinsimgs(proteinsocre);
-				minerasocre = Integer.valueOf(comment.getMineral());
+				minerasocre = Integer.valueOf(nearFoodBean.getMineral());
 				getmineralsimgs(minerasocre);
-				fatsocre = Integer.valueOf(comment.getFat());
+				fatsocre = Integer.valueOf(nearFoodBean.getFat());
 				getfatimgs(fatsocre);
-				sugarsocre = Integer.valueOf(comment.getSugar());
+				sugarsocre = Integer.valueOf(nearFoodBean.getSugar());
 				getsugarimgs(sugarsocre);
-				energysocre = Integer.valueOf(comment.getEnergy());
+				energysocre = Integer.valueOf(nearFoodBean.getEnergy());
 				getenergysimgs(energysocre);
 			} catch (Exception e) {
 				// TODO: handle exception

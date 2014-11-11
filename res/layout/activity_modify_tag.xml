@@ -16,8 +16,6 @@
         android:hint="@string/edittag"
         android:lines="1"
         android:singleLine="true" >
-
-        <requestFocus />
     </EditText>
 
     <TextView
