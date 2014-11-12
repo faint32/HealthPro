@@ -40,6 +40,16 @@ public class PersonalInfo implements Serializable {
 	private int followmecount;
 	private boolean isfollow;
 
+	private LevelBean levelBean;
+	
+	public void setLevelBean(LevelBean levelBean) {
+		this.levelBean = levelBean;
+	}
+	
+	public LevelBean getLevelBean() {
+		return levelBean;
+	}
+	
 	public boolean isIsfollow() {
 		return isfollow;
 	}

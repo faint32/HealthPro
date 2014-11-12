@@ -422,7 +422,7 @@ public class FoodDetailsActivity extends BaseActivity implements
 			}
 
 			// comments = new ArrayList<Comment>();
-			JSONArray json = result.getJSONArray("overviews");// 改动
+//			JSONArray json = result.getJSONArray("overviews");// 改动
 			JSONArray commentsArray = result.getJSONArray("comments");
 
 			// int length = json.length();

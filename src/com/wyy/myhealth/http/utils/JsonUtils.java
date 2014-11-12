@@ -8,6 +8,7 @@ import com.google.gson.JsonSyntaxException;
 import com.wyy.myhealth.bean.Foods;
 import com.wyy.myhealth.bean.HealthRecoderBean;
 import com.wyy.myhealth.bean.IceBoxFoodBean;
+import com.wyy.myhealth.bean.LevelBean;
 import com.wyy.myhealth.bean.MoodInfoBean;
 import com.wyy.myhealth.bean.MoodaFoodBean;
 import com.wyy.myhealth.bean.NearFoodBean;
@@ -290,10 +291,23 @@ public class JsonUtils {
 					MoodInfoBean.class);
 		} catch (Exception e) {
 			// TODO: handle exception
+			BingLog.w(TAG, "解析出错:" + e.getMessage());
 		}
 
 		return moodInfoBean;
 
+	}
+
+	public static LevelBean getLevelBean(Object object) {
+		LevelBean levelBean = new LevelBean();
+		try {
+			levelBean = new Gson().fromJson(object.toString(), LevelBean.class);
+		} catch (Exception e) {
+			// TODO: handle exception
+			BingLog.w(TAG, "解析出错:" + e.getMessage());
+		}
+
+		return levelBean;
 	}
 
 }

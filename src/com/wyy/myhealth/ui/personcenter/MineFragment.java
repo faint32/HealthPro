@@ -140,7 +140,7 @@ public class MineFragment extends Fragment implements FragmentInterface {
 				showHealthPass();
 				break;
 			case R.id.hornor_lay:
-				showBaseInfo();
+				showHornor();
 				break;
 			case R.id.collect_lay:
 				showCollect();
@@ -174,6 +174,10 @@ public class MineFragment extends Fragment implements FragmentInterface {
 
 	private void showSetting() {
 		startActivity(new Intent(getActivity(), SettingActivity.class));
+	}
+
+	private void showHornor() {
+		startActivity(new Intent(getActivity(), PersonHornorActivity.class));
 	}
 
 	private void initFilter() {

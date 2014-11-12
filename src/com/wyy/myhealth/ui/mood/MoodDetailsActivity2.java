@@ -1,5 +1,8 @@
 package com.wyy.myhealth.ui.mood;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
@@ -12,6 +15,7 @@ import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.FrameLayout.LayoutParams;
 
 import com.manuelpeinado.fadingactionbar.FadingActionBarHelper;
@@ -28,8 +33,10 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
+import com.wyy.myhealth.bean.Comment;
 import com.wyy.myhealth.bean.MoodInfoBean;
 import com.wyy.myhealth.contants.ConstantS;
+import com.wyy.myhealth.http.AsyncHttpResponseHandler;
 import com.wyy.myhealth.http.BingHttpHandler;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.http.utils.JsonUtils;
@@ -101,6 +108,8 @@ public class MoodDetailsActivity2 extends BaseActivity implements
 	private Button sendCommentButton;
 
 	private String moodid = "";
+
+	private List<Comment> moodComments = new ArrayList<>();
 
 	@SuppressLint("InlinedApi")
 	@Override
@@ -184,8 +193,8 @@ public class MoodDetailsActivity2 extends BaseActivity implements
 		commentnumTextView = (TextView) findViewById(R.id.com_num);
 		sendCommentButton = (Button) findViewById(R.id.send_msg_btn);
 		commentEditText = (EditText) findViewById(R.id.send_msg_editText);
-		// findViewById(R.id.like_lay).setOnClickListener(listener);
-		// sendCommentButton.setOnClickListener(listener);
+		findViewById(R.id.like_lay).setOnClickListener(listener);
+		sendCommentButton.setOnClickListener(listener);
 	}
 
 	@Override
@@ -198,7 +207,7 @@ public class MoodDetailsActivity2 extends BaseActivity implements
 			return;
 		}
 
-		commentAdapter = new CommentAdapter(context, moodInfoBean.getComments());
+		commentAdapter = new CommentAdapter(context, moodComments);
 		commentListView.setAdapter(commentAdapter);
 
 		getMoodInfo();
@@ -217,6 +226,16 @@ public class MoodDetailsActivity2 extends BaseActivity implements
 							moodInfoBean.setCn_time(TimeUtility
 									.getListTime(moodInfoBean.getMood()
 											.getCreatetime()));
+							moodComments = moodInfoBean.getComments();
+							if (moodComments != null) {
+								for (int i = 0; i < moodComments.size(); i++) {
+									moodComments.get(i).setCn_time(
+											TimeUtility
+													.getListTime(moodComments
+															.get(i)
+															.getCreatetime()));
+								}
+							}
 							setView();
 						}
 					}
@@ -264,7 +283,8 @@ public class MoodDetailsActivity2 extends BaseActivity implements
 		userTag.setText("" + moodInfoBean.getUser().getBodyindex());
 		scrollView.setVisibility(View.VISIBLE);
 		findViewById(R.id.foodhead).setVisibility(View.VISIBLE);
-		commentAdapter.notifyDataSetChanged();
+		commentAdapter = new CommentAdapter(context, moodComments);
+		commentListView.setAdapter(commentAdapter);
 		if (moodInfoBean.getLaudUser() != null) {
 			StringBuilder stringBuilder = new StringBuilder();
 			for (int i = 0; i < moodInfoBean.getLaudUser().size(); i++) {
@@ -340,6 +360,173 @@ public class MoodDetailsActivity2 extends BaseActivity implements
 			SavePic.saveFoodPic2Example(bitmap);
 		}
 
+	}
+
+	private OnClickListener listener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			int id = v.getId();
+			switch (id) {
+			case R.id.like_lay:
+				like2Mood();
+				break;
+
+			case R.id.send_msg_btn:
+				sendcomment();
+				break;
+
+			default:
+				break;
+			}
+		}
+	};
+
+	private void like2Mood() {
+		if (moodInfoBean.isLaud()) {
+			noLikeThis();
+		} else {
+			likeThis();
+		}
+	}
+
+	private void likeThis() {
+		if (WyyApplication.getInfo() == null) {
+			return;
+		}
+		HealthHttpClient.postMoodLand(WyyApplication.getInfo().getId(), moodid,
+				new BingHttpHandler() {
+
+					@Override
+					protected void onGetSuccess(JSONObject response) {
+						// TODO Auto-generated method stub
+						if (JsonUtils.isSuccess(response)) {
+							moodInfoBean.setLaud(true);
+							try {
+								moodInfoBean.getMood().setLaudcount(
+										""
+												+ (Integer.valueOf(moodInfoBean
+														.getMood()
+														.getLaudcount()) + 1));
+							} catch (Exception e) {
+								// TODO: handle exception
+							}
+							moodInfoBean.getLaudUser().add(
+									WyyApplication.getInfo());
+							setView();
+							Toast.makeText(context, R.string.like_success,
+									Toast.LENGTH_SHORT).show();
+						} else {
+							Toast.makeText(context, R.string.like_failure,
+									Toast.LENGTH_SHORT).show();
+						}
+					}
+
+					@Override
+					protected void onGetFinish() {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onFailure(Throwable e, JSONObject errorResponse) {
+						// TODO Auto-generated method stub
+						super.onFailure(e, errorResponse);
+						Toast.makeText(context, R.string.like_failure,
+								Toast.LENGTH_SHORT).show();
+					}
+
+				});
+	}
+
+	private void noLikeThis() {
+		if (WyyApplication.getInfo() == null) {
+			return;
+		}
+		HealthHttpClient.delMoodLand(WyyApplication.getInfo().getId(), moodid,
+				new BingHttpHandler() {
+
+					@Override
+					protected void onGetSuccess(JSONObject response) {
+						// TODO Auto-generated method stub
+						if (JsonUtils.isSuccess(response)) {
+							moodInfoBean.setLaud(false);
+							try {
+								moodInfoBean.getMood().setLaudcount(
+										""
+												+ (Integer.valueOf(moodInfoBean
+														.getMood()
+														.getLaudcount()) - 1));
+							} catch (Exception e) {
+								// TODO: handle exception
+							}
+							delLikeUser();
+							setView();
+							Toast.makeText(context, R.string.no_like_success,
+									Toast.LENGTH_SHORT).show();
+						} else {
+							Toast.makeText(context, R.string.no_like_failure,
+									Toast.LENGTH_SHORT).show();
+						}
+					}
+
+					@Override
+					protected void onGetFinish() {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onFailure(Throwable e, JSONObject errorResponse) {
+						// TODO Auto-generated method stub
+						super.onFailure(e, errorResponse);
+						Toast.makeText(context, R.string.no_like_failure,
+								Toast.LENGTH_SHORT).show();
+					}
+
+				});
+	}
+
+	private void delLikeUser() {
+		if (moodInfoBean.getLaudUser() == null
+				|| WyyApplication.getInfo() == null) {
+			return;
+		}
+		for (int i = 0; i < moodInfoBean.getLaudUser().size(); i++) {
+
+			if (moodInfoBean.getLaudUser().get(i).getUsername()
+					.equals(WyyApplication.getInfo().getUsername())) {
+				moodInfoBean.getLaudUser().remove(i);
+				return;
+			}
+		}
+	}
+
+	private void sendcomment() {
+		commentEditText.setError(null);
+		if (TextUtils.isEmpty(commentEditText.getText().toString())) {
+			commentEditText.setError(getString(R.string.nullcontentnotice));
+			commentEditText.requestFocus();
+			return;
+		}
+
+		if (WyyApplication.getInfo() == null) {
+			return;
+		}
+		HealthHttpClient.postMoodComment(WyyApplication.getInfo().getId(),
+				moodid, commentEditText.getText().toString(),
+				new AsyncHttpResponseHandler());
+
+		Comment comment = new Comment();
+		comment.setHeadimage(WyyApplication.getInfo().getHeadimage());
+		comment.setUserid(WyyApplication.getInfo().getId());
+		comment.setUsername(WyyApplication.getInfo().getUsername());
+		comment.setContent(commentEditText.getText().toString());
+		comment.setCn_time(getString(R.string.justnow));
+		moodComments.add(comment);
+		commentEditText.setText("");
+		commentAdapter.notifyDataSetChanged();
 	}
 
 }

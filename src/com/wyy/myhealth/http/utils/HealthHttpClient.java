@@ -126,8 +126,20 @@ public class HealthHttpClient {
 	 */
 	private static final String POST_COMMENT_TO_FOOD_URL = BASE_URL
 			+ "postFoodComment";
-
+	/**
+	 * 心情详情
+	 */
 	private static final String GET_MOOD_INFO_URL = BASE_URL + "moodInfo";
+	/**
+	 * 个人中心
+	 */
+	private static final String USER_CENTET_URL = BASE_URL + "ucenter/";
+	/**
+	 * 获取用户级别
+	 */
+	private static final String GET_USER_LEVEL_URL = USER_CENTET_URL
+			+ "userlevel";
+
 	private volatile static HealthHttpClient instance = null;
 
 	protected static AsyncHttpClient client = new AsyncHttpClient();
@@ -256,7 +268,6 @@ public class HealthHttpClient {
 		params.put("username", info.getUsername());
 		params.put("sportindex", info.getSportindex());
 		params.put("tags", info.getTags());
-		params.put("headimage", info.getHeadimage());
 		client.post(PERSONAL_URL + "fullUserInfo", params, handler);
 	}
 
@@ -273,7 +284,6 @@ public class HealthHttpClient {
 		params.put("name", info.getUsername());
 		params.put("sportindex", info.getSportindex());
 		params.put("tags", info.getTags());
-		params.put("headimg", info.getHeadimage());
 		client.post(PERSONAL_URL + "fullUserInfo", params, handler);
 	}
 
@@ -291,7 +301,6 @@ public class HealthHttpClient {
 		params.put("sportindex", info.getSportindex());
 		params.put("tags", info.getTags());
 		params.put("bodyindex", bodyindex);
-		params.put("headimg", info.getHeadimage());
 		client.post(PERSONAL_URL + "fullUserInfo", params, handler);
 	}
 
@@ -308,7 +317,6 @@ public class HealthHttpClient {
 		params.put("name", info.getUsername());
 		params.put("sportindex", info.getSportindex());
 		params.put("tags", info.getTags());
-		params.put("headimg", info.getHeadimage());
 		client.post(PERSONAL_URL + "fullUserInfo", params, handler);
 	}
 
@@ -342,7 +350,6 @@ public class HealthHttpClient {
 		params.put("name", info.getUsername());
 		params.put("sportindex", info.getSportindex());
 		params.put("tags", info.getTags());
-		params.put("headimage", info.getHeadimage());
 		params.put("summary", summary);
 		client.post(PERSONAL_URL + "fullUserInfo", params, handler);
 	}
@@ -854,6 +861,16 @@ public class HealthHttpClient {
 
 	}
 
+	public static void delMoodLand(String userid, String moodid,
+			AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("moodid", moodid);
+		params.put("userid", userid);
+		client.post(BASE_URL + "delMoodLand", params, handler);
+		BingLog.i("删除赞:" + BASE_URL + "delMoodLand" + "?" + params);
+
+	}
+
 	/**
 	 * 评论心情
 	 * 
@@ -1077,7 +1094,8 @@ public class HealthHttpClient {
 	/**
 	 * 心情详情
 	 * 
-	 * @deprecated 已过去 查看 {@link #getMoodInfo2(String, String, AsyncHttpResponseHandler)}
+	 * @deprecated 已过去 查看
+	 *             {@link #getMoodInfo2(String, String, AsyncHttpResponseHandler)}
 	 * @param userid
 	 *            用户ID
 	 * @param moodid
@@ -1430,6 +1448,46 @@ public class HealthHttpClient {
 		params.put("userid", userid);
 		client.post(GET_MOOD_INFO_URL, params, handler);
 		BingLog.i("心情详情:" + GET_MOOD_INFO_URL + "?" + params);
+	}
+
+	/**
+	 * 搜寻用户
+	 * 
+	 * @param userid
+	 * @param txt
+	 * @param lat
+	 * @param lon
+	 * @param first
+	 * @param limit
+	 * @param handler
+	 */
+	public static void searchUser(String userid, String txt, String lat,
+			String lon, String first, String limit,
+			AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("userid", userid);
+		params.put("txt", txt);
+		params.put("lat", lat);
+		params.put("lon", lon);
+		params.put("first", first);
+		params.put("limit", limit);
+		client.post(SEAR_USER, params, handler);
+		BingLog.i("附近好友:" + SEAR_USER + "?" + params);
+	}
+
+	/**
+	 * 用户级别
+	 * 
+	 * @param userid
+	 *            用户ID
+	 * @param handler
+	 */
+	public static void getUserLevel(String userid,
+			AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("userid", userid);
+		client.post(GET_USER_LEVEL_URL, params, handler);
+		BingLog.i("用户等级:" + GET_USER_LEVEL_URL + "?" + params);
 	}
 
 }

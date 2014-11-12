@@ -9,8 +9,11 @@ import org.json.JSONObject;
 
 import u.aly.ca;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +23,7 @@ import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -83,9 +87,13 @@ public class UserInfoActivity extends BaseActivity implements
 
 	private ImageButton followButton;
 
+	@SuppressLint("InlinedApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+			getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_info);
 		initView();
@@ -136,6 +144,10 @@ public class UserInfoActivity extends BaseActivity implements
 		actionBar.setCustomView(loadingBar, new ActionBar.LayoutParams(
 				Gravity.RIGHT));
 		actionBar.setDisplayShowCustomEnabled(true);
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+			actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
+					.getColor(R.color.transparent)));
+		}
 	}
 
 	@Override
@@ -407,7 +419,7 @@ public class UserInfoActivity extends BaseActivity implements
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			bitmap=BitmapUtility.fastblur(bitmap, 30);
+			bitmap = BitmapUtility.fastblur(bitmap, 30);
 			Message msg = new Message();
 			msg.obj = bitmap;
 			msg.what = 0;

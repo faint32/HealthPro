@@ -21,8 +21,8 @@ public class GridAdapter2 extends BaseAdapter {
 
 	private LayoutInflater inflater;
 
-	private String foodtag="";
-	
+	private String foodtag = "";
+
 	public void setFoodtag(String foodtag) {
 		this.foodtag = foodtag;
 	}
@@ -35,6 +35,9 @@ public class GridAdapter2 extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
+		if (list.size() > 1) {
+			return 1;
+		}
 		return list.size();
 	}
 
@@ -55,11 +58,12 @@ public class GridAdapter2 extends BaseAdapter {
 		// TODO Auto-generated method stub
 		ViewHolder holder;
 		if (convertView == null) {
-			holder=new ViewHolder();
-			switch (list.size()) {
+			holder = new ViewHolder();
+			switch (getCount()) {
 			case 1:
 				convertView = inflater.inflate(R.layout.pic_grid_, null);
-				holder.tagTextView=(TextView)convertView.findViewById(R.id.tag);
+				holder.tagTextView = (TextView) convertView
+						.findViewById(R.id.tag);
 				break;
 
 			case 2:
@@ -79,7 +83,7 @@ public class GridAdapter2 extends BaseAdapter {
 
 			holder.pic = (ImageView) convertView
 					.findViewById(R.id.shai_pic_muilt);
-			
+
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -87,15 +91,15 @@ public class GridAdapter2 extends BaseAdapter {
 
 		LoadImageUtils.loadWebImageV_Min(holder.pic, HealthHttpClient.IMAGE_URL
 				+ list.get(position));
-		if (null!=holder.tagTextView) {
+		if (null != holder.tagTextView) {
 			if (!TextUtils.isEmpty(foodtag)) {
 				holder.tagTextView.setText(foodtag);
 				holder.tagTextView.setVisibility(View.VISIBLE);
-			}else {
+			} else {
 				holder.tagTextView.setVisibility(View.GONE);
 			}
 		}
-		
+
 		return convertView;
 	}
 

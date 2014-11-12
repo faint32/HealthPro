@@ -22,6 +22,7 @@
     </item>
     <item
         android:id="@+id/loopmap"
+        android:icon="@android:drawable/ic_menu_mylocation"
         android:orderInCategory="106"
         android:title="@string/loopmap">
     </item>

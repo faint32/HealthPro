@@ -10,8 +10,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/list_swipe"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" 
-        android:layout_marginTop="@dimen/fragment_vertical_margin">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/fragment_vertical_margin" >
 
         <com.wyy.myhealth.ui.customview.BingListView
             android:id="@+id/m_listview"
@@ -24,15 +24,14 @@
         </com.wyy.myhealth.ui.customview.BingListView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    
-     <android.support.v4.widget.SwipeRefreshLayout
+    <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/follow_swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" 
-        android:layout_marginTop="@dimen/fragment_vertical_margin">
+        android:layout_marginTop="@dimen/fragment_vertical_margin"
+        android:visibility="gone" >
 
         <com.wyy.myhealth.ui.customview.BingListView
             android:id="@+id/follow_list"
@@ -40,11 +39,10 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:descendantFocusability="blocksDescendants"
-            android:dividerHeight="5dp"
             android:headerDividersEnabled="false" >
         </com.wyy.myhealth.ui.customview.BingListView>
     </android.support.v4.widget.SwipeRefreshLayout>
-    
+
     <include
         android:id="@+id/send_v"
         android:layout_width="match_parent"
@@ -52,7 +50,7 @@
         android:layout_gravity="bottom"
         layout="@layout/send_msg_edit_layout"
         android:visibility="gone" />
-    
+
     <include
         android:id="@+id/shai_tab"
         android:layout_width="match_parent"

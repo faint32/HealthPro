@@ -11,7 +11,7 @@
         android:layout_width="38dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/shai_bottmo_sec"
+        android:background="@drawable/shai_bottmo_normal_sec"
         android:text="@string/shayishai"
         android:textColor="@color/white" />
 
@@ -26,7 +26,7 @@
         android:layout_width="38dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/shai_bottmo_sec"
+        android:background="@drawable/shai_bottmo_normal_sec"
         android:text="@string/follow"
         android:textColor="@color/white" />
 

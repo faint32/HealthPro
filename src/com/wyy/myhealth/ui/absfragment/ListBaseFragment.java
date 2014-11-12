@@ -53,7 +53,6 @@ public class ListBaseFragment extends Fragment {
 	protected PersonalInfo info;
 	// 晒一晒数据表
 	protected List<Map<String, Object>> thList = new ArrayList<Map<String, Object>>();
-
 	// 晒一晒新数据
 	protected List<Map<String, Object>> tempshaiList = new ArrayList<Map<String, Object>>();
 

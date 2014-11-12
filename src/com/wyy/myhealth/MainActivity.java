@@ -456,11 +456,11 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	private void showNotice() {
-		tabs.updateTextDrawNotice(2, R.drawable.ic_tab_notice);
+		tabs.updateTextDrawNotice(3, R.drawable.ic_tab_notice);
 	}
 
 	private void canelNotice() {
-		tabs.updateTextDrawNotice(2, 0);
+		tabs.updateTextDrawNotice(3, 0);
 	}
 
 	@Override

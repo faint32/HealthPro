@@ -372,6 +372,7 @@
         <activity android:name=".ui.personcenter.FansListActivity"></activity>
         <activity android:name=".ui.personcenter.FollowUserActivity"></activity>
         <activity android:name=".ui.mood.MoodDetailsActivity2" android:windowSoftInputMode="stateHidden|adjustUnspecified"></activity>
+        <activity android:name=".ui.personcenter.PersonHornorActivity"></activity>
         
     </application>
 

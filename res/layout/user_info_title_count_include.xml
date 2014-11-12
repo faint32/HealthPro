@@ -18,14 +18,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/dynamic"
-            android:textColor="@color/gray" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -42,14 +43,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/fans"
-            android:textColor="@color/gray" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -66,14 +68,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/follow"
-            android:textColor="@color/gray" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

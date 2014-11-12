@@ -256,12 +256,15 @@ public class MainService extends Service {
 	@SuppressLint("NewApi")
 	public void initRunable() {
 		service = Executors.newScheduledThreadPool(2);
-		service.scheduleAtFixedRate(checkRunnable, ConstantS.DELAY_TIME,
-				ConstantS.PERIOD_TIME, TimeUnit.SECONDS);
+//		service.scheduleAtFixedRate(checkRunnable, ConstantS.DELAY_TIME,
+//				ConstantS.PERIOD_TIME, TimeUnit.SECONDS);
 		service.scheduleAtFixedRate(userDataRunnable, ConstantS.DELAY_TIME,
 				ConstantS.PERIOD_TIME, TimeUnit.SECONDS);
 	}
-
+	/**
+	 * ‘› ±Õ£”√
+	 */
+	@SuppressWarnings("unused")
 	private Runnable checkRunnable = new Runnable() {
 
 		@Override

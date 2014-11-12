@@ -382,7 +382,15 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 
 	}
 
+	/**
+	 * 
+	 * @param gridView
+	 * @param m
+	 */
 	private void setGridView(GridView gridView, int m) {
+		if (m > 1) {
+			m = 1;
+		}
 		switch (m) {
 		case 1:
 

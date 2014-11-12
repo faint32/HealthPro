@@ -3,10 +3,13 @@ package com.wyy.myhealth.ui.shaiyishai;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.TextUtils;
 import android.view.View;
@@ -24,17 +27,22 @@ import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.CommentBean;
 import com.wyy.myhealth.bean.ListDataBead;
 import com.wyy.myhealth.bean.MoodaFoodBean;
+import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.db.utils.ShaiDatebaseUtils;
 import com.wyy.myhealth.http.AsyncHttpResponseHandler;
+import com.wyy.myhealth.http.BingHttpHandler;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
+import com.wyy.myhealth.http.utils.JsonUtils;
 import com.wyy.myhealth.support.collect.CollectUtils;
 import com.wyy.myhealth.ui.absfragment.ListBaseFragment;
 import com.wyy.myhealth.ui.absfragment.adapter.ShaiYiSaiAdapter2.ShaiItemOnclickListener;
 import com.wyy.myhealth.ui.absfragment.utils.TimeUtility;
+import com.wyy.myhealth.ui.customview.BingListView;
 import com.wyy.myhealth.ui.customview.BingListView.IXListViewListener;
 import com.wyy.myhealth.ui.fooddetails.FoodDetailsActivity;
 import com.wyy.myhealth.ui.personcenter.UserInfoActivity;
+import com.wyy.myhealth.ui.personcenter.utility.UserInfoUtility;
 import com.wyy.myhealth.ui.photoPager.PhotoPagerActivity;
 import com.wyy.myhealth.utils.BingLog;
 import com.wyy.myhealth.utils.InputUtlity;
@@ -61,6 +69,24 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 
 	private String key = "";
 
+	private Button shaiButton;
+
+	private Button followButton;
+
+	private int followPosition = 0;
+
+	private String myFllowJson = "";
+	/**
+	 * ¹Ø×¢ÓÃ»§
+	 */
+	private List<PersonalInfo> followList = new ArrayList<>();
+
+	private BingListView followListView;
+
+	private SwipeRefreshLayout fRefreshLayout;
+
+	private MyFollowAdapter followAdapter;
+
 	public static ShaiyishaiFragment newInstance(int position) {
 		ShaiyishaiFragment shaiyishaiFragment = new ShaiyishaiFragment();
 		Bundle bundle = new Bundle();
@@ -83,12 +109,22 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 	protected void initView(View v) {
 		// TODO Auto-generated method stub
 		super.initView(v);
+		shaiButton = (Button) v.findViewById(R.id.shaiyishai_tab);
+		followButton = (Button) v.findViewById(R.id.follow_tab);
+		fRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.follow_swipe);
+		followListView = (BingListView) v.findViewById(R.id.follow_list);
 		sendView = v.findViewById(R.id.send_v);
 		mRefreshLayout.setOnRefreshListener(this);
 		mListView.setXListViewListener(this);
 		initSendView(sendView);
 		mAdapter2.setListener(this);
 		mListView.setOnItemClickListener(this);
+		shaiButton.setOnClickListener(listener);
+		followButton.setOnClickListener(listener);
+
+		followAdapter = new MyFollowAdapter(followList, getActivity());
+		followListView.setAdapter(followAdapter);
+
 	}
 
 	@Override
@@ -96,6 +132,7 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		// TODO Auto-generated method stub
 		super.onGetLastData();
 		getLastStatus();
+		getMyFollow();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -288,6 +325,14 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 
 				break;
 
+			case R.id.shaiyishai_tab:
+				showShai();
+				break;
+
+			case R.id.follow_tab:
+				showFollow();
+				break;
+
 			default:
 				break;
 			}
@@ -451,6 +496,83 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		intent.putExtra("id", userid);
 		intent.setClass(getActivity(), UserInfoActivity.class);
 		startActivity(intent);
+	}
+
+	private void showShai() {
+		shaiButton.setBackgroundResource(R.drawable.shai_bottom_foucs_sec);
+		followButton.setBackgroundResource(R.drawable.shai_bottmo_normal_sec);
+		mRefreshLayout.setVisibility(View.VISIBLE);
+		fRefreshLayout.setVisibility(View.GONE);
+	}
+
+	private void showFollow() {
+		shaiButton.setBackgroundResource(R.drawable.shai_bottmo_normal_sec);
+		followButton.setBackgroundResource(R.drawable.shai_bottom_foucs_sec);
+		mRefreshLayout.setVisibility(View.GONE);
+		fRefreshLayout.setVisibility(View.VISIBLE);
+	}
+
+	private void getMyFollow() {
+		if (WyyApplication.getInfo() == null) {
+			return;
+		}
+		HealthHttpClient.followUserList(WyyApplication.getInfo().getId(),
+				WyyApplication.getInfo().getId(), "0", limit,
+				new BingHttpHandler() {
+
+					@Override
+					protected void onGetSuccess(JSONObject response) {
+						// TODO Auto-generated method stub
+
+						if (JsonUtils.isSuccess(response)) {
+							if (!myFllowJson.equals(response.toString())) {
+								myFllowJson = response.toString();
+								try {
+									JSONArray array = response
+											.getJSONArray("users");
+									int length = array.length();
+									for (int i = 0; i < length; i++) {
+										PersonalInfo personalInfo = JsonUtils
+												.getInfo(array.getJSONObject(i));
+										if (UserInfoUtility.isExitPersonInfo(
+												personalInfo, followList)) {
+											UserInfoUtility.reshPersonInfo(
+													personalInfo, followList);
+										} else {
+											followList.add(personalInfo);
+										}
+
+									}
+									followAdapter.notifyDataSetChanged();
+									followPosition = followList.size();
+								} catch (JSONException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+
+							} else {
+								Toast.makeText(getActivity(),
+										R.string.nonewmsg, Toast.LENGTH_SHORT)
+										.show();
+							}
+						}
+
+					}
+
+					@Override
+					protected void onGetFinish() {
+						// TODO Auto-generated method stub
+						loadflag = false;
+					}
+
+					@Override
+					public void onStart() {
+						// TODO Auto-generated method stub
+						super.onStart();
+						loadflag = true;
+					}
+
+				});
 	}
 
 }
