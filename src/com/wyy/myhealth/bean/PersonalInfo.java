@@ -41,15 +41,71 @@ public class PersonalInfo implements Serializable {
 	private boolean isfollow;
 
 	private LevelBean levelBean;
-	
+
+	private String distance = "";
+
+	private boolean stranVisible;
+
+	private boolean nearVisible;
+
+	private double lat = 0;
+
+	private double lon = 0;
+
+	public void setLat(double lat) {
+		if (lat < 0) {
+			return;
+		}
+		this.lat = lat;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLon(double lon) {
+		if (lon < 0) {
+			return;
+		}
+		this.lon = lon;
+	}
+
+	public double getLon() {
+		return lon;
+	}
+
+	public void setNearVisible(boolean nearVisible) {
+		this.nearVisible = nearVisible;
+	}
+
+	public boolean isNearVisible() {
+		return nearVisible;
+	}
+
+	public void setStranVisible(boolean stranVisible) {
+		this.stranVisible = stranVisible;
+	}
+
+	public boolean isStranVisible() {
+		return stranVisible;
+	}
+
+	public void setDistance(String distance) {
+		this.distance = distance;
+	}
+
+	public String getDistance() {
+		return distance;
+	}
+
 	public void setLevelBean(LevelBean levelBean) {
 		this.levelBean = levelBean;
 	}
-	
+
 	public LevelBean getLevelBean() {
 		return levelBean;
 	}
-	
+
 	public boolean isIsfollow() {
 		return isfollow;
 	}

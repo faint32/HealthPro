@@ -373,6 +373,11 @@
         <activity android:name=".ui.personcenter.FollowUserActivity"></activity>
         <activity android:name=".ui.mood.MoodDetailsActivity2" android:windowSoftInputMode="stateHidden|adjustUnspecified"></activity>
         <activity android:name=".ui.personcenter.PersonHornorActivity"></activity>
+        <activity android:name=".ui.personcenter.MyFansListActivity"></activity>
+        <activity android:name=".ui.personcenter.SearchUserActivity"></activity>
+        <activity android:name=".ui.personcenter.NearUserActivity"></activity>
+        <activity android:name=".ui.personcenter.UserSearchResultActivity" android:launchMode="singleTask"></activity>
+        <activity android:name=".ui.setting.AuthsActivity"></activity>
         
     </application>
 

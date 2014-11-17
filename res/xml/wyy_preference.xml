@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="stranger_visit"
+        android:title="@string/stranger_visit" android:summary="@string/stranger_visit_msg"/>
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="near_visible"
+        android:title="@string/near_visible" android:summary="@string/near_visible_msg"/>
+
+</PreferenceScreen>

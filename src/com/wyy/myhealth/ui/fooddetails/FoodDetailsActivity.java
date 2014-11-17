@@ -55,6 +55,7 @@ import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.http.utils.JsonUtils;
 import com.wyy.myhealth.imag.utils.SavePic;
 import com.wyy.myhealth.support.collect.CollectUtils;
+import com.wyy.myhealth.support.report.ReportUtility;
 import com.wyy.myhealth.ui.absfragment.utils.TimeUtility;
 import com.wyy.myhealth.ui.baseactivity.BaseActivity;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
@@ -322,7 +323,10 @@ public class FoodDetailsActivity extends BaseActivity implements
 		case R.id.loopmap:
 
 			loopCommercialMap();
+			break;
 
+		case R.id.complaint:
+			ReportUtility.reportDialog(context, foodid, 0);
 			break;
 
 		default:
@@ -422,7 +426,7 @@ public class FoodDetailsActivity extends BaseActivity implements
 			}
 
 			// comments = new ArrayList<Comment>();
-//			JSONArray json = result.getJSONArray("overviews");// 改动
+			// JSONArray json = result.getJSONArray("overviews");// 改动
 			JSONArray commentsArray = result.getJSONArray("comments");
 
 			// int length = json.length();

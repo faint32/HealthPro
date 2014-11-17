@@ -1,7 +1,11 @@
 package com.wyy.myhealth.ui.setting;
 
+import org.json.JSONObject;
+
+import u.aly.ca;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -10,11 +14,14 @@ import com.wyy.myhealth.R;
 import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.baidu.utlis.TagUtils;
+import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.db.utils.CollectDatabaseUtils;
 import com.wyy.myhealth.db.utils.IceDadabaseUtils;
 import com.wyy.myhealth.db.utils.MsgDatabaseUtils;
 import com.wyy.myhealth.db.utils.PublicChatDatabaseUtils;
+import com.wyy.myhealth.http.BingHttpHandler;
+import com.wyy.myhealth.http.utils.JsonUtils;
 import com.wyy.myhealth.imag.utils.LoadImageUtils;
 import com.wyy.myhealth.ui.absfragment.ListBaseFragment;
 import com.wyy.myhealth.ui.baseactivity.BaseActivity;
@@ -50,6 +57,7 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 		findViewById(R.id.login_out).setOnClickListener(listener);
 		findViewById(R.id.function_intro).setOnClickListener(listener);
 		findViewById(R.id.tell_lay).setOnClickListener(listener);
+		findViewById(R.id.quanxian_lay).setOnClickListener(listener);
 	}
 
 	@Override
@@ -101,7 +109,10 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 			case R.id.tell_lay:
 				ShareUtils.share2Fre(context);
 				break;
-				
+
+			case R.id.quanxian_lay:
+				showAuthsActivity();
+				break;
 			default:
 				break;
 			}
@@ -116,13 +127,29 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 		startActivity(new Intent(context, AboutVersion.class));
 	}
 
+	private void showAuthsActivity() {
+		if (WyyApplication.getInfo() != null) {
+			PreferenceManager
+					.getDefaultSharedPreferences(context)
+					.edit()
+					.putBoolean(AuthsActivity.VISIT,
+							WyyApplication.getInfo().isStranVisible()).commit();
+			PreferenceManager
+					.getDefaultSharedPreferences(context)
+					.edit()
+					.putBoolean(AuthsActivity.VISIBLE,
+							WyyApplication.getInfo().isNearVisible()).commit();
+		}
+		startActivity(new Intent(context, AuthsActivity.class));
+	}
+
 	private void showFuncIntro() {
 		startActivity(new Intent(context, FunctionIntroActivity.class));
 	}
 
 	private void showLoginOut() {
 		UmenAnalyticsUtility.onEvent(context, ConstantS.UMNEG_LOGIN_OUT);
-		if (null!=WyyApplication.getInfo()) {
+		if (null != WyyApplication.getInfo()) {
 			TagUtils.delTag(WyyApplication.getInfo().getId(), context);
 		}
 		delDataBase();
@@ -169,4 +196,8 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 		}
 	}
 
+	
+	
+	
+	
 }

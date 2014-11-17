@@ -17,6 +17,7 @@ import com.wyy.myhealth.ui.absfragment.FragmentInterface;
 import com.wyy.myhealth.ui.absfragment.ListBaseFragment;
 import com.wyy.myhealth.ui.collect.CollectActivity;
 import com.wyy.myhealth.ui.healthbar.HealthPassActivity;
+import com.wyy.myhealth.ui.healthbar.MsgListActivity;
 import com.wyy.myhealth.ui.login.LoginActivity;
 import com.wyy.myhealth.ui.setting.SettingActivity;
 import com.wyy.myhealth.ui.yaoyingyang.YaoyingyangFragment;
@@ -107,6 +108,7 @@ public class MineFragment extends Fragment implements FragmentInterface {
 		rootView.findViewById(R.id.collect_lay).setOnClickListener(listener);
 		rootView.findViewById(R.id.setting_lay).setOnClickListener(listener);
 		rootView.findViewById(R.id.colse_lay).setOnClickListener(listener);
+		rootView.findViewById(R.id.msg_lay).setOnClickListener(listener);
 	}
 
 	@Override
@@ -150,6 +152,9 @@ public class MineFragment extends Fragment implements FragmentInterface {
 				break;
 			case R.id.colse_lay:
 				colseDialog();
+				break;
+			case R.id.msg_lay:
+				showMsgList();
 				break;
 			default:
 				break;
@@ -274,6 +279,10 @@ public class MineFragment extends Fragment implements FragmentInterface {
 			}
 
 		}
+	}
+
+	private void showMsgList() {
+		startActivity(new Intent(getActivity(), MsgListActivity.class));
 	}
 
 }

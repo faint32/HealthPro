@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.wyy.myhealth.FoodDetailsActivity" >
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <item
         android:id="@+id/action_share"
@@ -15,23 +14,12 @@
         android:orderInCategory="101"
         android:title="@string/shoucang">
     </item>
-    <item
-        android:id="@+id/loopmap"
-        android:icon="@android:drawable/ic_menu_mylocation"
-        android:orderInCategory="105"
-        android:title="@string/loopmap">
-    </item>
-    <item
-        android:id="@+id/resh"
-        android:orderInCategory="106"
-        android:title="@string/resh"
-        android:visible="false">
-    </item>
-    <item
+
+     <item
         android:id="@+id/complaint"
         android:icon="@drawable/ic_menu_compl"
-        android:orderInCategory="107"
+        android:orderInCategory="102"
         android:title="@string/complaint">
     </item>
-
+    
 </menu>

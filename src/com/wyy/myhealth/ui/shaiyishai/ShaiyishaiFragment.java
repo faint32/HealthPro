@@ -12,6 +12,9 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -41,6 +44,8 @@ import com.wyy.myhealth.ui.absfragment.utils.TimeUtility;
 import com.wyy.myhealth.ui.customview.BingListView;
 import com.wyy.myhealth.ui.customview.BingListView.IXListViewListener;
 import com.wyy.myhealth.ui.fooddetails.FoodDetailsActivity;
+import com.wyy.myhealth.ui.mood.MoodDetailsActivity2;
+import com.wyy.myhealth.ui.personcenter.MyFansListActivity;
 import com.wyy.myhealth.ui.personcenter.UserInfoActivity;
 import com.wyy.myhealth.ui.personcenter.utility.UserInfoUtility;
 import com.wyy.myhealth.ui.photoPager.PhotoPagerActivity;
@@ -87,12 +92,21 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 
 	private MyFollowAdapter followAdapter;
 
+	private View followHeadView;
+
 	public static ShaiyishaiFragment newInstance(int position) {
 		ShaiyishaiFragment shaiyishaiFragment = new ShaiyishaiFragment();
 		Bundle bundle = new Bundle();
 		bundle.putInt("position", position);
 		shaiyishaiFragment.setArguments(bundle);
 		return shaiyishaiFragment;
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 	}
 
 	public void setKey(String key) {
@@ -113,18 +127,35 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		followButton = (Button) v.findViewById(R.id.follow_tab);
 		fRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.follow_swipe);
 		followListView = (BingListView) v.findViewById(R.id.follow_list);
+		followHeadView = getActivity().getLayoutInflater().inflate(
+				R.layout.follow_list_head, null);
+		followListView.addHeaderView(followHeadView);
+		fRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
+				android.R.color.holo_blue_dark,
+				android.R.color.holo_green_light,
+				android.R.color.holo_green_dark);
+
 		sendView = v.findViewById(R.id.send_v);
 		mRefreshLayout.setOnRefreshListener(this);
+		fRefreshLayout.setOnRefreshListener(followRefreshListener);
 		mListView.setXListViewListener(this);
 		initSendView(sendView);
 		mAdapter2.setListener(this);
 		mListView.setOnItemClickListener(this);
 		shaiButton.setOnClickListener(listener);
 		followButton.setOnClickListener(listener);
+		v.findViewById(R.id.new_follow_lay).setOnClickListener(listener);
 
 		followAdapter = new MyFollowAdapter(followList, getActivity());
 		followListView.setAdapter(followAdapter);
 
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// TODO Auto-generated method stub
+		getActivity().getMenuInflater().inflate(R.menu.health_bar, menu);
+		super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	@Override
@@ -333,6 +364,10 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 				showFollow();
 				break;
 
+			case R.id.new_follow_lay:
+				showFans();
+				break;
+
 			default:
 				break;
 			}
@@ -453,8 +488,20 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 			PreferencesFoodsInfo.setfoodId(getActivity(), thList2.get(position)
 					.getId());
 			startActivity(new Intent(getActivity(), FoodDetailsActivity.class));
+		} else if (thList2.get(position).getType() == ConstantS.TYPE_MOOD) {
+			showMoodDetails(thList2.get(position));
 		}
 
+	}
+
+	private void showMoodDetails(MoodaFoodBean moodaFoodBean) {
+		if (moodaFoodBean == null) {
+			return;
+		}
+		Intent intent = new Intent();
+		intent.setClass(getActivity(), MoodDetailsActivity2.class);
+		intent.putExtra("moodid", moodaFoodBean.getId());
+		startActivity(intent);
 	}
 
 	public void addAdversie(MoodaFoodBean mBean) {
@@ -512,6 +559,10 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		fRefreshLayout.setVisibility(View.VISIBLE);
 	}
 
+	private void showFans() {
+		startActivity(new Intent(getActivity(), MyFansListActivity.class));
+	}
+
 	private void getMyFollow() {
 		if (WyyApplication.getInfo() == null) {
 			return;
@@ -563,6 +614,7 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 					protected void onGetFinish() {
 						// TODO Auto-generated method stub
 						loadflag = false;
+						fRefreshLayout.setRefreshing(false);
 					}
 
 					@Override
@@ -570,9 +622,30 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 						// TODO Auto-generated method stub
 						super.onStart();
 						loadflag = true;
+						fRefreshLayout.setRefreshing(true);
 					}
 
 				});
 	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if (item.getItemId() == R.id.publish) {
+			startActivity(new Intent(getActivity(), PublishActivity.class));
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	private OnRefreshListener followRefreshListener = new OnRefreshListener() {
+
+		@Override
+		public void onRefresh() {
+			// TODO Auto-generated method stub
+			if (!loadflag) {
+				getMyFollow();
+			}
+		}
+	};
 
 }

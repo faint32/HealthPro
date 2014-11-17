@@ -1,5 +1,6 @@
 package com.wyy.myhealth.ui.mood;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,11 +10,14 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -36,17 +40,21 @@ import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.bean.Comment;
 import com.wyy.myhealth.bean.MoodInfoBean;
 import com.wyy.myhealth.contants.ConstantS;
+import com.wyy.myhealth.file.utils.FileUtils;
 import com.wyy.myhealth.http.AsyncHttpResponseHandler;
 import com.wyy.myhealth.http.BingHttpHandler;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
 import com.wyy.myhealth.http.utils.JsonUtils;
 import com.wyy.myhealth.imag.utils.LoadImageUtils;
 import com.wyy.myhealth.imag.utils.SavePic;
+import com.wyy.myhealth.support.collect.CollectUtils;
+import com.wyy.myhealth.support.report.ReportUtility;
 import com.wyy.myhealth.ui.absfragment.utils.TimeUtility;
 import com.wyy.myhealth.ui.baseactivity.BaseActivity;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 import com.wyy.myhealth.ui.customview.FullListView;
 import com.wyy.myhealth.ui.fooddetails.CommentAdapter;
+import com.wyy.myhealth.utils.ShareUtils;
 
 public class MoodDetailsActivity2 extends BaseActivity implements
 		ActivityInterface {
@@ -212,6 +220,36 @@ public class MoodDetailsActivity2 extends BaseActivity implements
 
 		getMoodInfo();
 
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		getMenuInflater().inflate(R.menu.mood_details, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()) {
+
+		case R.id.collect:
+			CollectUtils.postMoodCollect(moodid, context);
+			break;
+
+		case R.id.action_share:
+			shareMood();
+			break;
+
+		case R.id.complaint:
+			ReportUtility.reportDialog(context, moodid, 0);
+			break;
+
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void getMoodInfo() {
@@ -527,6 +565,20 @@ public class MoodDetailsActivity2 extends BaseActivity implements
 		moodComments.add(comment);
 		commentEditText.setText("");
 		commentAdapter.notifyDataSetChanged();
+	}
+
+	private void shareMood() {
+		try {
+			ShareUtils
+					.shareFood(context, getString(R.string.share_content_),
+							Uri.fromFile(new File(FileUtils.HEALTH_IMAG, "chc"
+									+ ".png")));
+			UmenAnalyticsUtility.onEvent(context, ConstantS.UMNEG_SHARE_FOOD);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
 	}
 
 }

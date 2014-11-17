@@ -107,6 +107,13 @@
     <string name="show_code_str">扫描即可下载</string>
     <string name="weiying">jeek20140101</string>
     <string name="shoucang">收藏</string>
+    <string name="complaint">投诉</string>
+    <string name="complaint_success">投诉成功</string>
+    <string name="complaint_faliure">投诉失败</string>
+    <string name="complaint_type_1">敏感话题</string>
+    <string name="complaint_type_2">纯广告</string>
+    <string name="complaint_type_3">不健康</string>
+    <string name="complaint_type_4">其他</string>
     <string name="fabu">发布</string>
     <string name="day_num">12</string>
     <string name="month_num">2月</string>
@@ -262,6 +269,9 @@
     <string name="parseerror">解析出错</string>
     <string name="maplist">地图列表</string>
     <string name="search">搜索</string>
+    <string name="search_">查找</string>
+    <string name="search_user">查找用户</string>
+    <string name="check_near">查找附近</string>
     <string name="health_recoder">健康记录</string>
     <string name="my_ice_box">我的冰箱</string>
     <string name="my_ice_box_store">冰箱库存</string>
@@ -409,6 +419,7 @@
     <string name="modify_head">更改头像</string>
     <string name="dynamic">动态</string>
     <string name="fans">粉丝</string>
+    <string name="near">附近</string>
     <string name="follow">关注</string>
     <string name="followed">已关注</string>
     <string name="like_success">点赞成功</string>
@@ -416,5 +427,11 @@
     <string name="no_like_success">删赞成功</string>
     <string name="no_like_failure">删赞失败</string>
     <string name="like_hint">还没有人点赞</string>
+    <string name="new_follow">新的关注</string>
+    <string name="search_hint">请输入昵称或微码 </string>
+    <string name="stranger_visit">陌生人访问 </string>
+    <string name="stranger_visit_msg">关闭后陌生人将无法查看您的个人信息 </string>
+    <string name="near_visible">对附近人可见 </string>
+    <string name="near_visible_msg">关闭后附近的人将查看不到您 </string>
 
 </resources>

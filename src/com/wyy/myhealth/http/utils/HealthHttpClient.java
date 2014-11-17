@@ -139,6 +139,11 @@ public class HealthHttpClient {
 	 */
 	private static final String GET_USER_LEVEL_URL = USER_CENTET_URL
 			+ "userlevel";
+	/**
+	 * 举报信息
+	 */
+	private static final String REPORT_MOOD_FOOD_URL = BASE_URL
+			+ "postFoodReport";
 
 	private volatile static HealthHttpClient instance = null;
 
@@ -1488,6 +1493,24 @@ public class HealthHttpClient {
 		params.put("userid", userid);
 		client.post(GET_USER_LEVEL_URL, params, handler);
 		BingLog.i("用户等级:" + GET_USER_LEVEL_URL + "?" + params);
+	}
+
+	public static void updataAuths(PersonalInfo info,
+			AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("userid", info.getId());
+		params.put("stranVisible", info.isStranVisible() + "");
+		params.put("nearVisible", info.isNearVisible() + "");
+		client.post(PERSONAL_URL + "fullUserInfo", params, handler);
+	}
+	
+	public static void reportUserMf(String userid, String linkid, String type,
+			AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("userid", userid);
+		params.put("linkid", linkid);
+		params.put("type", type);
+		client.post(REPORT_MOOD_FOOD_URL, params, handler);
 	}
 
 }

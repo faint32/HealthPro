@@ -12,7 +12,6 @@ import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.pager.utils.SuperAwesomeCardFragment;
 import com.wyy.myhealth.service.MainService;
 import com.wyy.myhealth.stepcount.StepService;
-import com.wyy.myhealth.ui.discover.DiscoverFragment;
 import com.wyy.myhealth.ui.navigation.DiscoverNavActivity;
 import com.wyy.myhealth.ui.navigation.PersonalNavActivity;
 import com.wyy.myhealth.ui.navigation.YaoNavActivity;
@@ -186,12 +185,12 @@ public class MainActivity extends ActionBarActivity implements
 		}
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.main, menu);
+//		return true;
+//	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -345,13 +344,13 @@ public class MainActivity extends ActionBarActivity implements
 	public void onPageSelected(int arg0) {
 		// TODO Auto-generated method stub
 		curpostion = arg0;
-		if (curpostion == 0) {
-			searchView.setVisibility(View.GONE);
-			help.setVisibility(View.VISIBLE);
-		} else {
-			searchView.setVisibility(View.VISIBLE);
-			help.setVisibility(View.GONE);
-		}
+//		if (curpostion == 0) {
+//			searchView.setVisibility(View.GONE);
+//			help.setVisibility(View.VISIBLE);
+//		} else {
+//			searchView.setVisibility(View.VISIBLE);
+//			help.setVisibility(View.GONE);
+//		}
 		if (arg0 == 0) {
 			sendPageIndex(arg0);
 		} else if (arg0 == 2) {

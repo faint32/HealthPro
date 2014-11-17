@@ -32,6 +32,7 @@ import com.wyy.myhealth.support.bitmap.BitmapRatioUtils;
 import com.wyy.myhealth.support.picfeure.Align;
 import com.wyy.myhealth.ui.navigation.ScanNavActivity;
 import com.wyy.myhealth.ui.photoview.utils.Utility;
+import com.wyy.myhealth.ui.scan.utils.DialogShow;
 import com.wyy.myhealth.utils.BingLog;
 import com.wyy.myhealth.utils.CameraUtlity;
 import com.wyy.myhealth.utils.JudgePersInfoUtlity;
@@ -54,6 +55,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -153,6 +157,7 @@ public class ScanFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 		BingLog.i(TAG, "======onCreate======");
 		initFilter();
 	}
@@ -162,6 +167,24 @@ public class ScanFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		BingLog.i(TAG, "======onDestroy======");
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// TODO Auto-generated method stub
+		getActivity().getMenuInflater().inflate(R.menu.scan_, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+
+		if (item.getItemId() == R.id.help) {
+			DialogShow.showHelpDialog(context, getString(R.string.sao_help));
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

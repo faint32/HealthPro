@@ -54,7 +54,7 @@ public class JsonUtils {
 	 * @param object
 	 * @return
 	 */
-	public static PersonalInfo getInfo(JSONObject object) {
+	public static PersonalInfo getInfo(Object object) {
 		PersonalInfo info = null;
 		try {
 			Gson gson = new Gson();
