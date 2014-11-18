@@ -378,6 +378,7 @@
         <activity android:name=".ui.personcenter.NearUserActivity"></activity>
         <activity android:name=".ui.personcenter.UserSearchResultActivity" android:launchMode="singleTask"></activity>
         <activity android:name=".ui.setting.AuthsActivity"></activity>
+        <activity android:name=".ui.scan.ScanMethActivity"></activity>
         
     </application>
 

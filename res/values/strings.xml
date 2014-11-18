@@ -320,6 +320,7 @@
     <string name="speaknotice">请讲话</string>
     <string name="submitrecogise">提交识别</string>
     <string name="scaning">扫描中&#8230;</string>
+    <string name="scan_method">正确扫描方式</string>
     <string name="feedbackconent_hint">哪里不足，填写您的宝贵意见</string>
     <string name="feekbackcontact_hint">为了方便，请留下您的联系方式</string>
     <string name="hasnewversion">有新版本</string>
@@ -433,5 +434,8 @@
     <string name="stranger_visit_msg">关闭后陌生人将无法查看您的个人信息 </string>
     <string name="near_visible">对附近人可见 </string>
     <string name="near_visible_msg">关闭后附近的人将查看不到您 </string>
+    <string name="scan_meth_content">请以中式美食美食为扫描对象，尽量不要包括费美食成分背景。</string>
+    <string name="scan_meth_true">扫营养正确扫描方式</string>
+    <string name="scan_meth_false">扫营养错误扫描方式</string>
 
 </resources>

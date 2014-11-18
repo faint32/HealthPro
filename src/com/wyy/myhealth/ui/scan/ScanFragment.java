@@ -282,6 +282,7 @@ public class ScanFragment extends Fragment {
 		takepic.setOnClickListener(listener);
 		openlight.setOnClickListener(listener);
 		voiceSearch.setOnClickListener(listener);
+		scantTextView.setOnClickListener(listener);
 
 	}
 
@@ -532,6 +533,7 @@ public class ScanFragment extends Fragment {
 						Toast.LENGTH_LONG).show();
 				takepic.setEnabled(true);
 				scantTextView.setVisibility(View.GONE);
+				setScanNotice(true);
 				voiceflage = false;
 			}
 
@@ -923,6 +925,10 @@ public class ScanFragment extends Fragment {
 				takepic2web();
 				break;
 
+			case R.id.scan_notice_txt:
+				showScanMethod();
+				break;
+
 			default:
 				break;
 			}
@@ -946,7 +952,7 @@ public class ScanFragment extends Fragment {
 			if (!voiceflage) {
 				scantTextView.setVisibility(View.VISIBLE);
 			}
-
+			setScanNotice(true);
 		} else {
 			Toast.makeText(getActivity(), R.string.neterro, Toast.LENGTH_SHORT)
 					.show();
@@ -1009,6 +1015,7 @@ public class ScanFragment extends Fragment {
 			scanView.setVisibility(View.VISIBLE);
 			saoImageView.setVisibility(View.INVISIBLE);
 			bottomLayout.setVisibility(View.VISIBLE);
+			setScanNotice(false);
 			scanView.setScroll(false);
 			bottomLayout.requestFocus();
 			BingLog.d(TAG, "œ‘ ætab_");
@@ -1070,6 +1077,21 @@ public class ScanFragment extends Fragment {
 			}
 
 		}
+	}
+
+	private void setScanNotice(boolean isscan) {
+		if (isscan) {
+			scantTextView.setText(R.string.scaning);
+			scantTextView.setBackgroundResource(R.drawable.saomiaozhong);
+		} else {
+			scantTextView.setText(R.string.scan_method);
+			scantTextView.setBackgroundResource(R.drawable.saomiao_meth_sec);
+		}
+		scantTextView.setVisibility(View.VISIBLE);
+	}
+
+	private void showScanMethod() {
+		startActivity(new Intent(context, ScanMethActivity.class));
 	}
 
 }

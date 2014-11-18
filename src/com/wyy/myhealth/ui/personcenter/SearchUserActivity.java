@@ -2,6 +2,9 @@ package com.wyy.myhealth.ui.personcenter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Handler.Callback;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,14 +14,18 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.wyy.myhealth.R;
+import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.ui.baseactivity.BaseActivity;
 import com.wyy.myhealth.ui.baseactivity.interfacs.ActivityInterface;
 import com.wyy.myhealth.utils.BingLog;
+import com.wyy.myhealth.utils.InputUtlity;
 
 public class SearchUserActivity extends BaseActivity implements
-		ActivityInterface {
+		ActivityInterface, Callback {
 
 	private MultiAutoCompleteTextView searchView;
+
+	private Handler handler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +63,8 @@ public class SearchUserActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		searchView = (MultiAutoCompleteTextView) findViewById(R.id.search_user);
 		searchView.setOnEditorActionListener(searchActionListener);
+		handler = new Handler(this);
+		handler.sendEmptyMessageDelayed(0, ConstantS.DELAY_TIME_INPUT);
 	}
 
 	@Override
@@ -86,6 +95,21 @@ public class SearchUserActivity extends BaseActivity implements
 		intent.putExtra("txt", searchView.getText().toString());
 		intent.setClass(context, UserSearchResultActivity.class);
 		startActivity(intent);
+	}
+
+	@Override
+	public boolean handleMessage(Message msg) {
+		// TODO Auto-generated method stub
+		int what = msg.what;
+		switch (what) {
+		case 0:
+			InputUtlity.showInputWindow(context, searchView);
+			break;
+
+		default:
+			break;
+		}
+		return false;
 	}
 
 }

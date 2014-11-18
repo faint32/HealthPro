@@ -128,6 +128,8 @@ public interface ConstantS {
 
 	public static final long PERIOD_TIME_ = 5;
 
+	public static final long DELAY_TIME_INPUT = 500;
+	
 	/**************** RESH *******************/
 
 	public static final String FIRST = "0";
