@@ -25,7 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/text_horizontal_margin"
         android:layout_marginRight="@dimen/text_horizontal_margin"
+        android:maxLines="3"
         android:autoLink="all"
+        android:ellipsize="end"
         android:text="" />
 
     <TextView

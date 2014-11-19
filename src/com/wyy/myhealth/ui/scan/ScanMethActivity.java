@@ -11,7 +11,7 @@ public class ScanMethActivity extends BaseActivity {
 	protected void onInitActionBar() {
 		// TODO Auto-generated method stub
 		super.onInitActionBar();
-		getActionBar().setTitle(R.string.scan_method);
+		getSupportActionBar().setTitle(R.string.scan_method);
 	}
 
 	@Override

@@ -252,6 +252,8 @@ public class ShaiYiSaiAdapter2 extends BaseAdapter {
 
 	private void setView(ViewHolder holder, int position) {
 		final int adaposition = position;
+		holder.reasonTextView.setFocusable(false);
+		holder.reasonTextView.setFocusableInTouchMode(false);
 		MoodaFoodBean moodaFoodBean = list.get(position);
 		LoadImageUtils.loadWebImageV_Min(holder.userheadImageView,
 				HealthHttpClient.IMAGE_URL
