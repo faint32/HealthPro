@@ -5,13 +5,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.StreamCorruptedException;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
+import com.umeng.message.PushAgent;
 import com.wyy.myhealth.MainActivity;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
-import com.wyy.myhealth.baidu.utlis.Utils;
 import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.ui.login.utils.LoginUtils;
@@ -39,7 +37,7 @@ public class WelcomeActivity extends Activity {
 	private static final long SPLASH_DELAY_MILLIS = 1500;
 	private static final long SPLASH_DELAY_MILLIS_ = 8000;
 	private ProgressBar wait_Onbind;
-	private boolean isEnter=false;
+	private boolean isEnter = false;
 
 	/**
 	 * Handler:跳转到不同界面
@@ -72,33 +70,28 @@ public class WelcomeActivity extends Activity {
 		initUI();
 		UmenAnalyticsUtility.setDebugMode(false);
 		UmenAnalyticsUtility.updateOnlineConfig(this);
+		openPush();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		UmenAnalyticsUtility.onResume(this);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		UmenAnalyticsUtility.onPause(this);
 	}
-	
 
 	private void initReceiveraPush() {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ConstantS.BAIDU_ONBIND);
 		registerReceiver(onbindReceiver, filter);
 
-		PushManager.startWork(getApplicationContext(),
-				PushConstants.LOGIN_TYPE_API_KEY,
-				Utils.getMetaValue(WelcomeActivity.this, "api_key"));
-		// Push: 如果想基于地理位置推送，可以打开支持地理位置的推送的开关
-		PushManager.enableLbs(getApplicationContext());
 	}
 
 	private void initUI() {
@@ -131,7 +124,7 @@ public class WelcomeActivity extends Activity {
 			Intent intent = new Intent(this, BootPagerActivity.class);
 			startActivity(intent);
 			finish();
-			isEnter=true;
+			isEnter = true;
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -156,7 +149,7 @@ public class WelcomeActivity extends Activity {
 	 * 获取信息
 	 */
 	public static void getPersonInfo(Context context) {
-		if (context==null) {
+		if (context == null) {
 			return;
 		}
 		SharedPreferences sharedPreferences = context.getSharedPreferences(
@@ -187,6 +180,11 @@ public class WelcomeActivity extends Activity {
 			}
 
 		}
+	}
+
+	private void openPush() {
+		PushAgent.getInstance(this).onAppStart();
+		PushAgent.getInstance(this).enable();
 	}
 
 }

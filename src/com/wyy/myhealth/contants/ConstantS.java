@@ -1,5 +1,7 @@
 package com.wyy.myhealth.contants;
 
+import android.R.integer;
+
 import com.wyy.myhealth.R;
 
 public interface ConstantS {
@@ -129,7 +131,7 @@ public interface ConstantS {
 	public static final long PERIOD_TIME_ = 5;
 
 	public static final long DELAY_TIME_INPUT = 500;
-	
+
 	/**************** RESH *******************/
 
 	public static final String FIRST = "0";
@@ -213,4 +215,26 @@ public interface ConstantS {
 	 * 发布心情
 	 */
 	public static final String UMNEG_PUBLISH_MOOD = "publish_mood";
+	/**
+	 * 设置别名类型
+	 */
+	public static final String UMNEG_USER_TYPE = "WYY";
+	/**
+	 * 评论类型
+	 */
+	public static final int MESSAGE_TYPE_COMMENT = 6;
+	/**
+	 * 点赞类型
+	 */
+	public static final int MESSAGE_TYPE_LAUD = 7;
+	/**
+	 * 美食消息类型
+	 */
+	public static final int MESSAGE_OBJ_TYPE_FOOD=1;
+	/**
+	 * 心情消息
+	 */
+	public static final int MESSAGE_OBJ_TYPE_MOOD=2;
+	
+
 }

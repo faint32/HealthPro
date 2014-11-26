@@ -4,7 +4,7 @@ import java.util.List;
 
 import android.hardware.Camera;
 
-public class CameraUtlity {
+public class CameraUtility {
 
 	public static boolean hasFlash(Camera camera) {
 		if (camera == null) {

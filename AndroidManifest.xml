@@ -45,6 +45,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
         android:name=".app.WyyApplication"
@@ -54,6 +55,7 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppTheme" >
+
         <!-- 在百度开发者中心查询应用的API Key -->
         <meta-data
             android:name="api_key"
@@ -81,15 +83,6 @@
             android:logo="@drawable/logo_top_actionbar" >
         </activity>
 
-        <service
-            android:name="com.baidu.android.pushservice.PushService"
-            android:exported="true"
-            android:process=":bdservice_v1" >
-            <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
-            </intent-filter>
-        </service>
-
         <!-- 定位 -->
         <service
             android:name="com.baidu.location.f"
@@ -97,41 +90,7 @@
             android:process=":remote" >
         </service>
 
-        <receiver android:name=".baidu.receiver.MyPushMessageReceiver" >
-            <intent-filter>
-
-                <!-- 接收push消息 -->
-                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
-                <!-- 接收bind,unbind,fetch,delete等反馈消息 -->
-                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
-                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
-            </intent-filter>
-        </receiver>
-
         <!-- push必须的receviver和service声明 -->
-        <receiver
-            android:name="com.baidu.android.pushservice.PushServiceReceiver"
-            android:process=":bdservice_v1" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
-                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.baidu.android.pushservice.RegistrationReceiver"
-            android:process=":bdservice_v1" >
-            <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.METHOD" />
-                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
 
         <activity
             android:name=".ui.mapfood.MapFoodsActivity"
@@ -172,7 +131,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.fooddetails.FoodDetailsActivity" android:windowSoftInputMode="stateHidden|adjustUnspecified">
+            android:name=".ui.fooddetails.FoodDetailsActivity"
+            android:windowSoftInputMode="stateHidden|adjustUnspecified" >
         </activity>
         <activity android:name=".ui.fooddetails.FoodCommentInfoActivity" >
         </activity>
@@ -349,37 +309,117 @@
             android:screenOrientation="portrait"
             android:theme="@style/BingTranslucentNotitleTheme" >
         </activity>
-        
-        
-        
+
+        <!-- 友盟推送配置开始 -->
+
+        <receiver
+            android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
+            android:exported="false" >
+        </receiver>
+        <receiver android:name="com.umeng.message.RegistrationReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.umeng.message.UmengBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RECEIVE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.wyy.myhealth.intent.action.COMMAND" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RE_ELECTION_V2" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.umeng.message.UmengService"
+            android:exported="true"
+            android:process=":umengService_v1" >
+            <intent-filter>
+                <action android:name="com.wyy.myhealth.intent.action.START" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.wyy.myhealth.intent.action.COCKROACH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.PING" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="org.android.agoo.service.ElectionService"
+            android:exported="true"
+            android:process=":umengService_v1" >
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.ELECTION_V2" />
+            </intent-filter>
+        </service>
+        <service android:name="com.umeng.message.UmengIntentService" />
+        <service android:name="com.umeng.message.UmengDownloadResourceService" >
+        </service>
+        <!-- 友盟 推送配置结束 -->
+
+
         <!-- 友盟应用统计配置开始 -->
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="54379f85fd98c52ac0029dd5" >
         </meta-data>
         <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="224114ad4d4c629a9086e9bf92bcaafd" >
+        </meta-data>
+        <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="baidu" >
+            android:value="bing_chc" >
         </meta-data>
         <!-- 友盟应用统计配置结束 -->
-        <activity android:name=".ui.personcenter.PersonInfoActivity"></activity>
-        <activity android:name=".ui.personcenter.modify.ModifyUserHeadActivity"></activity>
-        <activity android:name=".ui.personcenter.modify.ModifyUsernameActivity"></activity>
-        <activity android:name=".ui.personcenter.modify.ModifyHeightActivity"></activity>
-        <activity android:name=".ui.personcenter.modify.ModifyWeightActivity"></activity>
-        <activity android:name=".ui.personcenter.modify.ModifyAgeActivity"></activity>
-        <activity android:name=".ui.personcenter.UserInfoActivity"></activity>
-        <activity android:name=".ui.personcenter.FansListActivity"></activity>
-        <activity android:name=".ui.personcenter.FollowUserActivity"></activity>
-        <activity android:name=".ui.mood.MoodDetailsActivity2" android:windowSoftInputMode="stateHidden|adjustUnspecified"></activity>
-        <activity android:name=".ui.personcenter.PersonHornorActivity"></activity>
-        <activity android:name=".ui.personcenter.MyFansListActivity"></activity>
-        <activity android:name=".ui.personcenter.SearchUserActivity"></activity>
-        <activity android:name=".ui.personcenter.NearUserActivity"></activity>
-        <activity android:name=".ui.personcenter.UserSearchResultActivity" android:launchMode="singleTask"></activity>
-        <activity android:name=".ui.setting.AuthsActivity"></activity>
-        <activity android:name=".ui.scan.ScanMethActivity"></activity>
-        
+
+        <activity android:name=".ui.personcenter.PersonInfoActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.modify.ModifyUserHeadActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.modify.ModifyUsernameActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.modify.ModifyHeightActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.modify.ModifyWeightActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.modify.ModifyAgeActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.UserInfoActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.FansListActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.FollowUserActivity" >
+        </activity>
+        <activity
+            android:name=".ui.mood.MoodDetailsActivity2"
+            android:windowSoftInputMode="stateHidden|adjustUnspecified" >
+        </activity>
+        <activity android:name=".ui.personcenter.PersonHornorActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.MyFansListActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.SearchUserActivity" >
+        </activity>
+        <activity android:name=".ui.personcenter.NearUserActivity" >
+        </activity>
+        <activity
+            android:name=".ui.personcenter.UserSearchResultActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity android:name=".ui.setting.AuthsActivity" >
+        </activity>
+        <activity android:name=".ui.scan.ScanMethActivity" >
+        </activity>
+        <activity android:name=".ui.message.MsgListActivity"></activity>
     </application>
 
 </manifest>

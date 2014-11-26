@@ -21,7 +21,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.PreferencesFoodsInfo;
-import com.wyy.myhealth.baidu.utlis.Utils;
 import com.wyy.myhealth.bean.ListDataBead;
 import com.wyy.myhealth.db.utils.MsgDatabaseUtils;
 import com.wyy.myhealth.http.utils.HealthHttpClient;
@@ -159,51 +158,51 @@ public class MsgListActivity extends BaseListActivity {
 	
 	
 	private void initList() {
-		for (int i = 0; i < Utils.mstlList.size(); i++) {
-			String json = Utils.mstlList.get(i);
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			try {
-				JSONObject jsonObject = new JSONObject(json);
-				JSONObject content = jsonObject.getJSONObject("content");
-				JSONObject food = content.getJSONObject("foods");
-				String foodpic = HealthHttpClient.IMAGE_URL
-						+ food.getString("foodpic");
-				String foodid = food.getString("id");
-				JSONObject user = content.getJSONObject("user");
-				String username = user.getString("username");
-				String userHead = HealthHttpClient.IMAGE_URL
-						+ user.getString("headimage");
-
-				map.put("username", username);
-				map.put("userhead", userHead);
-				map.put("foodpic", foodpic);
-				map.put("foodid", foodid);
-				map.put("time", "刚刚");
-
-
-				// messageAdapter = new MessageAdapter(NewsMessageActivity.this,
-				// list);
-				// msgListView.setAdapter(messageAdapter);
-
-				long _id = saveJSON(Utils.mstlList.get(i));
-
-				map.put("_id", _id);
-
-				if (i == Utils.mstlList.size() - 1) {
-					Utils.mstlList.clear();
-					Utils.add_Foods_Comm = "";
-				}
-
-				// list.add(map);
-				list.add(0, map);
-				messageAdapter.notifyDataSetChanged();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				initMoodsList();
-			}
-
-		}
+//		for (int i = 0; i < Utils.mstlList.size(); i++) {
+//			String json = Utils.mstlList.get(i);
+//			HashMap<String, Object> map = new HashMap<String, Object>();
+//			try {
+//				JSONObject jsonObject = new JSONObject(json);
+//				JSONObject content = jsonObject.getJSONObject("content");
+//				JSONObject food = content.getJSONObject("foods");
+//				String foodpic = HealthHttpClient.IMAGE_URL
+//						+ food.getString("foodpic");
+//				String foodid = food.getString("id");
+//				JSONObject user = content.getJSONObject("user");
+//				String username = user.getString("username");
+//				String userHead = HealthHttpClient.IMAGE_URL
+//						+ user.getString("headimage");
+//
+//				map.put("username", username);
+//				map.put("userhead", userHead);
+//				map.put("foodpic", foodpic);
+//				map.put("foodid", foodid);
+//				map.put("time", "刚刚");
+//
+//
+//				// messageAdapter = new MessageAdapter(NewsMessageActivity.this,
+//				// list);
+//				// msgListView.setAdapter(messageAdapter);
+//
+//				long _id = saveJSON(Utils.mstlList.get(i));
+//
+//				map.put("_id", _id);
+//
+//				if (i == Utils.mstlList.size() - 1) {
+//					Utils.mstlList.clear();
+//					Utils.add_Foods_Comm = "";
+//				}
+//
+//				// list.add(map);
+//				list.add(0, map);
+//				messageAdapter.notifyDataSetChanged();
+//			} catch (JSONException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//				initMoodsList();
+//			}
+//
+//		}
 
 	}
 	
@@ -240,50 +239,50 @@ public class MsgListActivity extends BaseListActivity {
 
 	}
 	
-	private void initMoodsList() {
-		int length = Utils.mstlList.size();
-		BingLog.d("得到", "心情消息:" + Utils.mstlList.get(0));
-		for (int i = 0; i < length; i++) {
-			String json = Utils.mstlList.get(i);
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			try {
-				JSONObject jsonObject = new JSONObject(json);
-				JSONObject content = jsonObject.getJSONObject("content");
-				JSONObject mood = content.getJSONObject("mood");
-				String moodid = mood.getString("id");
-				JSONObject comment = content.getJSONObject("comment");
-				String comcontent = comment.getString("content");
-				JSONObject user = content.getJSONObject("user");
-				String username = user.getString("username");
-				String userHead = HealthHttpClient.IMAGE_URL
-						+ JsonUtils.getKey(user, "headimage");
-
-				map.put("username", username);
-				map.put("userhead", userHead);
-				map.put("commentcon", comcontent);
-				map.put("moodid", moodid);
-				map.put("time", "刚刚");
-
-
-				long _id = saveJSON(Utils.mstlList.get(i));
-
-				map.put("_id", _id);
-
-				if (i == Utils.mstlList.size() - 1) {
-					Utils.mstlList.clear();
-					Utils.add_Foods_Comm = "";
-				}
-				// list.add(map);
-				list.add(0, map);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			messageAdapter.notifyDataSetChanged();
-
-		}
-	}
+//	private void initMoodsList() {
+//		int length = Utils.mstlList.size();
+//		BingLog.d("得到", "心情消息:" + Utils.mstlList.get(0));
+//		for (int i = 0; i < length; i++) {
+//			String json = Utils.mstlList.get(i);
+//			HashMap<String, Object> map = new HashMap<String, Object>();
+//			try {
+//				JSONObject jsonObject = new JSONObject(json);
+//				JSONObject content = jsonObject.getJSONObject("content");
+//				JSONObject mood = content.getJSONObject("mood");
+//				String moodid = mood.getString("id");
+//				JSONObject comment = content.getJSONObject("comment");
+//				String comcontent = comment.getString("content");
+//				JSONObject user = content.getJSONObject("user");
+//				String username = user.getString("username");
+//				String userHead = HealthHttpClient.IMAGE_URL
+//						+ JsonUtils.getKey(user, "headimage");
+//
+//				map.put("username", username);
+//				map.put("userhead", userHead);
+//				map.put("commentcon", comcontent);
+//				map.put("moodid", moodid);
+//				map.put("time", "刚刚");
+//
+//
+//				long _id = saveJSON(Utils.mstlList.get(i));
+//
+//				map.put("_id", _id);
+//
+//				if (i == Utils.mstlList.size() - 1) {
+//					Utils.mstlList.clear();
+//					Utils.add_Foods_Comm = "";
+//				}
+//				// list.add(map);
+//				list.add(0, map);
+//			} catch (JSONException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//
+//			messageAdapter.notifyDataSetChanged();
+//
+//		}
+//	}
 	
 	private void initMoodsList(ListDataBead listDataBead) {
 		String json = listDataBead.getJsondata();

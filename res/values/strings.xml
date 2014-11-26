@@ -40,6 +40,7 @@
     <string name="login_sure">确认登陆</string>
     <string name="login_frist">初次登陆</string>
     <string name="clear_cache_success">清空成功</string>
+    <string name="clear">清空</string>
     <string name="is_alreadly_version">已是最新</string>
     <string name="feed_back_success">反馈成功</string>
     <string name="feed_back_fail">反馈失败</string>
@@ -437,5 +438,7 @@
     <string name="scan_meth_content">请以中式美食美食为扫描对象，尽量不要包括费美食成分背景。</string>
     <string name="scan_meth_true">扫营养正确扫描方式</string>
     <string name="scan_meth_false">扫营养错误扫描方式</string>
+     <string name="msg_type_comment">评论了您</string>
+      <string name="msg_type_like">赞了您</string>
 
 </resources>

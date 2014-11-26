@@ -1,8 +1,6 @@
 package com.wyy.myhealth.ui.setting;
 
-import org.json.JSONObject;
 
-import u.aly.ca;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -13,15 +11,11 @@ import com.tencent.tauth.Tencent;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
-import com.wyy.myhealth.baidu.utlis.TagUtils;
-import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.db.utils.CollectDatabaseUtils;
 import com.wyy.myhealth.db.utils.IceDadabaseUtils;
 import com.wyy.myhealth.db.utils.MsgDatabaseUtils;
 import com.wyy.myhealth.db.utils.PublicChatDatabaseUtils;
-import com.wyy.myhealth.http.BingHttpHandler;
-import com.wyy.myhealth.http.utils.JsonUtils;
 import com.wyy.myhealth.imag.utils.LoadImageUtils;
 import com.wyy.myhealth.ui.absfragment.ListBaseFragment;
 import com.wyy.myhealth.ui.baseactivity.BaseActivity;
@@ -149,9 +143,6 @@ public class SettingActivity extends BaseActivity implements ActivityInterface {
 
 	private void showLoginOut() {
 		UmenAnalyticsUtility.onEvent(context, ConstantS.UMNEG_LOGIN_OUT);
-		if (null != WyyApplication.getInfo()) {
-			TagUtils.delTag(WyyApplication.getInfo().getId(), context);
-		}
 		delDataBase();
 		clearPreferences();
 		startActivity(new Intent(context, LoginActivity.class));

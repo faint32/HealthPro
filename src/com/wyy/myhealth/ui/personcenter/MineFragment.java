@@ -1,10 +1,13 @@
 package com.wyy.myhealth.ui.personcenter;
 
+import org.json.JSONException;
+
 import com.tencent.tauth.Tencent;
+import com.umeng.message.PushAgent;
+import com.umeng.message.proguard.C.e;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
 import com.wyy.myhealth.app.WyyApplication;
-import com.wyy.myhealth.baidu.utlis.TagUtils;
 import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.db.utils.CollectDatabaseUtils;
@@ -17,7 +20,6 @@ import com.wyy.myhealth.ui.absfragment.FragmentInterface;
 import com.wyy.myhealth.ui.absfragment.ListBaseFragment;
 import com.wyy.myhealth.ui.collect.CollectActivity;
 import com.wyy.myhealth.ui.healthbar.HealthPassActivity;
-import com.wyy.myhealth.ui.healthbar.MsgListActivity;
 import com.wyy.myhealth.ui.login.LoginActivity;
 import com.wyy.myhealth.ui.setting.SettingActivity;
 import com.wyy.myhealth.ui.yaoyingyang.YaoyingyangFragment;
@@ -224,10 +226,7 @@ public class MineFragment extends Fragment implements FragmentInterface {
 	private void showLoginOut() {
 		UmenAnalyticsUtility.onEvent(WyyApplication.getInstance(),
 				ConstantS.UMNEG_LOGIN_OUT);
-		if (null != WyyApplication.getInfo()) {
-			TagUtils.delTag(WyyApplication.getInfo().getId(),
-					WyyApplication.getInstance());
-		}
+		removeAlias();
 		delDataBase();
 		clearPreferences();
 		startActivity(new Intent(getActivity(), LoginActivity.class));
@@ -282,7 +281,34 @@ public class MineFragment extends Fragment implements FragmentInterface {
 	}
 
 	private void showMsgList() {
-		startActivity(new Intent(getActivity(), MsgListActivity.class));
+		startActivity(new Intent(getActivity(),
+				com.wyy.myhealth.ui.message.MsgListActivity.class));
+	}
+
+	private void removeAlias() {
+		new Thread() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				super.run();
+				if (null != WyyApplication.getInfo()) {
+
+					try {
+						PushAgent.getInstance(getActivity()).removeAlias(
+								WyyApplication.getInfo().getIdcode(),
+								ConstantS.UMNEG_USER_TYPE);
+					} catch (e e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+
+		}.start();
 	}
 
 }

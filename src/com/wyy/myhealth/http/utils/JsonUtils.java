@@ -3,6 +3,7 @@ package com.wyy.myhealth.http.utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.baidu.platform.comapi.map.o;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.wyy.myhealth.bean.Foods;
@@ -11,6 +12,7 @@ import com.wyy.myhealth.bean.IceBoxFoodBean;
 import com.wyy.myhealth.bean.LevelBean;
 import com.wyy.myhealth.bean.MoodInfoBean;
 import com.wyy.myhealth.bean.MoodaFoodBean;
+import com.wyy.myhealth.bean.MsgBean;
 import com.wyy.myhealth.bean.NearFoodBean;
 import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.bean.RecorderInfoBean;
@@ -308,6 +310,18 @@ public class JsonUtils {
 		}
 
 		return levelBean;
+	}
+
+	public static MsgBean getMsgBean(Object object) {
+		MsgBean msgBean = new MsgBean();
+		try {
+			msgBean = new Gson().fromJson(object.toString(), MsgBean.class);
+		} catch (Exception e) {
+			// TODO: handle exception
+			BingLog.w(TAG, "½âÎö³ö´í:" + e.getMessage());
+		}
+
+		return msgBean;
 	}
 
 }

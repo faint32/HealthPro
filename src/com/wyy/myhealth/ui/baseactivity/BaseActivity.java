@@ -3,6 +3,7 @@ package com.wyy.myhealth.ui.baseactivity;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import com.umeng.message.PushAgent;
 import com.wyy.myhealth.R;
 
 import android.app.Activity;
@@ -24,7 +25,7 @@ public class BaseActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		
 		context=this;
-		
+		PushAgent.getInstance(context).onAppStart();
 		onInitActionBar();
 		onInitUI();
 		onInitFragment();

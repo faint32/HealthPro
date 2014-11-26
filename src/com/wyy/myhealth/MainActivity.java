@@ -2,12 +2,18 @@ package com.wyy.myhealth;
 
 import java.lang.reflect.Field;
 
+import org.json.JSONException;
+
 import com.astuetz.PagerSlidingTabStrip;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
+import com.umeng.message.proguard.C.e;
 import com.wyy.myhealth.analytics.UmenAnalyticsUtility;
+import com.wyy.myhealth.app.WyyApplication;
 import com.wyy.myhealth.contants.ConstantS;
 import com.wyy.myhealth.pager.utils.SuperAwesomeCardFragment;
 import com.wyy.myhealth.service.MainService;
@@ -41,6 +47,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.TypedValue;
@@ -85,11 +92,14 @@ public class MainActivity extends ActionBarActivity implements
 
 	private Context context;
 
+	private PushAgent pushAgent;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		context = this;
+		openPush();
 		initActionBar();
 		initService();
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -185,12 +195,12 @@ public class MainActivity extends ActionBarActivity implements
 		}
 	}
 
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.main, menu);
-//		return true;
-//	}
+	// @Override
+	// public boolean onCreateOptionsMenu(Menu menu) {
+	// // Inflate the menu; this adds items to the action bar if it is present.
+	// getMenuInflater().inflate(R.menu.main, menu);
+	// return true;
+	// }
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -242,7 +252,7 @@ public class MainActivity extends ActionBarActivity implements
 
 			case 2:
 
-//				return DiscoverFragment.newInstance(position);
+				// return DiscoverFragment.newInstance(position);
 				return ShaiyishaiFragment.newInstance(position);
 
 			case 3:
@@ -344,13 +354,13 @@ public class MainActivity extends ActionBarActivity implements
 	public void onPageSelected(int arg0) {
 		// TODO Auto-generated method stub
 		curpostion = arg0;
-//		if (curpostion == 0) {
-//			searchView.setVisibility(View.GONE);
-//			help.setVisibility(View.VISIBLE);
-//		} else {
-//			searchView.setVisibility(View.VISIBLE);
-//			help.setVisibility(View.GONE);
-//		}
+		// if (curpostion == 0) {
+		// searchView.setVisibility(View.GONE);
+		// help.setVisibility(View.VISIBLE);
+		// } else {
+		// searchView.setVisibility(View.VISIBLE);
+		// help.setVisibility(View.GONE);
+		// }
 		if (arg0 == 0) {
 			sendPageIndex(arg0);
 		} else if (arg0 == 2) {
@@ -557,8 +567,7 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	/**
-	 * 初始化计步器
-	 * 暂时关闭此功能
+	 * 初始化计步器 暂时关闭此功能
 	 */
 	@SuppressWarnings("unused")
 	private void initPostFoot() {
@@ -570,4 +579,54 @@ public class MainActivity extends ActionBarActivity implements
 		}
 
 	}
+
+	private void openPush() {
+		pushAgent = PushAgent.getInstance(context);
+		pushAgent.onAppStart();
+		pushAgent.enable(new IUmengRegisterCallback() {
+
+			@Override
+			public void onRegistered(String arg0) {
+				// TODO Auto-generated method stub
+				BingLog.i("注册:" + arg0);
+				if (WyyApplication.getInfo() != null && pushAgent.isEnabled()) {
+					new AddAliasTask().execute();
+				}
+			}
+
+		});
+
+		BingLog.i("可用:" + pushAgent.isEnabled() + "注册:"
+				+ pushAgent.getRegistrationId());
+
+	}
+
+	private class AddAliasTask extends AsyncTask<Void, Integer, Boolean> {
+
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			boolean addAlias = false;
+			try {
+				addAlias = pushAgent.addAlias(WyyApplication.getInfo()
+						.getIdcode(), ConstantS.UMNEG_USER_TYPE);
+			} catch (e e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return addAlias;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			BingLog.i(TAG, "注册:" + result);
+		}
+
+	}
+
 }

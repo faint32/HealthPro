@@ -2,7 +2,6 @@ package com.wyy.myhealth.http.utils;
 
 import android.content.Context;
 
-import com.wyy.myhealth.baidu.utlis.Utils;
 import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.http.AsyncHttpClient;
 import com.wyy.myhealth.http.AsyncHttpResponseHandler;
@@ -144,6 +143,15 @@ public class HealthHttpClient {
 	 */
 	private static final String REPORT_MOOD_FOOD_URL = BASE_URL
 			+ "postFoodReport";
+	/**
+	 * 查找消息
+	 */
+	private static final String GET_USER_MSG_LIST_URL = BASE_URL
+			+ "findMessage";
+	/**
+	 * 清空消息
+	 */
+	private static final String CLEAR_USER_MSG_URL = BASE_URL + "clearMessage";
 
 	private volatile static HealthHttpClient instance = null;
 
@@ -169,19 +177,19 @@ public class HealthHttpClient {
 		return instance;
 	}
 
-	// 鍒濇鐧诲綍
-	public static void doHttpFristLogin(AsyncHttpResponseHandler handler) {
-		RequestParams params = new RequestParams();
-
-		params.put("channelid", "" + Utils.channelId);
-		params.put("requestid", "" + Utils.requestId);
-		params.put("appid", "" + Utils.appid);
-		params.put("appuserid", "" + Utils.userid);
-		BingLog.i("channelId", "channelId:" + Utils.channelId);
-
-		client.post(BASE_URL + "firstLogin", params, handler);
-
-	}
+	// // 鍒濇鐧诲綍
+	// public static void doHttpFristLogin(AsyncHttpResponseHandler handler) {
+	// RequestParams params = new RequestParams();
+	//
+	// params.put("channelid", "" + Utils.channelId);
+	// params.put("requestid", "" + Utils.requestId);
+	// params.put("appid", "" + Utils.appid);
+	// params.put("appuserid", "" + Utils.userid);
+	// BingLog.i("channelId", "channelId:" + Utils.channelId);
+	//
+	// client.post(BASE_URL + "firstLogin", params, handler);
+	//
+	// }
 
 	// 鐧诲�?
 	public static void doHttpLogin(String idcode,
@@ -1503,7 +1511,7 @@ public class HealthHttpClient {
 		params.put("nearVisible", info.isNearVisible() + "");
 		client.post(PERSONAL_URL + "fullUserInfo", params, handler);
 	}
-	
+
 	public static void reportUserMf(String userid, String linkid, String type,
 			AsyncHttpResponseHandler handler) {
 		RequestParams params = new RequestParams();
@@ -1511,6 +1519,36 @@ public class HealthHttpClient {
 		params.put("linkid", linkid);
 		params.put("type", type);
 		client.post(REPORT_MOOD_FOOD_URL, params, handler);
+	}
+
+	/**
+	 * 获取用户消息
+	 * 
+	 * @param userid
+	 * @param first
+	 * @param limit
+	 * @param handler
+	 */
+	public static void checkUserMsgList(String userid, String first,
+			String limit, AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("userid", userid);
+		params.put("first", first);
+		params.put("limit", limit);
+		client.post(GET_USER_MSG_LIST_URL, params, handler);
+	}
+
+	/**
+	 * 清空消息
+	 * 
+	 * @param userid
+	 * @param handler
+	 */
+	public static void clearMsgList(String userid,
+			AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		params.put("userid", userid);
+		client.post(CLEAR_USER_MSG_URL, params, handler);
 	}
 
 }

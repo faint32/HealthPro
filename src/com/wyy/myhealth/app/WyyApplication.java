@@ -4,11 +4,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Application;
+import android.app.Notification;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap.Config;
+import android.support.v4.app.NotificationCompat;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import com.baidu.frontia.FrontiaApplication;
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.MKGeneralListener;
 import com.baidu.mapapi.map.MKEvent;
@@ -19,6 +23,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengMessageHandler;
+import com.umeng.message.UmengNotificationClickHandler;
+import com.umeng.message.entity.UMessage;
 import com.wyy.myhealth.BuildConfig;
 import com.wyy.myhealth.R;
 import com.wyy.myhealth.bean.Foods;
@@ -26,8 +34,10 @@ import com.wyy.myhealth.bean.PersonalInfo;
 import com.wyy.myhealth.file.ImageInfo;
 import com.wyy.myhealth.file.utils.FileUtils;
 import com.wyy.myhealth.file.utils.SdUtils;
+import com.wyy.myhealth.ui.message.MsgListActivity;
+import com.wyy.myhealth.utils.BingLog;
 
-public class WyyApplication extends FrontiaApplication {
+public class WyyApplication extends Application {
 
 	private static WyyApplication wInstance;
 	public boolean m_bKeyRight = true;
@@ -57,6 +67,12 @@ public class WyyApplication extends FrontiaApplication {
 	public static DisplayImageOptions options_small;
 
 	public static DisplayImageOptions options_min;
+
+	private PushAgent pushAgent;
+	
+	public PushAgent getPushAgent() {
+		return pushAgent;
+	}
 
 	public static List<ImageInfo> getHeaderImaList() {
 		return headerImaList;
@@ -107,6 +123,8 @@ public class WyyApplication extends FrontiaApplication {
 			}
 		}
 
+		initPush();
+		
 	}
 
 	public static void initImageLoader(Context context) {
@@ -239,4 +257,81 @@ public class WyyApplication extends FrontiaApplication {
 
 	}
 
+	private void initPush() {
+		pushAgent = PushAgent.getInstance(this);
+		pushAgent.setDebugMode(true);
+
+		UmengMessageHandler messageHandler = new UmengMessageHandler() {
+
+			@Override
+			public void dealWithNotificationMessage(Context arg0, UMessage arg1) {
+				// TODO Auto-generated method stub
+				super.dealWithNotificationMessage(arg0, arg1);
+			}
+			
+
+			@Override
+			public Notification getNotification(Context context, UMessage msg) {
+				// TODO Auto-generated method stub
+				switch (msg.builder_id) {
+				case 1:
+					NotificationCompat.Builder builder = new NotificationCompat.Builder(
+							context);
+					RemoteViews remoteViews = new RemoteViews(
+							wInstance.getPackageName(),
+							R.layout.notification_view);
+					remoteViews.setTextViewText(R.id.notification_title,
+							msg.title);
+					remoteViews.setTextViewText(R.id.notification_text,
+							msg.text);
+					remoteViews.setImageViewBitmap(
+							R.id.notification_large_icon,
+							getLargeIcon(context, msg));
+					remoteViews.setImageViewResource(
+							R.id.notification_small_icon,
+							getSmallIconId(context, msg));
+					builder.setContent(remoteViews);
+					Notification mNotification = builder.build();
+					mNotification.contentView = remoteViews;
+					return mNotification;
+				default:
+					break;
+				}
+				return super.getNotification(context, msg);
+			}
+
+		};
+
+		pushAgent.setMessageHandler(messageHandler);
+
+		UmengNotificationClickHandler clickHandler = new UmengNotificationClickHandler() {
+
+			@Override
+			public void dealWithCustomAction(Context arg0, UMessage arg1) {
+				// TODO Auto-generated method stub
+				super.dealWithCustomAction(arg0, arg1);
+				BingLog.i("自定义消息:" + arg1);
+			}
+
+			@Override
+			public void handleMessage(Context arg0, UMessage arg1) {
+				// TODO Auto-generated method stub
+				super.handleMessage(arg0, arg1);
+				BingLog.i("得到消息:" + arg1.text+"消息类型:"+arg1.custom+"type:"+arg1.display_type);
+				showMsgList();
+			}
+
+		};
+
+		pushAgent.setNotificationClickHandler(clickHandler);
+
+	}
+
+	private void showMsgList() {
+		Intent intent=new Intent();
+		intent.setClass(wInstance, MsgListActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intent);
+	}
+	
 }

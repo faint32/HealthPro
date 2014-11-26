@@ -34,7 +34,7 @@ import com.wyy.myhealth.ui.navigation.ScanNavActivity;
 import com.wyy.myhealth.ui.photoview.utils.Utility;
 import com.wyy.myhealth.ui.scan.utils.DialogShow;
 import com.wyy.myhealth.utils.BingLog;
-import com.wyy.myhealth.utils.CameraUtlity;
+import com.wyy.myhealth.utils.CameraUtility;
 import com.wyy.myhealth.utils.JudgePersInfoUtlity;
 
 import android.annotation.SuppressLint;
@@ -983,7 +983,7 @@ public class ScanFragment extends Fragment {
 
 	private void attemptopenligth() {
 		try {
-			if (CameraUtlity.hasFlash(mCamera)) {
+			if (CameraUtility.hasFlash(mCamera)) {
 				openlight();
 			}
 		} catch (Exception e) {

@@ -139,9 +139,12 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 		mRefreshLayout.setOnRefreshListener(this);
 		fRefreshLayout.setOnRefreshListener(followRefreshListener);
 		mListView.setXListViewListener(this);
+		followListView.setOnItemClickListener(followItemClickListener);
+		followListView.setXListViewListener(loadMoreListener);
 		initSendView(sendView);
 		mAdapter2.setListener(this);
 		mListView.setOnItemClickListener(this);
+
 		shaiButton.setOnClickListener(listener);
 		followButton.setOnClickListener(listener);
 		v.findViewById(R.id.new_follow_lay).setOnClickListener(listener);
@@ -647,5 +650,83 @@ public class ShaiyishaiFragment extends ListBaseFragment implements
 			}
 		}
 	};
+
+	private IXListViewListener loadMoreListener = new IXListViewListener() {
+
+		@Override
+		public void onLoadMore() {
+			// TODO Auto-generated method stub
+			if (!loadflag) {
+				loadMoreList();
+			}
+		}
+	};
+
+	private void loadMoreList() {
+		HealthHttpClient.followUserList(WyyApplication.getInfo().getId(),
+				WyyApplication.getInfo().getId(), followPosition + "", limit,
+				new BingHttpHandler() {
+
+					@Override
+					protected void onGetSuccess(JSONObject response) {
+						// TODO Auto-generated method stub
+						if (JsonUtils.isSuccess(response)) {
+							try {
+								JSONArray array = response
+										.getJSONArray("users");
+								int length = array.length();
+								for (int i = 0; i < length; i++) {
+									PersonalInfo personalInfo = JsonUtils
+											.getInfo(array.getJSONObject(i));
+									followList.add(personalInfo);
+								}
+								followAdapter.notifyDataSetChanged();
+								followPosition = followList.size();
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}
+
+					@Override
+					protected void onGetFinish() {
+						// TODO Auto-generated method stub
+						loadflag = false;
+						fRefreshLayout.setRefreshing(false);
+					}
+
+					@Override
+					public void onStart() {
+						// TODO Auto-generated method stub
+						super.onStart();
+						loadflag = true;
+						fRefreshLayout.setRefreshing(true);
+					}
+
+				});
+	}
+
+	private OnItemClickListener followItemClickListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			// TODO Auto-generated method stub
+			loopUserInfo(position - 1);
+		}
+	};
+
+	private void loopUserInfo(int position) {
+		PersonalInfo personalInfo = followList.get(position);
+		if (personalInfo == null) {
+			return;
+		}
+		String userid = personalInfo.getId();
+		Intent intent = new Intent();
+		intent.putExtra("id", userid);
+		intent.setClass(getActivity(), UserInfoActivity.class);
+		startActivity(intent);
+	}
 
 }
